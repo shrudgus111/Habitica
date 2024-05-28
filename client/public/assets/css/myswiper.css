@@ -18,6 +18,9 @@
   }
   :root {
     --swiper-theme-color: #f00;
+    --body-font:"Gothic A1";
+    --collab-font :"CookieRun-Regular";
+    --board-background:#f9f9f9;
   }
 
   #sliderSection .swiper-container {
