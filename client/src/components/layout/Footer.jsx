@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import styled from 'styled-components'
 
@@ -62,6 +63,12 @@ const Footer = () => {
           
         </FooterBlock>
     );
+=======
+import React from "react";
+
+const Footer = () => {
+  return <div></div>;
+>>>>>>> 38dddec6970ed8d689e91e03f33624878dad06fb
 };
 
 export default Footer;

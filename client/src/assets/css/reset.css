@@ -1,18 +1,105 @@
 @charset "utf-8";
 
-* { margin:0; padding:0; box-sizing:border-box }
-a { color:inherit; text-decoration:none; display:inline-block }
-ul { list-style-type: none;}
-table { width:100%; table-layout:fixed; border-collapse:collapse }
-img { max-width:100%; vertical-align:middle }
-button, input[type=button], input[type=submit], input[type=text] {
-    border:none; 
+@font-face {
+  font-family: "NeoDunggeunmoPro-Regular";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/NeoDunggeunmoPro-Regular.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
 }
-button, input[type=button], input[type=submit] { cursor:pointer }
-fieldset { border:none }
-legend { display:none }
-.blind { position:absolute; width:1px; height:1px; overflow:hidden; text-indent:-99999px;}
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+  display: inline-block;
+}
+ul {
+  list-style-type: none;
+}
+table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+img {
+  max-width: 100%;
+  vertical-align: middle;
+}
+button,
+input[type="button"],
+input[type="submit"],
+input[type="text"] {
+  border: none;
+}
+button,
+input[type="button"],
+input[type="submit"] {
+  cursor: pointer;
+}
+fieldset {
+  border: none;
+}
+legend {
+  display: none;
+}
+.blind {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  text-indent: -99999px;
+}
 
-.row { max-width:1200px; margin:auto }
+.row {
+  max-width: 1200px;
+  margin: auto;
+}
 
+:root {
+  /* 색상 color */
+  --black-color: #222222;
+  --main-color: #6132b4;
+  --main-hover: #925cf2;
+  --gray-color: #f9f9f9;
+  --gray-hover: #e8e7e9;
+  --yellow-color: #ffbe5c;
+  --yellow-hover: #ffa625;
+  --orange-color: #ff944c;
+  --orange-hover: #fa8537;
+  --green-color: #25cc90;
+  --green-hover: #1fb780;
+
+  /* 서체 font */
+  --personality-font: "NeoDunggeunmoPro-Regular";
+  --default-font: "Pretendard Variable";
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+}
+
+.FontTitle {
+  font-family: var(--personality-font);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--black-color);
+}
+
+.TA_Left {
+  text-align: left;
+}
+
+.TA_Center {
+  text-align: center;
+}
+
+.TA_Right {
+  text-align: right;
+}
