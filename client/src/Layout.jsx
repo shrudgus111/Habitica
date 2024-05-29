@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-import React, {useEffect, useState} from 'react';
-import styled from 'styled-components'
-import { Outlet } from 'react-router-dom'
-import Header from '@/components/layout/Header'
-import Footer from '@/components/layout/Footer'
-import {useDispatch} from 'react-redux'
-
-=======
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Outlet } from "react-router-dom";
@@ -14,7 +5,6 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { useDispatch } from "react-redux";
 import { ImSpinner } from "react-icons/im";
->>>>>>> 38dddec6970ed8d689e91e03f33624878dad06fb
 
 const Wrap = styled.div`
   div.cover {
@@ -69,28 +59,7 @@ const Layout = () => {
     }, 2000);
   }, []);
 
-<<<<<<< HEAD
-    useEffect(()=>{
-        setTimeout(()=>{ setLoading(true) }, 2000)
-    }, [])
-
-    if (!loading) {
-        return (
-            <Wrap>
-                <div className="cover">768 아래 화면에서만보입니다</div>
-                <div className="container">
-          
-                <LoadingBlock>
-                  
-                </LoadingBlock>
-          
-           </div>
-           </Wrap>
-        );
-    } 
-=======
   if (!loading) {
->>>>>>> 38dddec6970ed8d689e91e03f33624878dad06fb
     return (
       <Wrap>
         <div className="cover">768 아래 화면에서만보입니다</div>

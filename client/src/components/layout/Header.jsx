@@ -42,115 +42,42 @@ const HeaderBack = styled.div`
 `;
 
 const Header = () => {
-    const navigate = useNavigate()
-    const mobile = useMediaQuery({ maxWidth:768 })
-    const [openNav, setOpenNav] = useState(false)
+  const onClickSidebar = () => {
+    document.querySelector(".HeaderNav").classList.add("active");
+    document.querySelector(".HeaderBack").classList.add("active");
+  };
+  const onClickBack = () => {
+    document.querySelector(".HeaderNav").classList.remove("active");
+    document.querySelector(".HeaderBack").classList.remove("active");
+  };
 
-    const dispatch = useDispatch()
-    const user = useSelector(state=>state.members.user)
-    const cartsCount = useSelector(state=>state.products.cartsCount)
-
-    const handleLogout = (e)=>{
-      e.preventDefault()
-      dispatch(userLogout())
-      dispatch(initCarts([]))
-      navigate("/")
-    }
-
-    useEffect(()=>{
-      if (localStorage.getItem('loging')) {
-        const {userNo} = JSON.parse(localStorage.getItem('loging'))
-        axios.post("http://localhost:8001/auth/refresh", {userNo})
-        .then((res)=>{
-           dispatch(localUser(res.data[0]))
-        })
-        .catch(err=>console.log(err))
-      } 
-    }, [dispatch, cartsCount])
-
-    return (
-        <HeaderBlock>
-            <h1 className="header__logo">
-                <Link to="/">STARSHIP SQUARE</Link>
-            </h1>
-            { user ?
-              <div className="member">
-                <a href="#" onClick={ handleLogout }>로그아웃</a>
-                <Link to="/memberModify">정보수정({user.userId})</Link>
-              </div>
-              :
-              <div className="member">
-                  <Link to="/login">로그인</Link>
-                  <Link to="/join">회원가입</Link>
-              </div>
-            }
-            { mobile &&
-              <Hamburger onClick={()=>setOpenNav(true)}>
-                <FaBars />
-              </Hamburger> 
-            }
-            <ItemCount>
-              <Link to="/cart">
-                <BsCartPlusFill />
-                { cartsCount ? <span>{ cartsCount }</span> : ""}
-              </Link>
-            </ItemCount>
-            <MyOrder>
-              <Link to="/myOrder">
-                <FaRegUser />
-              </Link>
-            </MyOrder>
-            { mobile ||
-              <nav id="header__nav">
-                  <ul>
-                      <li>
-                          <NavLink to="/artist">Artist</NavLink>
-                      </li>
-                      <li>
-                          <NavLink to="/actor">Actor</NavLink>
-                      </li>
-                      <li>
-                          <NavLink to="/movie">Movie</NavLink>
-                      </li>
-                      <li>
-                          <NavLink to="/theater">Theater</NavLink>
-                      </li>
-                      <li>
-                          <NavLink to="/product" state={{ page:1, category:'all'}}>Product</NavLink>
-                      </li>
-                      <li>
-                          <NavLink to="/boardList" state={{page:1}}>Community</NavLink>
-                      </li>
-                  </ul>
-              </nav>
-            }
-            { mobile &&
-              <MobileNav className={ openNav && "on"}>
-                <MdClose className={cn("closeNav", openNav && "on")} onClick={()=>setOpenNav(false)} />
-                <ul className={ openNav && "on"}>
-                    <li>
-                        <NavLink to="/artist">Artist</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/actor">Actor</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/movie">Movie</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/theater">Theater</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/product">Product</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/boardList">Community</NavLink>
-                    </li>
-                </ul>
-              </MobileNav>
-            }
-        </HeaderBlock>
-    );
+  return (
+    <HeaderBlock>
+      <HeaderMain className="HeaderMain">
+        <li className="TA_Left">
+          <button type="button" onClick={onClickSidebar}>
+            <FaAlignJustify />
+            <span className="blind">사이드바</span>
+          </button>
+        </li>
+        <li className="TA_Center">
+          <h1 className="FontTitle">타이틀</h1>
+        </li>
+        <li className="right_section TA_Right">
+          <button type="button">
+            <FaSistrix />
+            <span className="blind">검색</span>
+          </button>
+          <button type="button">
+            <FaFilter />
+            <span className="blind">필터</span>
+          </button>
+        </li>
+      </HeaderMain>
+      <HeaderNav />
+      <HeaderBack className="HeaderBack" onClick={onClickBack}></HeaderBack>
+    </HeaderBlock>
+  );
 };
 
 export default Header;
