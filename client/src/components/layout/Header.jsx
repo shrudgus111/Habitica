@@ -9,8 +9,6 @@ const HeaderBlock = styled.header`
 `;
 
 const HeaderMain = styled.ul`
-  width: 94%;
-  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   padding: 16px 0;
@@ -53,7 +51,7 @@ const Header = () => {
 
   return (
     <HeaderBlock>
-      <HeaderMain className="HeaderMain">
+      <HeaderMain className="HeaderMain DefaultWidth">
         <li className="TA_Left">
           <button type="button" onClick={onClickSidebar}>
             <FaAlignJustify />

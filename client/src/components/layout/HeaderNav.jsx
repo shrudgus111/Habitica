@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { IoMdSettings } from "react-icons/io";
 import { MdMessage } from "react-icons/md";
+import { FaAngleRight } from "react-icons/fa6";
 
 const HeaderNavBlock = styled.nav`
   &.active {
@@ -21,8 +22,6 @@ const Header = styled.header`
   width: 100%;
   background-color: var(--main-color);
   ul {
-    width: 94%;
-    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     padding: 16px 0;
@@ -61,7 +60,48 @@ const Header = styled.header`
   }
 `;
 
-const Section = styled.section``;
+const Section = styled.section`
+  padding: 16px 0;
+  div {
+    padding-bottom: 24px;
+    .menu_title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 0;
+      .icon {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: gray;
+        display: flex;
+        place-content: center;
+        place-items: center;
+      }
+    }
+    .menu_content {
+      display: flex;
+      flex-wrap: wrap;
+      border-radius: 10px;
+      overflow: hidden;
+      li {
+        width: 100%;
+        a {
+          display: block;
+          background-color: var(--gray-color);
+          padding: 16px 8px;
+          transition: all 0.3s;
+          &:hover {
+            background-color: var(--gray-hover);
+          }
+        }
+        &:not(:last-child) a {
+          border-bottom: 1px solid var(--gray-hover);
+        }
+      }
+    }
+  }
+`;
 
 const HeaderNav = () => {
   const Menu = [
@@ -93,10 +133,11 @@ const HeaderNav = () => {
       ],
     },
   ];
+
   return (
     <HeaderNavBlock className="HeaderNav">
       <Header>
-        <ul>
+        <ul className="DefaultWidth">
           <li className="profile">
             <div className="imageBox"></div>
             <p className="textBox">
@@ -116,14 +157,22 @@ const HeaderNav = () => {
           </li>
         </ul>
       </Header>
-      <Section>
+      <Section className="DefaultWidth">
         {Menu.map((menu, index) => (
           <div key={index}>
-            <h2>{menu.title}</h2>
-            <ul>
+            <h2 className="FontMenuTitle menu_title">
+              <span className="icon">I</span>
+              <span>{menu.title}</span>
+            </h2>
+            <ul className="menu_content">
               {menu.list.map((list, index) => (
-                <li key={index}>
-                  <a href={list.listLink}>{list.listTitle}</a>
+                <li key={index} className="FontBody">
+                  <a href={list.listLink}>
+                    <span>{list.listTitle}</span>
+                    <span>
+                      <FaAngleRight />
+                    </span>
+                  </a>
                 </li>
               ))}
             </ul>
