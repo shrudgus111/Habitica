@@ -1,6 +1,6 @@
 import express from 'express'   // 웹서버 생성을 위해 express 관련 파일을 가져옴
 const app = express()
-const PORT = process.env.PORT || 8001
+const PORT = process.env.PORT || 8002
 // 서버 오픈을 위한 포트 지정
 // 포트 번호 : 0~65,535
 // 주요 통신을 위한 규약에 이미 정해진 번호 : 0~1023
