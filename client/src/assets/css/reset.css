@@ -122,3 +122,8 @@ button {
   width: 94%;
   margin: 0 auto;
 }
+
+.FL_Center {
+  display: flex;
+  align-items: center;
+}

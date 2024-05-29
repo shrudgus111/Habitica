@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link, useNavigate } from "react-router-dom";
 import { IoMdSettings } from "react-icons/io";
 import { MdMessage } from "react-icons/md";
 import { FaAngleRight } from "react-icons/fa6";
@@ -12,6 +13,7 @@ const HeaderNavBlock = styled.nav`
   height: 100%;
   background-color: white;
   position: fixed;
+  overflow-y: auto;
   inset: 0;
   z-index: 2;
   transform: translateX(-100%);
@@ -21,6 +23,8 @@ const HeaderNavBlock = styled.nav`
 const Header = styled.header`
   width: 100%;
   background-color: var(--main-color);
+  position: sticky;
+  top: 0;
   ul {
     display: flex;
     justify-content: space-between;
@@ -28,8 +32,6 @@ const Header = styled.header`
     font-size: 16px;
     color: white;
     li {
-      display: flex;
-      align-items: center;
       column-gap: 8px;
       &.profile {
         cursor: pointer;
@@ -49,12 +51,18 @@ const Header = styled.header`
           font-weight: 600;
           span {
             display: block;
+            &.title {
+              font-family: var(--personality-font);
+            }
             &.content {
               font-size: 13px;
               font-weight: 400;
             }
           }
         }
+      }
+      &.setting {
+        font-size: 20px;
       }
     }
   }
@@ -68,7 +76,7 @@ const Section = styled.section`
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 0;
+      padding: 8px 0 16px;
       .icon {
         width: 20px;
         height: 20px;
@@ -87,10 +95,16 @@ const Section = styled.section`
       li {
         width: 100%;
         a {
-          display: block;
+          color: var(--black-color);
+          justify-content: space-between;
           background-color: var(--gray-color);
           padding: 16px 8px;
           transition: all 0.3s;
+          span {
+            &.icon {
+              color: gray;
+            }
+          }
           &:hover {
             background-color: var(--gray-hover);
           }
@@ -104,32 +118,33 @@ const Section = styled.section`
 `;
 
 const HeaderNav = () => {
+  const navigate = useNavigate();
   const Menu = [
     {
       title: "캐릭터",
       list: [
-        { listTitle: "스킬", listLink: "/링크" },
-        { listTitle: "스탯", listLink: "/링크" },
-        { listTitle: "도전과제", listLink: "/링크" },
+        { listTitle: "스킬", listLink: "/character/skills" },
+        { listTitle: "스탯", listLink: "/character/stats" },
+        { listTitle: "도전과제", listLink: "/character/achievements" },
       ],
     },
     {
       title: "상점",
-      list: [{ listTitle: "상점", listLink: "/링크" }],
+      list: [{ listTitle: "상점", listLink: "/shop/market" }],
     },
     {
       title: "인벤토리",
       list: [
-        { listTitle: "장비", listLink: "/링크" },
-        { listTitle: "아이템", listLink: "/링크" },
+        { listTitle: "장비", listLink: "/inventory/equipment" },
+        { listTitle: "아이템", listLink: "/inventory/items" },
       ],
     },
     {
-      title: "어바웃",
+      title: "소개",
       list: [
-        { listTitle: "뉴스", listLink: "/링크" },
-        { listTitle: "게시판", listLink: "/링크" },
-        { listTitle: "About", listLink: "/링크" },
+        { listTitle: "소개", listLink: "/about/company" },
+        { listTitle: "뉴스", listLink: "/about/news" },
+        { listTitle: "게시판", listLink: "/about/board" },
       ],
     },
   ];
@@ -138,22 +153,25 @@ const HeaderNav = () => {
     <HeaderNavBlock className="HeaderNav">
       <Header>
         <ul className="DefaultWidth">
-          <li className="profile">
+          <li
+            className="profile FL_Center"
+            onClick={() => navigate("/character/profile")}
+          >
             <div className="imageBox"></div>
             <p className="textBox">
               <span className="title">닉네임</span>
               <span className="content">@유저코드같은부분</span>
             </p>
           </li>
-          <li className="setting">
-            <button type="button">
+          <li className="setting FL_Center">
+            <Link to={"/setting/message"}>
               <MdMessage />
               <span className="blind">메시지</span>
-            </button>
-            <button type="button">
+            </Link>
+            <Link to={"/setting/settings"}>
               <IoMdSettings />
               <span className="blind">설정</span>
-            </button>
+            </Link>
           </li>
         </ul>
       </Header>
@@ -167,12 +185,15 @@ const HeaderNav = () => {
             <ul className="menu_content">
               {menu.list.map((list, index) => (
                 <li key={index} className="FontBody">
-                  <a href={list.listLink}>
+                  <Link
+                    to={list.listLink}
+                    className="menu_content_button FL_Center"
+                  >
                     <span>{list.listTitle}</span>
-                    <span>
+                    <span className="FL_Center icon">
                       <FaAngleRight />
                     </span>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
