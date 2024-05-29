@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Layout from "@/Layout";
 import HomeView from "@/views/HomeView";
+import TodoView from "@/views/TodoView";
 // Character
 import SkillsView from "@/views/character/SkillsView";
 import StatsView from "@/views/character/StatsView";
@@ -42,6 +43,7 @@ const App = () => {
         {/* Setting */}
         <Route path="/setting/settings" element={<SettingsView />} />
         <Route path="/setting/message" element={<MessageView />} />
+        <Route path="/todo" element={<TodoView />} />
       </Route>
     </Routes>
   );
