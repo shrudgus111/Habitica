@@ -1,14 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import cn from 'classnames'
-import {useNavigate} from 'react-router-dom'
-import { FaBars, FaRegUser } from "react-icons/fa";
-import { MdClose } from "react-icons/md";
+
+
+
 import styled from 'styled-components'
-import { Link, NavLink } from 'react-router-dom'
-import { BsCartPlusFill  } from "react-icons/bs";
-import { useSelector, useDispatch } from 'react-redux';
-import { useMediaQuery } from 'react-responsive'
-import axios from 'axios'
+
 
 const HeaderBlock = styled.div`
   text-align: center;
@@ -115,113 +110,13 @@ const MobileNav = styled.nav`
 `
 
 const Header = () => {
-    const navigate = useNavigate()
-    const mobile = useMediaQuery({ maxWidth:768 })
-    const [openNav, setOpenNav] = useState(false)
+ 
 
-    const dispatch = useDispatch()
-    const user = useSelector(state=>state.members.user)
-    const cartsCount = useSelector(state=>state.products.cartsCount)
-
-    const handleLogout = (e)=>{
-      e.preventDefault()
-      dispatch(userLogout())
-      dispatch(initCarts([]))
-      navigate("/")
-    }
-
-    useEffect(()=>{
-      if (localStorage.getItem('loging')) {
-        const {userNo} = JSON.parse(localStorage.getItem('loging'))
-        axios.post("http://localhost:8001/auth/refresh", {userNo})
-        .then((res)=>{
-           dispatch(localUser(res.data[0]))
-        })
-        .catch(err=>console.log(err))
-      } 
-    }, [dispatch, cartsCount])
 
     return (
         <HeaderBlock>
-            <h1 className="header__logo">
-                <Link to="/">STARSHIP SQUARE</Link>
-            </h1>
-            { user ?
-              <div className="member">
-                <a href="#" onClick={ handleLogout }>로그아웃</a>
-                <Link to="/memberModify">정보수정({user.userId})</Link>
-              </div>
-              :
-              <div className="member">
-                  <Link to="/login">로그인</Link>
-                  <Link to="/join">회원가입</Link>
-              </div>
-            }
-            { mobile &&
-              <Hamburger onClick={()=>setOpenNav(true)}>
-                <FaBars />
-              </Hamburger> 
-            }
-            <ItemCount>
-              <Link to="/cart">
-                <BsCartPlusFill />
-                { cartsCount ? <span>{ cartsCount }</span> : ""}
-              </Link>
-            </ItemCount>
-            <MyOrder>
-              <Link to="/myOrder">
-                <FaRegUser />
-              </Link>
-            </MyOrder>
-            { mobile ||
-              <nav id="header__nav">
-                  <ul>
-                      <li>
-                          <NavLink to="/artist">Artist</NavLink>
-                      </li>
-                      <li>
-                          <NavLink to="/actor">Actor</NavLink>
-                      </li>
-                      <li>
-                          <NavLink to="/movie">Movie</NavLink>
-                      </li>
-                      <li>
-                          <NavLink to="/theater">Theater</NavLink>
-                      </li>
-                      <li>
-                          <NavLink to="/product" state={{ page:1, category:'all'}}>Product</NavLink>
-                      </li>
-                      <li>
-                          <NavLink to="/boardList" state={{page:1}}>Community</NavLink>
-                      </li>
-                  </ul>
-              </nav>
-            }
-            { mobile &&
-              <MobileNav className={ openNav && "on"}>
-                <MdClose className={cn("closeNav", openNav && "on")} onClick={()=>setOpenNav(false)} />
-                <ul className={ openNav && "on"}>
-                    <li>
-                        <NavLink to="/artist">Artist</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/actor">Actor</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/movie">Movie</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/theater">Theater</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/product">Product</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/boardList">Community</NavLink>
-                    </li>
-                </ul>
-              </MobileNav>
-            }
+           
+     
         </HeaderBlock>
     );
 };
