@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import HeaderNav from "./HeaderNav";
-import { FaAlignJustify, FaSistrix, FaFilter } from "react-icons/fa6";
+import { useLocation, useNavigate } from "react-router-dom";
+import {
+  FaAlignJustify,
+  FaSistrix,
+  FaFilter,
+  FaAngleLeft,
+} from "react-icons/fa6";
 
 const HeaderBlock = styled.header`
   width: 100%;
@@ -9,20 +15,25 @@ const HeaderBlock = styled.header`
 `;
 
 const HeaderMain = styled.ul`
-  width: 94%;
-  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   padding: 16px 0;
   li {
     width: 30%;
-
     font-size: 16px;
     color: var(--black-color);
+    button svg {
+      font-size: 20px;
+    }
     &.right_section {
       display: flex;
       gap: 8px;
       justify-content: flex-end;
+      .done {
+        color: var(--main-color);
+        font-family: var(--default-font);
+        font-weight: 700;
+      }
     }
   }
 `;
@@ -42,6 +53,8 @@ const HeaderBack = styled.div`
 `;
 
 const Header = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const onClickSidebar = () => {
     document.querySelector(".HeaderNav").classList.add("active");
     document.querySelector(".HeaderBack").classList.add("active");
@@ -51,27 +64,52 @@ const Header = () => {
     document.querySelector(".HeaderBack").classList.remove("active");
   };
 
+  useEffect(() => {
+    document.querySelector(".HeaderNav").classList.remove("active");
+    document.querySelector(".HeaderBack").classList.remove("active");
+  }, [location]);
+
+  const onClickPrev = () => navigate(-1);
+  const onClickDone = () => navigate("/");
+
   return (
     <HeaderBlock>
-      <HeaderMain className="HeaderMain">
+      <HeaderMain className="HeaderMain DefaultWidth">
         <li className="TA_Left">
-          <button type="button" onClick={onClickSidebar}>
-            <FaAlignJustify />
-            <span className="blind">사이드바</span>
-          </button>
+          {location.pathname == "/" ? (
+            <button type="button" onClick={onClickSidebar}>
+              <FaAlignJustify />
+              <span className="blind">사이드바</span>
+            </button>
+          ) : (
+            <button type="button" onClick={onClickPrev}>
+              <FaAngleLeft />
+              <span className="blind">이전</span>
+            </button>
+          )}
         </li>
         <li className="TA_Center">
-          <h1 className="FontTitle">타이틀</h1>
+          <h1 className="FontTitle">수정예정</h1>
         </li>
         <li className="right_section TA_Right">
-          <button type="button">
-            <FaSistrix />
-            <span className="blind">검색</span>
-          </button>
-          <button type="button">
-            <FaFilter />
-            <span className="blind">필터</span>
-          </button>
+          {location.pathname === "/" ? (
+            <>
+              <button type="button">
+                <FaSistrix />
+                <span className="blind">검색</span>
+              </button>
+              <button type="button">
+                <FaFilter />
+                <span className="blind">필터</span>
+              </button>
+            </>
+          ) : (
+            location.pathname.startsWith("/setting") && (
+              <button type="button" className="done" onClick={onClickDone}>
+                완료
+              </button>
+            )
+          )}
         </li>
       </HeaderMain>
       <HeaderNav />

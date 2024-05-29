@@ -92,6 +92,20 @@ button {
   color: var(--black-color);
 }
 
+.FontMenuTitle {
+  font-family: var(--personality-font);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--black-color);
+}
+
+.FontBody {
+  font-family: var(--default-font);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--black-color);
+}
+
 .TA_Left {
   text-align: left;
 }
@@ -102,4 +116,14 @@ button {
 
 .TA_Right {
   text-align: right;
+}
+
+.DefaultWidth {
+  width: 94%;
+  margin: 0 auto;
+}
+
+.FL_Center {
+  display: flex;
+  align-items: center;
 }
