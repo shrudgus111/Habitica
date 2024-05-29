@@ -74,7 +74,7 @@ text-align:center;
 const UnderBar = () => {
     return (
         <UnderBarBlock>
-            <div className='butt'><div className="plus"><p><FiPlus /></p></div></div>
+            <div className='butt'><Link to="/todo"><div className="plus"><p><FiPlus /></p></div></Link></div>
              <ul className="u_menu">
 <li><Link to="/"><PiPlusMinusBold /><p>습관</p></Link></li>
 <li><Link to="/"><LuCalendarDays /><p>일일 과제목록</p></Link></li>
