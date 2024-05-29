@@ -17,8 +17,8 @@ import CompanyView from "@/views/about/CompanyView";
 import NewsView from "@/views/about/NewsView";
 import BoardView from "@/views/about/BoardView";
 // Setting
-import SettingsView from "@/views/SettingsView";
-import MessageView from "@/views/MessageView";
+import SettingsView from "@/views/setting/SettingsView";
+import MessageView from "@/views/setting/MessageView";
 
 const App = () => {
   return (
