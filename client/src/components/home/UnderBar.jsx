@@ -78,7 +78,7 @@ const UnderBar = () => {
              <ul className="u_menu">
 <li><Link to="/"><PiPlusMinusBold /><p>습관</p></Link></li>
 <li><Link to="/"><LuCalendarDays /><p>일일 과제목록</p></Link></li>
-<li><Link to="/"><FiCheckCircle /><p>해야 할 일</p></Link></li>
+<li><Link to="/todo"><FiCheckCircle /><p>해야 할 일</p></Link></li>
 <li><Link to="/"><PiShoppingBagOpen /><p>보상</p></Link></li>
              </ul>
         </UnderBarBlock>

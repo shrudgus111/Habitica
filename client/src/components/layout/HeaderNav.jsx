@@ -140,6 +140,13 @@ const HeaderNav = () => {
       ],
     },
     {
+      title: "소셜",
+      list: [
+        { listTitle: "지뢰찾기", listLink: "/find" },
+       
+      ],
+    },
+    {
       title: "소개",
       list: [
         { listTitle: "소개", listLink: "/about/company" },
