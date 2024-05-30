@@ -9,6 +9,13 @@ import {
   FaAngleLeft,
 } from "react-icons/fa6";
 
+const HeaderBlock = styled.header`
+  background-color: white;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+`;
+
 const HeaderMain = styled.ul`
   padding: 16px 0;
   li {
@@ -115,7 +122,7 @@ const Header = () => {
   ];
 
   return (
-    <header>
+    <HeaderBlock>
       <HeaderMain className="HeaderMain DefaultWidth FL_SB">
         <li className="TA_Left">
           {location.pathname === "/" ? (
@@ -161,7 +168,7 @@ const Header = () => {
         className={`HeaderBack ${sidebarActive ? "active" : ""}`}
         onClick={onClickBack}
       ></HeaderBack>
-    </header>
+    </HeaderBlock>
   );
 };
 

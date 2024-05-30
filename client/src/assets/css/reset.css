@@ -142,8 +142,8 @@ button {
 
 .FL_CSB {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 .G_PCC {

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { FaPlus } from "react-icons/fa6";
+import { FaPlus, FaMinus } from "react-icons/fa6";
+import RewardView from "./RewardView";
 
 const Section = styled.section`
   gap: 8px;
@@ -17,27 +18,34 @@ const ListBox = styled.ul`
   li {
     &.TA_Left,
     &.TA_Right {
-      background-color: red;
       button {
         display: block;
         height: 100%;
         padding: 0 16px;
         p {
-          border: 2px solid red;
+          border: 2px solid whitesmoke;
+          background-color: whitesmoke;
           border-radius: 50%;
           width: 20px;
           height: 20px;
+          svg {
+            color: gray;
+          }
         }
       }
     }
     &.TA_Left {
       button.active {
-        background-color: green;
+        background-color: gray;
+        transition: all 0.3s;
+        &:hover {
+        }
       }
     }
     &.TA_Right {
       button.active {
-        background-color: blue;
+        background-color: gray;
+        transition: all 0.3s;
       }
     }
 
@@ -45,12 +53,46 @@ const ListBox = styled.ul`
       align-items: flex-start;
       padding: 16px 0;
       .title {
+        font-size: 16px;
+      }
+      .content {
+        font-size: 14px;
       }
     }
   }
 `;
 const TaskView = ({ category }) => {
-  const habitList = [
+  const list = [
+    {
+      type: "habit",
+      title: "습관의 제목입니다",
+      content: "습관의 내용입니다",
+      controlsPositive: true,
+      controlsNegative: false,
+      resetCounter: { daily: true, weekly: false, monthly: false },
+      difficulty: { trivial: false, easy: true, medium: false, hard: false },
+      tags: "work",
+    },
+    {
+      type: "habit",
+      title: "습관의 제목입니다",
+      content: "습관의 내용입니다",
+      controlsPositive: true,
+      controlsNegative: true,
+      resetCounter: { daily: true, weekly: false, monthly: false },
+      difficulty: { trivial: false, easy: true, medium: false, hard: false },
+      tags: "work",
+    },
+    {
+      type: "habit",
+      title: "습관의 제목입니다",
+      content: "습관의 내용입니다",
+      controlsPositive: false,
+      controlsNegative: true,
+      resetCounter: { daily: true, weekly: false, monthly: false },
+      difficulty: { trivial: false, easy: true, medium: false, hard: false },
+      tags: "work",
+    },
     {
       type: "habit",
       title: "습관의 제목입니다",
@@ -83,7 +125,7 @@ const TaskView = ({ category }) => {
     },
   ];
 
-  const habitListMap = habitList.map((item, index) => (
+  const habitListMap = list.map((item, index) => (
     <ListBox className="listBox" key={index}>
       <li className="TA_Left">
         <button type="button" className={item.controlsPositive && "active"}>
@@ -98,7 +140,9 @@ const TaskView = ({ category }) => {
       </li>
       <li className="TA_Right FL_CSB">
         <button type="button" className={item.controlsNegative && "active"}>
-          <span>+</span>
+          <p className="FL_CSB">
+            <FaMinus />
+          </p>
         </button>
       </li>
     </ListBox>
@@ -109,7 +153,7 @@ const TaskView = ({ category }) => {
       {category === "habit" && habitListMap}
       {category === "daily" && <h1>daily</h1>}
       {category === "todo" && <h1>todo</h1>}
-      {category === "reward" && <h1>reward</h1>}
+      {category === "reward" && <RewardView />}
     </Section>
   );
 };
