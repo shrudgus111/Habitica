@@ -1,17 +1,23 @@
-import React, {useEffect} from 'react';
-import styled from 'styled-components'
+import React, { useState } from "react";
+import styled from "styled-components";
+import CurrentCoin from "@/components/layout/CurrentCoin";
+import CurrentCharacter from "@/components/layout/CurrentCharacter";
+import TaskView from "./TaskView";
+import UnderBar from "@/components/home/UnderBar";
 
-import UnderBar from '@/components/home/UnderBar'
-
-const HomeViewBlock = styled.div``
+const HomeViewBlock = styled.div``;
 
 const HomeView = () => {
-    return (
-        <HomeViewBlock>
-            
-            <UnderBar />
-        </HomeViewBlock>
-    );
+  const [category, setCategory] = useState("habit");
+  const handleClickMenu = (newCategory) => setCategory(newCategory);
+  return (
+    <HomeViewBlock>
+      <CurrentCoin />
+      <CurrentCharacter />
+      <TaskView category={category} />
+      <UnderBar onClickMenu={handleClickMenu} />
+    </HomeViewBlock>
+  );
 };
 
 export default HomeView;
