@@ -3,8 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Layout from "@/Layout";
 import HomeView from "@/views/HomeView";
 import TodoView from "@/views/TodoView";
-import FindView from "@/views/FindView";
-
+import AppView from "@/AppView";
 // Character
 import SkillsView from "@/views/character/SkillsView";
 import StatsView from "@/views/character/StatsView";
@@ -28,7 +27,6 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<HomeView />} />
-        
         {/* character */}
         <Route path="/character/skills" element={<SkillsView />} />
         <Route path="/character/stats" element={<StatsView />} />
@@ -47,7 +45,7 @@ const App = () => {
         <Route path="/setting/settings" element={<SettingsView />} />
         <Route path="/setting/message" element={<MessageView />} />
         <Route path="/todo" element={<TodoView />} />
-        <Route path="/find" element={<FindView />} />
+        <Route path="/app" element={<AppView />} />
       </Route>
     </Routes>
   );

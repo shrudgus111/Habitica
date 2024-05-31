@@ -1,6 +1,6 @@
-import { DefaultTheme } from 'styled-components';
+// import { DefaultTheme } from 'styled-components';
 
-export const defaultTheme: DefaultTheme = {
+export const theme = {
 	color: {
 		black: '#1c1c1c',
 		white: '#eeeeee',
@@ -10,5 +10,6 @@ export const defaultTheme: DefaultTheme = {
 		cell: '#F1EB90',
 		green: '#9FBB73',
 		orange: '#F3A364',
+		
 	},
 };

@@ -142,7 +142,7 @@ const HeaderNav = () => {
     {
       title: "소셜",
       list: [
-        { listTitle: "지뢰찾기", listLink: "/find" },
+        { listTitle: "지뢰찾기", listLink: "/app" },
        
       ],
     },

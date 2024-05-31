@@ -4,6 +4,17 @@ import { RootState } from '../../store';
 import { startGame } from '../../slices/gameSlice';
 import { GAME_STATUS } from '../../lib/constants';
 import { GameHeader, GameStatus, GameTitle, HeaderMenu, MineCount, ResetButton, TimerBox } from './styles';
+import React from 'react';
+import { StyledDiv } from './styles';
+
+
+const YourComponent: React.FC = () => {
+	return (
+	  <StyledDiv>
+		Hello World
+	  </StyledDiv>
+	);
+  };
 
 export default function Header() {
 	const dispatch = useDispatch();

@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 
+export const StyledDiv = styled.div`
+  background-color: ${(props) => props.theme.colors.background};
+  color: ${(props) => props.theme.colors.white};
+`;
+
 export const GameHeader = styled.header`
 	margin-top: 20px;
 	color: ${({ theme }) => theme.color.white};
