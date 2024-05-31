@@ -1,158 +1,167 @@
 @charset "utf-8";
 
 @font-face {
-  font-family: "NeoDunggeunmoPro-Regular";
-  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/NeoDunggeunmoPro-Regular.woff2")
-    format("woff2");
-  font-weight: normal;
-  font-style: normal;
+	font-family: "NeoDunggeunmoPro-Regular";
+	src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/NeoDunggeunmoPro-Regular.woff2")
+		format("woff2");
+	font-weight: normal;
+	font-style: normal;
 }
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 a {
-  color: inherit;
-  text-decoration: none;
-  display: inline-block;
+	color: inherit;
+	text-decoration: none;
+	display: inline-block;
 }
 ul {
-  list-style-type: none;
+	list-style-type: none;
 }
 table {
-  width: 100%;
-  table-layout: fixed;
-  border-collapse: collapse;
+	width: 100%;
+	table-layout: fixed;
+	border-collapse: collapse;
 }
 img {
-  max-width: 100%;
-  vertical-align: middle;
+	max-width: 100%;
+	vertical-align: middle;
 }
 button,
 input[type="button"],
 input[type="submit"],
 input[type="text"] {
-  border: none;
+	border: none;
 }
 button,
 input[type="button"],
 input[type="submit"] {
-  cursor: pointer;
+	cursor: pointer;
 }
 fieldset {
-  border: none;
+	border: none;
 }
 legend {
-  display: none;
+	display: none;
 }
 .blind {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  text-indent: -99999px;
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	text-indent: -99999px;
 }
 
 .row {
-  max-width: 1200px;
-  margin: auto;
+	max-width: 1200px;
+	margin: auto;
 }
 
 :root {
-  /* 색상 color */
-  --black-color: #222222;
-  --main-color: #6132b4;
-  --main-hover: #925cf2;
-  --gray-color: #f9f9f9;
-  --gray-hover: #e8e7e9;
-  --yellow-color: #ffbe5c;
-  --yellow-hover: #ffa625;
-  --orange-color: #ff944c;
-  --orange-hover: #fa8537;
-  --green-color: #25cc90;
-  --green-hover: #1fb780;
+	/* 색상 color */
+	--black-color: #222222;
+	--main-color: #6132b4;
+	--main-hover: #925cf2;
+	--gray-color: #f9f9f9;
+	--gray-hover: #e8e7e9;
+	--yellow-color: #ffbe5c;
+	--yellow-hover: #ffa625;
+	--orange-color: #ff944c;
+	--orange-hover: #fa8537;
+	--green-color: #25cc90;
+	--green-hover: #1fb780;
 
-  /* 서체 font */
-  --personality-font: "NeoDunggeunmoPro-Regular";
-  --default-font: "Pretendard Variable";
+	/* 서체 font */
+	--personality-font: "NeoDunggeunmoPro-Regular";
+	--default-font: "Pretendard Variable";
 }
 
 button {
-  all: unset;
-  cursor: pointer;
+	all: unset;
+	cursor: pointer;
 }
 
 .FontTitle {
-  font-family: var(--personality-font);
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--black-color);
+	font-family: var(--personality-font);
+	font-size: 18px;
+	font-weight: 700;
+	color: var(--black-color);
 }
 
 .FontMenuTitle {
-  font-family: var(--personality-font);
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--black-color);
+	font-family: var(--personality-font);
+	font-size: 16px;
+	font-weight: 700;
+	color: var(--black-color);
 }
 
 .FontBody {
-  font-family: var(--default-font);
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--black-color);
+	font-family: var(--default-font);
+	font-size: 16px;
+	font-weight: 500;
+	color: var(--black-color);
 }
 
 .FontSub {
-  font-family: var(--default-font);
-  font-size: 14px;
-  font-weight: 500;
-  color: gray;
+	font-family: var(--default-font);
+	font-size: 14px;
+	font-weight: 500;
+	color: gray;
+	word-break: keep-all;
 }
 
 .TA_Left {
-  text-align: left;
+	text-align: left;
 }
 
 .TA_Center {
-  text-align: center;
+	text-align: center;
 }
 
 .TA_Right {
-  text-align: right;
+	text-align: right;
 }
 
 .DefaultWidth {
-  width: 94%;
-  margin: 0 auto;
+	width: 94%;
+	margin: 0 auto;
 }
 
 .FL_Center {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .FL_SB {
-  display: flex;
-  justify-content: space-between;
+	display: flex;
+	justify-content: space-between;
 }
 
 .FL_CSB {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .G_PCC {
-  display: grid;
-  place-content: center;
-  place-items: center;
+	display: grid;
+	place-content: center;
+	place-items: center;
 }
 
 .FL_Column {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
+}
+
+.coinIcon {
+	width: 20px;
+}
+
+.G8px {
+	gap: 8px;
 }
