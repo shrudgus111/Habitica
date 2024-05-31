@@ -106,6 +106,13 @@ button {
   color: var(--black-color);
 }
 
+.FontSub {
+  font-family: var(--default-font);
+  font-size: 14px;
+  font-weight: 500;
+  color: gray;
+}
+
 .TA_Left {
   text-align: left;
 }
@@ -126,4 +133,26 @@ button {
 .FL_Center {
   display: flex;
   align-items: center;
+}
+
+.FL_SB {
+  display: flex;
+  justify-content: space-between;
+}
+
+.FL_CSB {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.G_PCC {
+  display: grid;
+  place-content: center;
+  place-items: center;
+}
+
+.FL_Column {
+  display: flex;
+  flex-direction: column;
 }

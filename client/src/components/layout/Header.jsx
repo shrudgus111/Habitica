@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import HeaderNav from "./HeaderNav";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -10,13 +10,13 @@ import {
 } from "react-icons/fa6";
 
 const HeaderBlock = styled.header`
-  width: 100%;
-  background-color: whitesmoke;
+  background-color: white;
+  position: sticky;
+  top: 0;
+  z-index: 3;
 `;
 
 const HeaderMain = styled.ul`
-  display: flex;
-  justify-content: space-between;
   padding: 16px 0;
   li {
     width: 30%;
@@ -25,7 +25,7 @@ const HeaderMain = styled.ul`
     button svg {
       font-size: 20px;
     }
-    &.right_section {
+    &.TA_Right {
       display: flex;
       gap: 8px;
       justify-content: flex-end;
@@ -55,41 +55,99 @@ const HeaderBack = styled.div`
 const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const onClickSidebar = () => {
-    document.querySelector(".HeaderNav").classList.add("active");
-    document.querySelector(".HeaderBack").classList.add("active");
-  };
-  const onClickBack = () => {
-    document.querySelector(".HeaderNav").classList.remove("active");
-    document.querySelector(".HeaderBack").classList.remove("active");
-  };
+  const [headerTitle, setHeaderTitle] = useState("해비티카");
+  const [sidebarActive, setSidebarActive] = useState(false);
+
+  const onClickSidebar = () => setSidebarActive(true);
+  const onClickBack = () => setSidebarActive(false);
 
   useEffect(() => {
-    document.querySelector(".HeaderNav").classList.remove("active");
-    document.querySelector(".HeaderBack").classList.remove("active");
+    const findTitle = () => {
+      if (location.pathname === "/") return "해비티카";
+
+      for (let menu of headerMenu) {
+        for (let item of menu.list) {
+          if (location.pathname === item.listLink) return item.listTitle;
+        }
+      }
+
+      switch (location.pathname) {
+        case "/setting/settings":
+          return "설정";
+        case "/setting/message":
+          return "메시지";
+        case "/character/profile":
+          return "내 프로필";
+        default:
+          return "해비티카";
+      }
+    };
+
+    setHeaderTitle(findTitle());
+    setSidebarActive(false);
   }, [location]);
 
   const onClickPrev = () => navigate(-1);
   const onClickDone = () => navigate("/");
 
+  const headerMenu = [
+    {
+      title: "캐릭터",
+      icon: "",
+      list: [
+        { listTitle: "스킬", listLink: "/character/skills" },
+        { listTitle: "스탯", listLink: "/character/stats" },
+        { listTitle: "도전과제", listLink: "/character/achievements" },
+      ],
+    },
+    {
+      title: "상점",
+      list: [{ listTitle: "상점", listLink: "/shop/market" }],
+    },
+    {
+      title: "인벤토리",
+      list: [
+        { listTitle: "장비", listLink: "/inventory/equipment" },
+        { listTitle: "아이템", listLink: "/inventory/items" },
+      ],
+    },
+    {
+      title: "소셜",
+      list: [
+        { listTitle: "지뢰찾기", listLink: "/app" },
+       
+      ],
+    },
+    {
+      title: "소개",
+      list: [
+        { listTitle: "소개", listLink: "/about/company" },
+        { listTitle: "뉴스", listLink: "/about/news" },
+        { listTitle: "게시판", listLink: "/about/board" },
+      ],
+    },
+  ];
+
   return (
     <HeaderBlock>
-      <HeaderMain className="HeaderMain DefaultWidth">
+      <HeaderMain className="HeaderMain DefaultWidth FL_SB">
         <li className="TA_Left">
-          {location.pathname == "/" ? (
+          {location.pathname === "/" ? (
             <button type="button" onClick={onClickSidebar}>
               <FaAlignJustify />
               <span className="blind">사이드바</span>
             </button>
           ) : (
-            <button type="button" onClick={onClickPrev}>
-              <FaAngleLeft />
-              <span className="blind">이전</span>
-            </button>
+            !location.pathname.startsWith("/setting") && (
+              <button type="button" onClick={onClickPrev}>
+                <FaAngleLeft />
+                <span className="blind">이전</span>
+              </button>
+            )
           )}
         </li>
         <li className="TA_Center">
-          <h1 className="FontTitle">수정예정</h1>
+          <h1 className="FontTitle">{headerTitle}</h1>
         </li>
         <li className="right_section TA_Right">
           {location.pathname === "/" ? (
@@ -112,8 +170,11 @@ const Header = () => {
           )}
         </li>
       </HeaderMain>
-      <HeaderNav />
-      <HeaderBack className="HeaderBack" onClick={onClickBack}></HeaderBack>
+      <HeaderNav headerMenu={headerMenu} sidebarActive={sidebarActive} />
+      <HeaderBack
+        className={`HeaderBack ${sidebarActive ? "active" : ""}`}
+        onClick={onClickBack}
+      ></HeaderBack>
     </HeaderBlock>
   );
 };
