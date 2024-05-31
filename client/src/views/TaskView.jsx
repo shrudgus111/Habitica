@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { FaPlus, FaMinus } from "react-icons/fa6";
 import RewardView from "./RewardView";
+import TaskPopUp from "@/components/layout/TaskPopUp";
 
 const Section = styled.section`
-  gap: 8px;
-  padding: 16px 0;
+  padding: 16px 0 40px;
 `;
 
 const ListBox = styled.ul`
@@ -149,11 +149,12 @@ const TaskView = ({ category }) => {
   ));
 
   return (
-    <Section className="DefaultWidth FL_Column">
+    <Section className="DefaultWidth FL_Column FL_1 G8px">
       {category === "habit" && habitListMap}
       {category === "daily" && <h1>daily</h1>}
       {category === "todo" && <h1>todo</h1>}
       {category === "reward" && <RewardView />}
+      <TaskPopUp />
     </Section>
   );
 };

@@ -72,12 +72,12 @@ const Layout = () => {
     );
   }
   return (
-    <div>
+    <div className="minHeightDisplay FL_Column">
       <Header />
-      <main>
+      <main className="FL_Column FL_1">
         <Outlet />
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

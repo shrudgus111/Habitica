@@ -1,11 +1,11 @@
 // 데이터베이스 연결하기
 import mysql from "mysql";
 export const db = mysql.createConnection({
-  // host : "192.168.100.xxx"
-  host: "localhost",
+  host: "192.168.100.132",
+  // host: "localhost",
   user: "root",
   password: "1234",
-  database: "starship",
+  database: "habitica",
 });
 db.connect((err) => {
   if (err) {
