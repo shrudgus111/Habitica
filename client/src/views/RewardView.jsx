@@ -26,7 +26,7 @@ const RewardBoxWrap = styled.ul`
   }
 `;
 
-const RewardView = () => {
+const RewardView = ({ onBuy }) => {
   const rewardList = [
     {
       title: "포션",
@@ -101,7 +101,7 @@ const RewardView = () => {
 
   return (
     <section>
-      <RewardYourSelf />
+      <RewardYourSelf onBuy={onBuy} />
       <RewardBoxWrap>
         {rewardList.map((reward, index) => (
           <li
@@ -125,6 +125,7 @@ const RewardView = () => {
         modal={modal}
         onClickModal={onClickModal}
         selectedReward={selectedReward}
+        onBuy={onBuy}
       />
     </section>
   );

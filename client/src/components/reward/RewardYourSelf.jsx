@@ -28,15 +28,14 @@ const RewardYourSelfBlock = styled.section`
   }
 `;
 
-const RewardYourSelf = () => {
+const RewardYourSelf = ({ onBuy }) => {
   const dispatch = useDispatch();
   const onClickBuy = (e) => {
-    const cost = e.target.querySelector(".price").textContent;
+    const button = e.currentTarget;
+    const cost = button.querySelector(".price").textContent;
+    // dispatch(initCosts(cost));
+    onBuy(cost);
   };
-
-  //   useEffect(() => {
-  //     dispatch(initCosts(cost));
-  //   }, []);
 
   return (
     <RewardYourSelfBlock>

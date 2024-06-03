@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -26,16 +26,19 @@ const TaskPopUpBlock = styled.article`
   }
 `;
 
-const TaskPopUp = () => {
-  //   const cost = useSelector((state) => state.product.cost);
+const TaskPopUp = ({ isActive, cost }) => {
   return (
     <>
-      {/* {cost !== null && (
-        <TaskPopUpBlock className="FL_Center G8px FontSub active">
-          <span>icon </span>
-          <span>내용을 적을 예정입니다</span>
+      {
+        <TaskPopUpBlock
+          className={`FL_Center G8px FontSub ${isActive && "active"} `}
+        >
+          <span className="icon">
+            <img src="../src/assets/image/coin.svg" alt="코인" />
+          </span>
+          <span>{cost}원으로 보상을 구매함 (임시글)</span>
         </TaskPopUpBlock>
-      )} */}
+      }
     </>
   );
 };

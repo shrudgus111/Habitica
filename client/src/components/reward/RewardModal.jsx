@@ -51,7 +51,7 @@ const ModalBack = styled.div`
   }
 `;
 
-const RewardModal = ({ modal, onClickModal, selectedReward }) => {
+const RewardModal = ({ modal, onClickModal, selectedReward, onBuy }) => {
   return (
     <>
       <Modal className={`FL_Column ${modal && "active"}`}>
@@ -85,6 +85,7 @@ const RewardModal = ({ modal, onClickModal, selectedReward }) => {
             <RewardButton
               onClickModal={onClickModal}
               selectedReward={selectedReward.price}
+              onBuy={onBuy}
             />
           </>
         )}

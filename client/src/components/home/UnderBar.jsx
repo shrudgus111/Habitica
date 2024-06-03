@@ -52,15 +52,6 @@ const UnderBar = ({ onClickMenu }) => {
 
   return (
     <UnderBarBlock>
-      {/* <div className="butt">
-        <Link to="/todo">
-          <div className="plus">
-            <p>
-              <FiPlus />
-            </p>
-          </div>
-        </Link>
-      </div> */}
       <ul className="u_menu DefaultWidth FontSub G8px">
         <li>
           <Link to="/" onClick={() => handleMenuClick("habit")}>
