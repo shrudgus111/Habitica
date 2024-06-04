@@ -1,9 +1,16 @@
-import React from "react";
+import React , {useEffect, useState} from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import HeaderNavMenu from "./HeaderNavMenu";
 import { IoMdSettings } from "react-icons/io";
 import { MdMessage } from "react-icons/md";
+import { userLogout, localUser } from '@/store/member'
+import { useSelector, useDispatch } from 'react-redux';
+import { FiUser } from "react-icons/fi";
+import { FiUserPlus } from "react-icons/fi";
+import { FiUserX } from "react-icons/fi";
+import { FiUserCheck } from "react-icons/fi";
+import axios from 'axios'
 
 const HeaderNavBlock = styled.nav`
   &.active {
@@ -18,6 +25,9 @@ const HeaderNavBlock = styled.nav`
   z-index: 2;
   transform: translateX(-100%);
   transition: all 0.3s;
+  // .member { position: absolute; top: 30px; right: 80px; font-size:27px; display:flex; align-items:center;
+  //   a { margin-right: 10px; }
+  // }
 `;
 
 const Header = styled.header`
@@ -28,9 +38,13 @@ const Header = styled.header`
   ul {
     display: flex;
     justify-content: space-between;
+    align-items:center;
     padding: 16px 0;
-    font-size: 16px;
+    font-size: 15px;
     color: white;
+     .member { position: absolute;  right:54px; font-size:20px; align-items:center;
+       a { margin-right: 10px; }
+    
     li {
       column-gap: 8px;
       &.profile {
@@ -68,8 +82,34 @@ const Header = styled.header`
   }
 `;
 
+
 const HeaderNav = ({ headerMenu, sidebarActive }) => {
   const navigate = useNavigate();
+
+  const dispatch = useDispatch()
+  const user = useSelector(state=>state.members.user)
+  
+
+  const handleLogout = (e)=>{
+    e.preventDefault()
+    dispatch(userLogout())
+    
+    navigate("/")
+  }
+
+  useEffect(()=>{
+    if (localStorage.getItem('loging')) {
+      const {userNo} = JSON.parse(localStorage.getItem('loging'))
+      axios.post("http://localhost:8002/auth/refresh", {userNo})
+      .then((res)=>{
+         dispatch(localUser(res.data[0]))
+      
+         dispatch(fetchReview(1))
+      })
+      .catch(err=>console.log(err))
+    } 
+  }, [dispatch,  user?.userNo])
+
   return (
     <HeaderNavBlock
       className={`HeaderBack ${
@@ -88,6 +128,17 @@ const HeaderNav = ({ headerMenu, sidebarActive }) => {
               <span className="content">@유저코드같은부분</span>
             </p>
           </li>
+          { user ?
+              <div className="member">
+                <a href="#" onClick={ handleLogout }><FiUserX /></a>
+                <Link to="/memberModify"><FiUserCheck /></Link>
+              </div>
+              :
+              <div className="member">
+                  <Link to="/login"><FiUser /></Link>
+                  <Link to="/join"><FiUserPlus /></Link>
+              </div>
+            }
           <li className="setting FL_Center">
             <Link to={"/setting/message"}>
               <MdMessage />

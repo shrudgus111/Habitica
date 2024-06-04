@@ -4,7 +4,8 @@
   "description": "",
   "main": "web.js",
   "scripts": {
-    "start": "node ./web.js"
+    "start": "node ./web.js",
+    "i18n:extract": "i18next-scanner --config i18next-scanner.config.js"
   },
   "author": "",
   "license": "ISC",

@@ -1,23 +1,6 @@
 module.exports = {
-  root: true,
-  env: { browser: true, es2020: true },
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
-  ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
-  parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
-  rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
-  },
   input: [
     'src/**/*.{js,jsx,ts,tsx}',
-    // Add other file extensions if needed
   ],
   output: './src/locales',
   options: {
@@ -27,7 +10,7 @@ module.exports = {
       list: ['i18next.t', 'i18n.t', 't'],
       extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
-    lngs: ['en', 'ko'], // Languages to support
+    lngs: ['en', 'ko'],
     defaultLng: 'en',
     defaultNs: 'translation',
     resource: {
@@ -38,4 +21,4 @@ module.exports = {
     keySeparator: false,
     nsSeparator: false,
   },
-}
+};
