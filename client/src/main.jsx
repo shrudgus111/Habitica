@@ -7,9 +7,9 @@ import './index.css';
 import store from '@/store/index.js'
 // import { GlobalStyles } from '@styles/GlobalStyles.ts';
 import { BrowserRouter } from 'react-router-dom'
-import { I18nextProvider } from 'react-i18next';
+// import { I18nextProvider } from 'react-i18next';
 import App from './App.jsx'
-import './i18n'; // import만 해두면 된다.
+// import './i18n'; // import만 해두면 된다.
 import '@/assets/css/reset.css'
 
 

@@ -1,35 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import RewardView from "./RewardView";
 import TaskPopUp from "@/components/layout/TaskPopUp";
-import axios from "axios";
 import TaskList from "../components/TaskList";
 
 const Section = styled.section`
   padding: 16px 0 40px;
 `;
 
-const TaskView = ({ category }) => {
-  const [list, setList] = useState([]);
-  const [isActive, setIsActive] = useState(false);
+const TaskView = ({ category, list, onClickCount, onClickCreate }) => {
   const [cost, setCost] = useState();
-
-  useEffect(() => {
-    const fetchTask = () => {
-      if (category != "reward") {
-        axios
-          .get(`http://localhost:8002/task/${category}`)
-          .then((res) => {
-            setList(res.data);
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      }
-    };
-
-    fetchTask();
-  }, [category]);
+  const [isActive, setIsActive] = useState(false);
 
   const showPopup = (cost) => {
     setCost(cost);
@@ -44,7 +25,14 @@ const TaskView = ({ category }) => {
       case "habit":
       case "daily":
       case "todo":
-        return <TaskList list={list} category={category} />;
+        return (
+          <TaskList
+            list={list}
+            category={category}
+            onClickCount={onClickCount}
+            onClickCreate={onClickCreate}
+          />
+        );
       case "reward":
         return <RewardView onBuy={showPopup} />;
       default:

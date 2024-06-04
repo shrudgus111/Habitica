@@ -1,7 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { FaPlus, FaMinus, FaCheck } from "react-icons/fa6";
+import { FaCheck } from "react-icons/fa6";
+import { BsPlusCircle } from "react-icons/bs";
+import { BsFillPlusCircleFill } from "react-icons/bs";
+import { BiMinusCircle } from "react-icons/bi";
+import { BiSolidMinusCircle } from "react-icons/bi";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
 const ListBox = styled.ul`
   display: grid;
@@ -17,24 +22,29 @@ const ListBox = styled.ul`
         display: block;
         height: 100%;
         padding: 0 16px;
+        cursor: default;
+        .able {
+          cursor: pointer;
+        }
         p {
-          border: 2px solid whitesmoke;
-          background-color: whitesmoke;
-          border-radius: 50%;
-          width: 20px;
-          height: 20px;
-
+          width: 30px;
+          height: 30px;
           svg {
-            color: gray;
+            width: 100%;
+            height: 100%;
           }
         }
       }
     }
     &.TA_Left {
       button.active {
-        background-color: gray;
+        background-color: var(--yellow-color);
         transition: all 0.3s;
-        &:hover {
+        .able {
+          color: var(--yellow-hover);
+          background-color: white;
+          border-radius: 50%;
+          outline: 2px solid var(--yellow-color);
         }
       }
     }
@@ -57,6 +67,7 @@ const ListBox = styled.ul`
       .count {
         font-size: 12px;
         width: 100%;
+        justify-content: flex-end;
       }
     }
   }
@@ -84,7 +95,7 @@ const NoListBox = styled.div`
   }
 `;
 
-const TaskList = ({ list, category }) => {
+const TaskList = ({ list, category, onClickCount, onClickCreate }) => {
   return (
     <>
       {list.length > 0 ? (
@@ -93,11 +104,18 @@ const TaskList = ({ list, category }) => {
             <li className="TA_Left">
               <button
                 type="button"
-                className={item.controlsPositive && "active"}
+                className={(item.positive || item.checked) && "active"}
               >
                 <p className="FL_CSB">
                   {category == "habit" ? (
-                    <FaPlus />
+                    item.positive ? (
+                      <BsFillPlusCircleFill
+                        className="able"
+                        onClick={() => onClickCount(item.no, true)}
+                      />
+                    ) : (
+                      <BsPlusCircle className="disable" />
+                    )
                   ) : category == "daily" ? (
                     <span className="dailyCheck">
                       <FaCheck />
@@ -111,24 +129,38 @@ const TaskList = ({ list, category }) => {
             <li className="TA_Center FL_Column FontBody">
               <h3 className="title">{item.title}</h3>
               <p className="content">{item.content}</p>
-              <p className="count FontSub TA_Right">
-                {item.CountCP} {item.CountCN}
+              <p className="count FontSub TA_Right FL_Center">
+                {item.CountP || item.CountN ? (
+                  <>
+                    <MdKeyboardDoubleArrowRight /> {item.CountP} | {item.CountN}
+                  </>
+                ) : (
+                  ""
+                )}
               </p>
             </li>
             <li className="TA_Right FL_CSB">
-              <button
-                type="button"
-                className={item.controlsNegative && "active"}
-              >
+              <button type="button" className={item.negative && "active"}>
                 <p className="FL_CSB">
-                  {category == "habit" ? <FaMinus /> : <></>}
+                  {category == "habit" &&
+                    (item.negative ? (
+                      <BiSolidMinusCircle
+                        className="able"
+                        onClick={() => onClickCount(item.no, false)}
+                      />
+                    ) : (
+                      <BiMinusCircle className="disable" />
+                    ))}
                 </p>
               </button>
             </li>
           </ListBox>
         ))
       ) : (
-        <NoListBox className="noListBox FL_Column FL_Center">
+        <NoListBox
+          className="noListBox FL_Column FL_Center"
+          onClick={onClickCreate}
+        >
           <div className="icon">
             <IoMdCheckmarkCircleOutline />
           </div>
