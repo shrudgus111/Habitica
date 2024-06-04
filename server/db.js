@@ -6,6 +6,7 @@ export const db = mysql.createConnection({
   user: "root",
   password: "1234",
   database: "habitica",
+  database: "habitica",
 });
 db.connect((err) => {
   if (err) {

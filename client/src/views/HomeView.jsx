@@ -11,12 +11,12 @@ const HomeView = () => {
   const [category, setCategory] = useState("habit");
   const handleClickMenu = (newCategory) => setCategory(newCategory);
   return (
-    <HomeViewBlock>
+    <>
       <CurrentCoin />
       <CurrentCharacter />
       <TaskView category={category} />
       <UnderBar onClickMenu={handleClickMenu} />
-    </HomeViewBlock>
+    </>
   );
 };
 

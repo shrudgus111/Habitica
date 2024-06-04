@@ -113,16 +113,13 @@ const Header = () => {
     },
     {
       title: "소셜",
-      list: [
-        { listTitle: "지뢰찾기", listLink: "/app" },
-       
-      ],
+      list: [{ listTitle: "지뢰찾기", listLink: "/app" }],
     },
     {
       title: "소개",
       list: [
         { listTitle: "소개", listLink: "/about/company" },
-        { listTitle: "뉴스", listLink: "/about/news" },
+        // { listTitle: "뉴스", listLink: "/about/news" },
         { listTitle: "게시판", listLink: "/about/board" },
       ],
     },
@@ -172,7 +169,7 @@ const Header = () => {
       </HeaderMain>
       <HeaderNav headerMenu={headerMenu} sidebarActive={sidebarActive} />
       <HeaderBack
-        className={`HeaderBack ${sidebarActive ? "active" : ""}`}
+        className={`HeaderBack ${sidebarActive && "active"}`}
         onClick={onClickBack}
       ></HeaderBack>
     </HeaderBlock>

@@ -15,6 +15,17 @@
   padding: 0;
   box-sizing: border-box;
 }
+html,
+body {
+  min-height: 100vh;
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 100px;
+  }
+}
 a {
   color: inherit;
   text-decoration: none;
@@ -112,6 +123,7 @@ button {
   font-size: 14px;
   font-weight: 500;
   color: gray;
+  word-break: keep-all;
 }
 
 .TA_Left {
@@ -156,4 +168,20 @@ button {
 .FL_Column {
   display: flex;
   flex-direction: column;
+}
+
+.coinIcon {
+  width: 20px;
+}
+
+.G8px {
+  gap: 8px;
+}
+
+.FL_1 {
+  flex: 1;
+}
+
+.minHeightDisplay {
+  min-height: 100vh;
 }

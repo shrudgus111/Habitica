@@ -7,62 +7,41 @@ import { PiShoppingBagOpen } from "react-icons/pi";
 import { FiPlus } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
-const UnderBarBlock = styled.div`
-  width: 100%;
-
-  position: fixed;
+const UnderBarBlock = styled.nav`
+  position: sticky;
   bottom: 0;
-  background: #6132b4;
-  text-align: center;
-  .butt {
-    margin-top: -87px;
-
-    .plus {
-      text-align: center;
-      width: 0;
-      height: 0;
-      border: 50px solid transparent;
-      border-bottom-color: #925cf2;
-      position: relative;
-      top: -11px;
-      text-align: center;
-      margin: 0 auto;
-
-      p {
-        color: #fff;
-        line-height: 100px;
-        font-size: 40px;
-        position: relative;
-        z-index: 99999;
-        text-align: center;
-        margin: 0 auto;
-        left: -18px;
-      }
-    }
-    .plus:after {
-      content: "";
-      position: absolute;
-      left: -50px;
-      top: 50px;
-      width: 0;
-      height: 0;
-      border: 50px solid transparent;
-      border-top-color: #925cf2;
-    }
-  }
-
+  background-color: var(--main-color);
   .u_menu {
-    padding: 10px 30px;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.4fr 1fr 1fr;
     align-items: center;
-    justify-content: space-between;
+    padding: 16px 0;
     li {
+      position: relative;
       text-align: center;
-
-      font-size: 34px;
       color: #fff;
-      p {
-        font-size: 13px;
+      height: 100%;
+      a {
+        display: block;
+        height: 100%;
+        svg {
+          font-size: 20px;
+        }
+        &.toDoBtn {
+          background-color: var(--main-color);
+          width: 60px;
+          height: 60px;
+          position: absolute;
+          bottom: 60%;
+          left: 50%;
+          transform: translateX(-50%) rotate(45deg);
+          outline: 10px solid var(--main-hover);
+          outline-style: inset;
+          svg {
+            font-size: 32px;
+            transform: rotate(-45deg);
+          }
+        }
       }
     }
   }
@@ -73,16 +52,7 @@ const UnderBar = ({ onClickMenu }) => {
 
   return (
     <UnderBarBlock>
-      <div className="butt">
-        <Link to="/todo">
-          <div className="plus">
-            <p>
-              <FiPlus />
-            </p>
-          </div>
-        </Link>
-      </div>
-      <ul className="u_menu">
+      <ul className="u_menu DefaultWidth FontSub G8px">
         <li>
           <Link to="/" onClick={() => handleMenuClick("habit")}>
             <PiPlusMinusBold />
@@ -92,13 +62,18 @@ const UnderBar = ({ onClickMenu }) => {
         <li>
           <Link to="/" onClick={() => handleMenuClick("daily")}>
             <LuCalendarDays />
-            <p>일일 과제목록</p>
+            <p>일일과제</p>
+          </Link>
+        </li>
+        <li>
+          <Link to="/todo" className="toDoBtn G_PCC">
+            <FiPlus />
           </Link>
         </li>
         <li>
           <Link to="/" onClick={() => handleMenuClick("todo")}>
             <FiCheckCircle />
-            <p>해야 할 일</p>
+            <p>할일</p>
           </Link>
         </li>
         <li>
