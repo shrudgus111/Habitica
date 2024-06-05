@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import HeaderNav from "./HeaderNav";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import {
   FaAlignJustify,
   FaSistrix,
@@ -36,6 +37,77 @@ const HeaderMain = styled.ul`
       }
     }
   }
+  .language-switcher {
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    right: 100px;
+    top: 10px;
+    align-items: center;
+  }
+
+  .language-switcher label {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+
+  .language-switcher input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000;
+    transition: .4s;
+    border-radius: 34px;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+  }
+
+  input:checked + .slider {
+    background-color: #25cc90
+    ;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+
+  .lang-text {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  .lang-ko {
+    left: 8px;
+  }
+
+  .lang-en {
+    right: 8px;
+  }
 `;
 
 const HeaderBack = styled.div`
@@ -57,9 +129,45 @@ const Header = () => {
   const navigate = useNavigate();
   const [headerTitle, setHeaderTitle] = useState("해비티카");
   const [sidebarActive, setSidebarActive] = useState(false);
+  const { t, i18n } = useTranslation();
+  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
 
   const onClickSidebar = () => setSidebarActive(true);
   const onClickBack = () => setSidebarActive(false);
+
+  const headerMenu = [
+  {
+    title: "캐릭터",
+    icon: "",
+    list: [
+      { listTitle: "스킬", listLink: "/character/skills" },
+      { listTitle: "스탯", listLink: "/character/stats" },
+      { listTitle: "도전과제", listLink: "/character/achievements" },
+    ],
+  },
+  {
+    title: "상점",
+    list: [{ listTitle: "상점", listLink: "/shop/market" }],
+  },
+  {
+    title: "인벤토리",
+    list: [
+      { listTitle: "장비", listLink: "/inventory/equipment" },
+      { listTitle: "아이템", listLink: "/inventory/items" },
+    ],
+  },
+  {
+    title: "소셜",
+    list: [{ listTitle: "지뢰찾기", listLink: "/app" }],
+  },
+  {
+    title: "소개",
+    list: [
+      { listTitle: "소개", listLink: "/about/company" },
+      { listTitle: "게시판", listLink: "/boardList", state: { page: 1 } },
+    ],
+  },
+];
 
   useEffect(() => {
     const findTitle = () => {
@@ -89,41 +197,11 @@ const Header = () => {
 
   const onClickPrev = () => navigate(-1);
   const onClickDone = () => navigate("/");
-
-  const headerMenu = [
-    {
-      title: "캐릭터",
-      icon: "",
-      list: [
-        { listTitle: "스킬", listLink: "/character/skills" },
-        { listTitle: "스탯", listLink: "/character/stats" },
-        { listTitle: "도전과제", listLink: "/character/achievements" },
-      ],
-    },
-    {
-      title: "상점",
-      list: [{ listTitle: "상점", listLink: "/shop/market" }],
-    },
-    {
-      title: "인벤토리",
-      list: [
-        { listTitle: "장비", listLink: "/inventory/equipment" },
-        { listTitle: "아이템", listLink: "/inventory/items" },
-      ],
-    },
-    {
-      title: "소셜",
-      list: [{ listTitle: "지뢰찾기", listLink: "/app" }],
-    },
-    {
-      title: "소개",
-      list: [
-        { listTitle: "소개", listLink: "/about/company" },
-        // { listTitle: "뉴스", listLink: "/about/news" },
-        { listTitle: "게시판", listLink: "/about/board" },
-      ],
-    },
-  ];
+  
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    setSelectedLanguage(lng);
+  };
 
   return (
     <HeaderBlock>
@@ -144,8 +222,20 @@ const Header = () => {
           )}
         </li>
         <li className="TA_Center">
-          <h1 className="FontTitle">{headerTitle}</h1>
+          <h1 className="FontTitle">{t('msn7')}</h1>
         </li>
+        <div className="language-switcher">
+          <label>
+            <input
+              type="checkbox"
+              checked={selectedLanguage === 'en'}
+              onChange={() => changeLanguage(selectedLanguage === 'ko' ? 'en' : 'ko')}
+            />
+            <span className="slider"></span>
+            <span className="lang-text lang-ko">KO</span>
+            <span className="lang-text lang-en">EN</span>
+          </label>
+        </div>
         <li className="right_section TA_Right">
           {location.pathname === "/" ? (
             <>

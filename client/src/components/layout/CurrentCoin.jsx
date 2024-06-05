@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useTranslation } from 'react-i18next';
 
 const CurrentCoinBlock = styled.section`
 	ul {
@@ -15,19 +16,24 @@ const CurrentCoinBlock = styled.section`
 	}
 `;
 
+
 const CurrentCoin = () => {
+	const { t, i18n } = useTranslation();
+	const changeLanguage = (lng) => {
+	  i18n.changeLanguage(lng);
+	};
 	return (
 		<CurrentCoinBlock className="currentCoin">
 			<ul className="DefaultWidth FL_SB">
 				<li className="TA_Left FontMenuTitle FL_Center">
-					<span>Level.</span>
-					<span>변수</span>
+					<span>{t('msn8')}</span>
+					<span>{t('msn6')}</span>
 				</li>
 				<li className="TA_Right FontBody FL_Center">
 					<span className="coin">
 						<img src="../src/assets/image/coin.svg" alt="코인" />
 					</span>
-					<span>코인개수</span>
+					<span>{t('msn5')}</span>
 				</li>
 			</ul>
 		</CurrentCoinBlock>
