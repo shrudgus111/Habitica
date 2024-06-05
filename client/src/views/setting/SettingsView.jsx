@@ -25,7 +25,12 @@ const SettingsView = () => {
   return (
     <>
       <HeaderNavMenu menu={settingMenu} />
+      {/* <div className="language-switcher">
+          <button onClick={() => changeLanguage('ko')}>KO</button>
+          <button onClick={() => changeLanguage('en')}>EN</button>
+        </div> */}
     </>
+    
   );
 };
 

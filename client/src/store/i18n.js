@@ -1,37 +1,21 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-
-const resources = {
-  en: {
-    translation: {
-      "My Account": "My Account",
-      "Logout": "Logout",
-      "Language": "Language",
-      "Launch Screen": "Launch Screen",
-      "Display Mode": "Display Mode",
-      // Add more translations here
-    }
-  },
-  ko: {
-    translation: {
-      "My Account": "내 계정",
-      "Logout": "로그아웃",
-      "Language": "언어",
-      "Launch Screen": "시작 화면",
-      "Display Mode": "화면 모드",
-      // Add more translations here
-    }
-  }
-};
+import LanguageDetector from 'i18next-browser-languagedetector';
+import HttpBackend from 'i18next-http-backend';
 
 i18n
+  .use(HttpBackend)
+  .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    resources,
-    lng: "ko", // default language
+    fallbackLng: 'en',
+    debug: true,
     interpolation: {
-      escapeValue: false
-    }
+      escapeValue: false, // 리액트가 이미 이스케이프를 처리함
+    },
+    backend: {
+      loadPath: '/locales/{{lng}}/{{ns}}.json',
+    },
   });
 
 export default i18n;

@@ -3,9 +3,13 @@ import { Route, Routes } from "react-router-dom";
 import Layout from "@/Layout";
 import HomeView from "@/views/HomeView";
 import Appo from "@/Appo";
-import LoginView from "@/views/LoginView";
-import JoinView from "@/views/JoinView";
-import MemberModifyView from "@/views/MemberModifyView";
+import LoginView from '@/views/LoginView'
+import JoinView from '@/views/JoinView'
+import MemberModifyView from '@/views/MemberModifyView'
+import BoardListView from '@/views/BoardListView'
+import BoardWriteView from '@/views/BoardWriteView'
+import BoardDetailView from '@/views/BoardDetailView'
+import BoardModifyView from '@/views/BoardModifyView'
 // Character
 import SkillsView from "@/views/character/SkillsView";
 import StatsView from "@/views/character/StatsView";
@@ -47,9 +51,13 @@ const App = () => {
         <Route path="/setting/settings" element={<SettingsView />} />
         <Route path="/setting/message" element={<MessageView />} />
         <Route path="/app" element={<Appo />} />
-        <Route path="/login" element={<LoginView />} />
-        <Route path="/join" element={<JoinView />} />
-        <Route path="/memberModify" element={<MemberModifyView />} />
+        <Route path="/login" element={ <LoginView /> } />
+        <Route path="/join" element={ <JoinView /> } />
+        <Route path="/memberModify" element={ <MemberModifyView /> } />
+        <Route path="/boardList" element={ <BoardListView /> } />
+        <Route path="/boardList/:subject" element={ <BoardDetailView /> } />
+        <Route path="/boardWrite" element={ <BoardWriteView /> } />
+        <Route path="/boardModify/:subject" element={ <BoardModifyView /> } />
       </Route>
     </Routes>
   );

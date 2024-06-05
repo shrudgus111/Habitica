@@ -6,6 +6,7 @@ import { FiCheckCircle } from "react-icons/fi";
 import { PiShoppingBagOpen } from "react-icons/pi";
 import { FiPlus } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const UnderBarBlock = styled.nav`
   position: sticky;
@@ -45,28 +46,49 @@ const UnderBarBlock = styled.nav`
       }
     }
   }
+  .language-switcher {
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+
+  .language-switcher button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
 `;
 
 const UnderBar = ({ onClickMenu, setIsCreate, setMode }) => {
   const handleMenuClick = (category) => onClickMenu(category);
+
   const onClickTodo = () => {
     setIsCreate(true);
     setMode("create");
   };
-
+  
+  const { t, i18n } = useTranslation();
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  }
+  
   return (
     <UnderBarBlock>
       <ul className="u_menu DefaultWidth FontSub G8px">
         <li>
           <Link to="/" onClick={() => handleMenuClick("habit")}>
             <PiPlusMinusBold />
-            <p>습관</p>
+            <p>{t('msn')}</p>
           </Link>
         </li>
         <li>
           <Link to="/" onClick={() => handleMenuClick("daily")}>
             <LuCalendarDays />
-            <p>일일과제</p>
+            <p>{t('msn2')}</p>
           </Link>
         </li>
         <li>
@@ -77,16 +99,20 @@ const UnderBar = ({ onClickMenu, setIsCreate, setMode }) => {
         <li>
           <Link to="/" onClick={() => handleMenuClick("todo")}>
             <FiCheckCircle />
-            <p>할일</p>
+            <p>{t('msn3')}</p>
           </Link>
         </li>
         <li>
           <Link to="/" onClick={() => handleMenuClick("reward")}>
             <PiShoppingBagOpen />
-            <p>보상</p>
+            <p>{t('msn4')}</p>
           </Link>
         </li>
       </ul>
+      {/* <div className="language-switcher">
+          <button onClick={() => changeLanguage('ko')}>KO</button>
+          <button onClick={() => changeLanguage('en')}>EN</button>
+        </div> */}
     </UnderBarBlock>
   );
 };

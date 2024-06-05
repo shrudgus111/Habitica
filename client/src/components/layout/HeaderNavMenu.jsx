@@ -66,6 +66,7 @@ const HeaderNavMenu = ({ menu }) => {
               <li key={index} className="FontBody">
                 <Link
                   to={list.listLink}
+                  state={list.state}
                   className="menu_content_button FL_Center"
                 >
                   <span>{list.listTitle}</span>

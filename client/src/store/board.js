@@ -42,7 +42,7 @@ const boardSlice = createSlice({
 export const { initNotice, initReview, changeType, setPage } = boardSlice.actions;
 
 export const fetchNotice = (page) => (dispatch) =>{
-    axios.get(`http://localhost:8001/board/notice/list?page=${page}`)
+    axios.get(`http://localhost:8002/board/notice/list?page=${page}`)
     .then((res)=>{
         console.log("공지글", res)
         const { totalCount, data} = res.data;
@@ -52,7 +52,7 @@ export const fetchNotice = (page) => (dispatch) =>{
 }
 
 export const fetchReview = (page) => (dispatch) =>{
-    axios.get(`http://localhost:8001/board/review/list?page=${page}`)
+    axios.get(`http://localhost:8002/board/review/list?page=${page}`)
     .then((res)=>{
         console.log("공지글", res)
         const { totalCount, data} = res.data;

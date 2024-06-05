@@ -2,32 +2,21 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Outlet } from "react-router-dom";
 import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+
 import { useDispatch } from "react-redux";
-import { ImSpinner } from "react-icons/im";
+// import { ImSpinner } from "react-icons/im";
 
 const Wrap = styled.div`
-  div.cover {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    @media screen and(max-width:768px) {
-      display: none;
-    }
+div.cover {
+      position:fixed; top:0; left:0; bottom:0; right:0; background:#fff; 
+      display:flex; align-items:center; justify-content:center;
+      @media screen and (max-width: 768px) { display:none; }
   }
 
   div.container {
-    display: none;
-    @media screen and(max-width:768px) {
-      display: block;
+        display:none;
+        @media screen and (max-width: 768px) { display:block; }
     }
-  }
 `;
 
 const LoadingBlock = styled.div`
@@ -62,23 +51,28 @@ const Layout = () => {
   if (!loading) {
     return (
       <Wrap>
-        <div className="cover">768 아래 화면에서만보입니다</div>
+        <div className="cover">이 사이트는 768px 이하 화면에서만 보입니다.</div>
         <div className="container">
-          <LoadingBlock>
+          {/* <LoadingBlock>
             <ImSpinner className="loadIcon" />
-          </LoadingBlock>
+          </LoadingBlock> */}
         </div>
       </Wrap>
     );
   }
   return (
+    <Wrap>
+    <div className="cover">이 사이트는 768px 이하 화면에서만 보입니다.</div>
+    <div className="container">
     <div className="minHeightDisplay FL_Column">
       <Header />
       <main className="FL_Column FL_1">
         <Outlet />
       </main>
-      {/* <Footer /> */}
+     
     </div>
+    </div>
+    </Wrap>
   );
 };
 
