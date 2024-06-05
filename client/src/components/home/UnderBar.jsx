@@ -63,8 +63,9 @@ const UnderBarBlock = styled.nav`
   }
 `;
 
-const UnderBar = ({ onClickMenu }) => {
+const UnderBar = ({ onClickMenu, setIsCreate }) => {
   const handleMenuClick = (category) => onClickMenu(category);
+  const onClickTodo = () => setIsCreate(true);
   const { t, i18n } = useTranslation();
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
@@ -86,7 +87,7 @@ const UnderBar = ({ onClickMenu }) => {
           </Link>
         </li>
         <li>
-          <Link to="/todo" className="toDoBtn G_PCC">
+          <Link to="/" className="toDoBtn G_PCC" onClick={onClickTodo}>
             <FiPlus />
           </Link>
         </li>

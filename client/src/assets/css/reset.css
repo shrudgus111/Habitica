@@ -9,7 +9,6 @@
   font-style: normal;
 }
 
-
 * {
   margin: 0;
   padding: 0;
@@ -119,6 +118,21 @@ button {
   color: var(--black-color);
 }
 
+.FontInputTitle {
+  font-family: var(--default-font);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 4px 0;
+  display: block;
+}
+
+.FontInput {
+  font-family: var(--default-font);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--black-color);
+}
+
 .FontSub {
   font-family: var(--default-font);
   font-size: 14px;
@@ -166,6 +180,10 @@ button {
   place-items: center;
 }
 
+.G_FW {
+  grid-column: span 2;
+}
+
 .FL_Column {
   display: flex;
   flex-direction: column;
@@ -185,4 +203,8 @@ button {
 
 .minHeightDisplay {
   min-height: 100vh;
+}
+
+.disable {
+  color: var(--gray-hover);
 }
