@@ -16,6 +16,7 @@ const HomeView = () => {
   const [isCreate, setIsCreate] = useState(false);
   const [mode, setMode] = useState("");
   const [task, setTask] = useState("");
+  const [avatarInfo, setAvatarInfo] = useState({});
   const handleClickMenu = (newCategory) => setCategory(newCategory);
   const handleClickClose = () => setIsCreate(false);
   const user = useSelector((state) => state.members.user);
@@ -26,6 +27,21 @@ const HomeView = () => {
       fetchTaskList();
     }
   }, [category, userNo]);
+
+  const fetchAvatarInfo = () => {
+    axios
+      .get("http://localhost:8002/avatar/info", { params: { userNo } })
+      .then((res) => {
+        setAvatarInfo(res.data[0]);
+      })
+      .catch((err) => console.error(err));
+  };
+
+  useEffect(() => {
+    if (userNo) {
+      fetchAvatarInfo();
+    }
+  }, [userNo]);
 
   const fetchTaskList = () => {
     if (category !== "reward") {
@@ -87,13 +103,23 @@ const HomeView = () => {
       .catch((err) => console.log(err));
   };
 
-  const handleClickDone = (no) => {
+  const handleClickDone = (item) => {
+    const { no, difficulty } = item;
     axios
       .delete(`http://localhost:8002/task/todo/delete/${no}`, {
         params: { no, userNo },
       })
       .then((res) => {
         fetchTaskList();
+        axios
+          .put("http://localhost:8002/avatar/increaseExp", {
+            userNo,
+            difficulty,
+          })
+          .then((res) => {
+            fetchAvatarInfo();
+          })
+          .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
   };
@@ -102,9 +128,8 @@ const HomeView = () => {
     <>
       {user ? (
         <>
-          {" "}
-          <CurrentCoin />
-          <CurrentCharacter />
+          <CurrentCoin avatarInfo={avatarInfo} />
+          <CurrentCharacter avatarInfo={avatarInfo} />
           <TaskView
             category={category}
             list={list}

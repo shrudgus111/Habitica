@@ -100,7 +100,7 @@ const TaskListLeft = ({
           ) : category === "todo" ? (
             <span
               className="todoCheck G_PCC cursorPointer"
-              onClick={() => onClickDone(item.no)}
+              onClick={() => onClickDone(item)}
             >
               <FaCheck />
             </span>

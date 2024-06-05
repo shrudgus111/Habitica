@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import AvatarImage from "../Avatar/AvatarImage";
 
 const CurrentCharacterBlock = styled.section`
   padding: 16px 0;
@@ -7,14 +8,14 @@ const CurrentCharacterBlock = styled.section`
     gap: 24px;
     li {
       &.TA_Left {
-        width: 40%;
+        width: 30%;
         max-width: 200px;
         border: 2px solid var(--main-color);
         background-color: var(--main-hover);
         aspect-ratio: 1/1;
       }
       &.TA_Right {
-        width: 60%;
+        width: 70%;
         display: flex;
         gap: 16px;
         flex-direction: column;
@@ -53,51 +54,54 @@ const BarSection = styled.ul`
   }
 `;
 
-const CurrentCharacter = () => {
-  const characterHEM = [
-    {
-      title: "체력",
-      icon: "../src/assets/image/health.svg",
-      all: 10,
-      current: 5,
-    },
-    {
-      title: "경험치",
-      icon: "../src/assets/image/exp.svg",
-      all: 10,
-      current: 8,
-    },
-    {
-      title: "마나",
-      icon: "../src/assets/image/coin.svg",
-      all: 10,
-      current: 5,
-    },
-  ];
+const CurrentCharacter = ({ avatarInfo }) => {
+  const health = avatarInfo.health;
+  const currentHealth = avatarInfo.currentHealth;
+
+  const exp = avatarInfo.exp;
+  const currentExp = avatarInfo.currentExp;
+
   return (
     <CurrentCharacterBlock>
       <ul className="DefaultWidth FL_SB">
-        <li className="TA_Left"></li>
+        <li className="TA_Left">
+          <AvatarImage avatarInfo={avatarInfo} />
+        </li>
         <li className="TA_Right">
-          {characterHEM.map((item, index) => (
-            <BarSection key={index}>
-              <li className="iconBox">
-                <img src={item.icon} alt={item.title} />
-              </li>
-              <li className="contentBox FL_Center FL_SB">
-                <div className="bar">
-                  <span
-                    className="current"
-                    style={{ width: `${(item.current / item.all) * 100}%` }}
-                  ></span>
-                </div>
-                <span className="FontSub">
-                  {item.current}/{item.all}
-                </span>
-                <span className="FontSub">{item.title}</span>
-              </li>
-            </BarSection>
-          ))}
+          <BarSection>
+            <li className="iconBox">
+              <img src="../src/assets/image/health.svg" alt="체력" />
+            </li>
+            <li className="contentBox FL_Center FL_SB">
+              <div className="bar">
+                <span
+                  className="current"
+                  style={{ width: `${(currentHealth / health) * 100}%` }}
+                ></span>
+              </div>
+              <span className="FontSub">
+                {currentHealth}/{avatarInfo.health}
+              </span>
+              <span className="FontSub">체력</span>
+            </li>
+          </BarSection>
+          <BarSection>
+            <li className="iconBox">
+              <img src="../src/assets/image/exp.svg" alt="경험치" />
+            </li>
+            <li className="contentBox FL_Center FL_SB">
+              <div className="bar">
+                <span
+                  className="current"
+                  style={{ width: `${(currentExp / exp) * 100}%` }}
+                ></span>
+              </div>
+              <span className="FontSub">
+                {currentExp}/{exp}
+              </span>
+              <span className="FontSub">경험치</span>
+            </li>
+          </BarSection>
         </li>
       </ul>
     </CurrentCharacterBlock>
