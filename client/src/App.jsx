@@ -2,11 +2,10 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Layout from "@/Layout";
 import HomeView from "@/views/HomeView";
-import TodoView from "@/views/TodoView";
 import Appo from "@/Appo";
-import LoginView from '@/views/LoginView'
-import JoinView from '@/views/JoinView'
-import MemberModifyView from '@/views/MemberModifyView'
+import LoginView from "@/views/LoginView";
+import JoinView from "@/views/JoinView";
+import MemberModifyView from "@/views/MemberModifyView";
 // Character
 import SkillsView from "@/views/character/SkillsView";
 import StatsView from "@/views/character/StatsView";
@@ -47,11 +46,10 @@ const App = () => {
         {/* Setting */}
         <Route path="/setting/settings" element={<SettingsView />} />
         <Route path="/setting/message" element={<MessageView />} />
-        <Route path="/todo" element={<TodoView />} />
         <Route path="/app" element={<Appo />} />
-        <Route path="/login" element={ <LoginView /> } />
-        <Route path="/join" element={ <JoinView /> } />
-        <Route path="/memberModify" element={ <MemberModifyView /> } />
+        <Route path="/login" element={<LoginView />} />
+        <Route path="/join" element={<JoinView />} />
+        <Route path="/memberModify" element={<MemberModifyView />} />
       </Route>
     </Routes>
   );

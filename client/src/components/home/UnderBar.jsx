@@ -47,9 +47,12 @@ const UnderBarBlock = styled.nav`
   }
 `;
 
-const UnderBar = ({ onClickMenu, setIsCreate }) => {
+const UnderBar = ({ onClickMenu, setIsCreate, setMode }) => {
   const handleMenuClick = (category) => onClickMenu(category);
-  const onClickTodo = () => setIsCreate(true);
+  const onClickTodo = () => {
+    setIsCreate(true);
+    setMode("create");
+  };
 
   return (
     <UnderBarBlock>

@@ -1,16 +1,16 @@
-import React , {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import HeaderNavMenu from "./HeaderNavMenu";
 import { IoMdSettings } from "react-icons/io";
 import { MdMessage } from "react-icons/md";
-import { userLogout, localUser } from '@/store/member'
-import { useSelector, useDispatch } from 'react-redux';
+import { userLogout, localUser } from "@/store/member";
+import { useSelector, useDispatch } from "react-redux";
 import { FiUser } from "react-icons/fi";
 import { FiUserPlus } from "react-icons/fi";
 import { FiUserX } from "react-icons/fi";
 import { FiUserCheck } from "react-icons/fi";
-import axios from 'axios'
+import axios from "axios";
 
 const HeaderNavBlock = styled.nav`
   &.active {
@@ -38,77 +38,83 @@ const Header = styled.header`
   ul {
     display: flex;
     justify-content: space-between;
-    align-items:center;
+    align-items: center;
     padding: 16px 0;
     font-size: 15px;
     color: white;
-     .member { position: absolute;  right:54px; font-size:20px; align-items:center;
-       a { margin-right: 10px; }
-    
-    li {
-      column-gap: 8px;
-      &.profile {
-        cursor: pointer;
-        .imageBox {
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          background-color: white;
-        }
-        .textBox {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: flex-start;
-          flex-wrap: wrap;
-          font-family: var(--default-font);
-          font-weight: 600;
-          span {
-            display: block;
-            &.title {
-              font-family: var(--personality-font);
-            }
-            &.content {
-              font-size: 13px;
-              font-weight: 400;
+    .member {
+      position: absolute;
+      right: 54px;
+      font-size: 20px;
+      align-items: center;
+      a {
+        margin-right: 10px;
+      }
+
+      li {
+        column-gap: 8px;
+        &.profile {
+          cursor: pointer;
+          .imageBox {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+          }
+          .textBox {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            font-family: var(--default-font);
+            font-weight: 600;
+            span {
+              display: block;
+              &.title {
+                font-family: var(--personality-font);
+              }
+              &.content {
+                font-size: 13px;
+                font-weight: 400;
+              }
             }
           }
         }
-      }
-      &.setting {
-        font-size: 20px;
+        &.setting {
+          font-size: 20px;
+        }
       }
     }
   }
 `;
 
-
 const HeaderNav = ({ headerMenu, sidebarActive }) => {
   const navigate = useNavigate();
 
-  const dispatch = useDispatch()
-  const user = useSelector(state=>state.members.user)
-  
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.members.user);
 
-  const handleLogout = (e)=>{
-    e.preventDefault()
-    dispatch(userLogout())
-    
-    navigate("/")
-  }
+  const handleLogout = (e) => {
+    e.preventDefault();
+    dispatch(userLogout());
 
-  useEffect(()=>{
-    if (localStorage.getItem('loging')) {
-      const {userNo} = JSON.parse(localStorage.getItem('loging'))
-      axios.post("http://localhost:8002/auth/refresh", {userNo})
-      .then((res)=>{
-         dispatch(localUser(res.data[0]))
-      
-         dispatch(fetchReview(1))
-      })
-      .catch(err=>console.log(err))
-    } 
-  }, [dispatch,  user?.userNo])
+    navigate("/");
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("loging")) {
+      const { userNo } = JSON.parse(localStorage.getItem("loging"));
+      axios
+        .post("http://localhost:8002/auth/refresh", { userNo })
+        .then((res) => {
+          dispatch(localUser(res.data[0]));
+
+          dispatch(fetchReview(1));
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [dispatch, user?.userNo]);
 
   return (
     <HeaderNavBlock
@@ -124,21 +130,35 @@ const HeaderNav = ({ headerMenu, sidebarActive }) => {
           >
             <div className="imageBox"></div>
             <p className="textBox">
-              <span className="title">닉네임</span>
-              <span className="content">@유저코드같은부분</span>
+              {user ? (
+                <>
+                  <span className="title">{user.userId}</span>
+                  <span className="content">@{user.userNo}</span>
+                </>
+              ) : (
+                "로그인이 필요합니다"
+              )}
             </p>
           </li>
-          { user ?
-              <div className="member">
-                <a href="#" onClick={ handleLogout }><FiUserX /></a>
-                <Link to="/memberModify"><FiUserCheck /></Link>
-              </div>
-              :
-              <div className="member">
-                  <Link to="/login"><FiUser /></Link>
-                  <Link to="/join"><FiUserPlus /></Link>
-              </div>
-            }
+          {user ? (
+            <div className="member">
+              <a href="#" onClick={handleLogout}>
+                <FiUserX />
+              </a>
+              <Link to="/memberModify">
+                <FiUserCheck />
+              </Link>
+            </div>
+          ) : (
+            <div className="member">
+              <Link to="/login">
+                <FiUser />
+              </Link>
+              <Link to="/join">
+                <FiUserPlus />
+              </Link>
+            </div>
+          )}
           <li className="setting FL_Center">
             <Link to={"/setting/message"}>
               <MdMessage />

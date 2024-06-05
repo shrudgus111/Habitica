@@ -85,6 +85,8 @@ legend {
   --orange-hover: #fa8537;
   --green-color: #25cc90;
   --green-hover: #1fb780;
+  --blue-color: #50b5e9;
+  --blue-hover: #438eb6;
 
   /* 서체 font */
   --personality-font: "NeoDunggeunmoPro-Regular";
@@ -206,4 +208,8 @@ button {
 
 .disable {
   color: var(--gray-hover);
+}
+
+.cursorPointer {
+  cursor: pointer;
 }
