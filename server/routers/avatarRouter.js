@@ -19,21 +19,27 @@ avatarRouter.get("/info", async (req, res) => {
 avatarRouter.put("/increaseExp", async (req, res) => {
   const { userNo, difficulty } = req.body;
   let expIncreaseAmount;
+  let coinIncreaseAmount;
   switch (difficulty) {
     case "trivial":
       expIncreaseAmount = 1;
+      coinIncreaseAmount = 1;
       break;
     case "easy":
       expIncreaseAmount = 2;
+      coinIncreaseAmount = 2;
       break;
     case "medium":
       expIncreaseAmount = 3;
+      coinIncreaseAmount = 3;
       break;
     case "hard":
       expIncreaseAmount = 4;
+      coinIncreaseAmount = 4;
       break;
     default:
       expIncreaseAmount = 1;
+      coinIncreaseAmount = 1;
       break;
   }
 
@@ -41,6 +47,7 @@ avatarRouter.put("/increaseExp", async (req, res) => {
   const query = `
         UPDATE avatar 
         SET currentExp = currentExp + ?, 
+            coin = coin + ?, 
             level = CASE 
                       WHEN currentExp + ? >= expThreshold THEN level + 1
                       ELSE level
@@ -60,10 +67,11 @@ avatarRouter.put("/increaseExp", async (req, res) => {
         WHERE userNo=?
       `;
 
-  // expThreshold는 다음 레벨에 필요한 전체 경험치
   db.query(
     query,
     [
+      expIncreaseAmount,
+      coinIncreaseAmount,
       expIncreaseAmount,
       expIncreaseAmount,
       expIncreaseAmount,
@@ -81,6 +89,29 @@ avatarRouter.put("/increaseExp", async (req, res) => {
       }
     }
   );
+});
+
+avatarRouter.put("/edit", async (req, res) => {
+  const { userNo, skin, bodySize, bodyShirt, hairColor, hairBang } = req.body;
+  const updateQuery = `
+    UPDATE avatar 
+    SET skin = ?, 
+        bodySize = ?, 
+        bodyShirt = ?, 
+        hairColor = ?, 
+        hairBang = ?
+    WHERE userNo = ?
+  `;
+  const values = [skin, bodySize, bodyShirt, hairColor, hairBang, userNo];
+
+  db.query(updateQuery, values, (err, results) => {
+    if (err) {
+      console.error("Error updating avatar:", err);
+      res.status(500).json({ message: "Internal server error" });
+    } else {
+      res.json({ message: "Avatar updated successfully", results });
+    }
+  });
 });
 
 export default avatarRouter;

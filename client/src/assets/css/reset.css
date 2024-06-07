@@ -16,7 +16,6 @@
 }
 html,
 body {
- 
   min-height: 100vh;
   ::-webkit-scrollbar {
     width: 10px;
@@ -197,6 +196,10 @@ button {
 
 .G8px {
   gap: 8px;
+}
+
+.P160 {
+  padding: 16px 0;
 }
 
 .FL_1 {

@@ -6,6 +6,7 @@ import { BiMinusCircle } from "react-icons/bi";
 import { BiSolidMinusCircle } from "react-icons/bi";
 import axios from "axios";
 import TaskHeader from "@/components/Task/TaskHeader";
+import AvatarEditView from "./avatar/avatarEditView";
 
 const TaskFormViewBlock = styled.article`
   border-radius: 8px;
@@ -195,6 +196,7 @@ const TaskFormView = ({
   onClickDelete,
   fetchTaskList,
   task,
+  avatarInfo,
 }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -203,6 +205,8 @@ const TaskFormView = ({
   const [resetCounter, setResetCounter] = useState("daily");
   const [difficulty, setDifficulty] = useState("easy");
   const [tag, setTag] = useState("");
+
+  const serverUrl = import.meta.env.VITE_API_URL;
 
   const habitCycles = ["daily", "weekly", "monthly"];
   const habitDifficulties = ["trivial", "easy", "medium", "hard"];
@@ -281,170 +285,193 @@ const TaskFormView = ({
   };
 
   return (
-    <TaskFormViewBlock className={`FL_Column ${isCreate && "active"} ${mode}`}>
-      <TaskHeader
-        mode={mode}
-        onClickClose={onClickClose}
-        handleSubmit={handleSubmit}
-        category={category}
-      />
-      <TodoContent className={`${mode}`}>
-        <form onSubmit={handleSubmit} className="DefaultWidth FL_Column G8px">
-          <div className="FontInput">
-            <label htmlFor="title" className="FontInputTitle">
-              제목
-            </label>
-            <input
-              type="text"
-              id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+    <>
+      <TaskFormViewBlock
+        className={`FL_Column ${isCreate && "active"} ${mode}`}
+      >
+        {mode !== "avatar" ? (
+          <>
+            <TaskHeader
+              mode={mode}
+              onClickClose={onClickClose}
+              handleSubmit={handleSubmit}
+              category={category}
             />
-          </div>
-          <div className="FontInput">
-            <label htmlFor="content" className="FontInputTitle">
-              내용
-            </label>
-            <input
-              type="text"
-              id="content"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-            />
-          </div>
-        </form>
-      </TodoContent>
-      <TodoDetail className={`FL_1 ${mode}`}>
-        <div className="DefaultWidth FL_Column G8px">
-          {category == "habit" && (
-            <>
-              <div className="controls FL_SB">
-                <label className="FontInputTitle G_FW">습관의 형태</label>
-                <div className="controlsInput FL_1 G_PCC">
-                  <input
-                    type="checkbox"
-                    id="positive"
-                    checked={positive}
-                    onChange={(e) => setPositive(e.target.checked)}
-                  />
-                  <label
-                    htmlFor="positive"
-                    className={`G_PCC G8px cursorPointer ${
-                      positive && "active"
-                    }`}
-                  >
-                    {positive ? <BsFillPlusCircleFill /> : <BsPlusCircle />}
-                    <span className="FontBody">좋은 습관</span>
-                  </label>
-                </div>
-                <div className="controlsInput FL_1 G_PCC">
-                  <input
-                    type="checkbox"
-                    id="negative"
-                    checked={negative}
-                    onChange={(e) => setNegative(e.target.checked)}
-                  />
-                  <label
-                    htmlFor="negative"
-                    className={`G_PCC G8px cursorPointer ${
-                      negative && "active"
-                    }`}
-                  >
-                    {negative ? <BiSolidMinusCircle /> : <BiMinusCircle />}
-                    <span className="FontBody">나쁜 습관</span>
-                  </label>
-                </div>
-              </div>
-              <div className="resetCounter FL_SB">
-                <label className="FontInputTitle G_FW">습관 주기</label>
-                {habitCycles.map((cycle) => (
-                  <div
-                    key={cycle}
-                    className={`resetCounterInput FL_1 FL_Center ${
-                      resetCounter === cycle && "active"
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      id={cycle}
-                      name="habitCycle"
-                      checked={resetCounter === cycle}
-                      onChange={() => setResetCounter(cycle)}
-                    />
-                    <label
-                      htmlFor={cycle}
-                      className="FontBody TA_Center cursorPointer"
-                    >
-                      {cycle === "daily"
-                        ? "매일"
-                        : cycle === "weekly"
-                        ? "주간"
-                        : cycle === "monthly" && "월간"}
-                    </label>
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
-
-          <div className="difficulty FL_SB">
-            <label className="FontInputTitle G_FW">난이도</label>
-            {habitDifficulties.map((level) => (
-              <div
-                key={level}
-                className={`difficultyInput FL_1 ${
-                  difficulty === level && "active"
-                }`}
+            <TodoContent className={`${mode}`}>
+              <form
+                onSubmit={handleSubmit}
+                className="DefaultWidth FL_Column G8px"
               >
-                <input
-                  type="radio"
-                  id={level}
-                  name="habitDifficulty"
-                  checked={difficulty === level}
-                  onChange={() => setDifficulty(level)}
-                />
-                <label
-                  htmlFor={level}
-                  className="FontBody TA_Center FL_Column G8px cursorPointer"
-                >
-                  <span>{renderStars(level)}</span>
-                  <span>
-                    {level === "trivial"
-                      ? "매우 쉬움"
-                      : level === "easy"
-                      ? "쉬움"
-                      : level === "medium"
-                      ? "중간"
-                      : "어려움"}
-                  </span>
-                </label>
+                <div className="FontInput">
+                  <label htmlFor="title" className="FontInputTitle">
+                    제목
+                  </label>
+                  <input
+                    type="text"
+                    id="title"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                </div>
+                <div className="FontInput">
+                  <label htmlFor="content" className="FontInputTitle">
+                    내용
+                  </label>
+                  <input
+                    type="text"
+                    id="content"
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                  />
+                </div>
+              </form>
+            </TodoContent>
+            <TodoDetail className={`FL_1 ${mode}`}>
+              <div className="DefaultWidth FL_Column G8px">
+                {category == "habit" && (
+                  <>
+                    <div className="controls FL_SB">
+                      <label className="FontInputTitle G_FW">습관의 형태</label>
+                      <div className="controlsInput FL_1 G_PCC">
+                        <input
+                          type="checkbox"
+                          id="positive"
+                          checked={positive}
+                          onChange={(e) => setPositive(e.target.checked)}
+                        />
+                        <label
+                          htmlFor="positive"
+                          className={`G_PCC G8px cursorPointer ${
+                            positive && "active"
+                          }`}
+                        >
+                          {positive ? (
+                            <BsFillPlusCircleFill />
+                          ) : (
+                            <BsPlusCircle />
+                          )}
+                          <span className="FontBody">좋은 습관</span>
+                        </label>
+                      </div>
+                      <div className="controlsInput FL_1 G_PCC">
+                        <input
+                          type="checkbox"
+                          id="negative"
+                          checked={negative}
+                          onChange={(e) => setNegative(e.target.checked)}
+                        />
+                        <label
+                          htmlFor="negative"
+                          className={`G_PCC G8px cursorPointer ${
+                            negative && "active"
+                          }`}
+                        >
+                          {negative ? (
+                            <BiSolidMinusCircle />
+                          ) : (
+                            <BiMinusCircle />
+                          )}
+                          <span className="FontBody">나쁜 습관</span>
+                        </label>
+                      </div>
+                    </div>
+                    <div className="resetCounter FL_SB">
+                      <label className="FontInputTitle G_FW">습관 주기</label>
+                      {habitCycles.map((cycle) => (
+                        <div
+                          key={cycle}
+                          className={`resetCounterInput FL_1 FL_Center ${
+                            resetCounter === cycle && "active"
+                          }`}
+                        >
+                          <input
+                            type="radio"
+                            id={cycle}
+                            name="habitCycle"
+                            checked={resetCounter === cycle}
+                            onChange={() => setResetCounter(cycle)}
+                          />
+                          <label
+                            htmlFor={cycle}
+                            className="FontBody TA_Center cursorPointer"
+                          >
+                            {cycle === "daily"
+                              ? "매일"
+                              : cycle === "weekly"
+                                ? "주간"
+                                : cycle === "monthly" && "월간"}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
+
+                <div className="difficulty FL_SB">
+                  <label className="FontInputTitle G_FW">난이도</label>
+                  {habitDifficulties.map((level) => (
+                    <div
+                      key={level}
+                      className={`difficultyInput FL_1 ${
+                        difficulty === level && "active"
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        id={level}
+                        name="habitDifficulty"
+                        checked={difficulty === level}
+                        onChange={() => setDifficulty(level)}
+                      />
+                      <label
+                        htmlFor={level}
+                        className="FontBody TA_Center FL_Column G8px cursorPointer"
+                      >
+                        <span>{renderStars(level)}</span>
+                        <span>
+                          {level === "trivial"
+                            ? "매우 쉬움"
+                            : level === "easy"
+                              ? "쉬움"
+                              : level === "medium"
+                                ? "중간"
+                                : "어려움"}
+                        </span>
+                      </label>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="tags FL_SB">
+                  <label className="FontInputTitle G_FW">태그</label>
+                  <div className="tagsInput FontBody">
+                    <input
+                      type="checkbox"
+                      id="tag1"
+                      onChange={() => setTag("업무")}
+                    />
+                    <label htmlFor="tag1">업무</label>
+                  </div>
+                </div>
+
+                {mode === "edit" && (
+                  <button
+                    className="delete FontBody TA_Center"
+                    onClick={() => onClickDelete(task.no)}
+                  >
+                    삭제하기
+                  </button>
+                )}
               </div>
-            ))}
-          </div>
-
-          <div className="tags FL_SB">
-            <label className="FontInputTitle G_FW">태그</label>
-            <div className="tagsInput FontBody">
-              <input
-                type="checkbox"
-                id="tag1"
-                onChange={() => setTag("업무")}
-              />
-              <label htmlFor="tag1">업무</label>
-            </div>
-          </div>
-
-          {mode === "edit" && (
-            <button
-              className="delete FontBody TA_Center"
-              onClick={() => onClickDelete(task.no)}
-            >
-              삭제하기
-            </button>
-          )}
-        </div>
-      </TodoDetail>
-    </TaskFormViewBlock>
+            </TodoDetail>
+          </>
+        ) : (
+          <>
+            <AvatarEditView avatarInfo={avatarInfo} />
+          </>
+        )}
+      </TaskFormViewBlock>
+    </>
   );
 };
 
