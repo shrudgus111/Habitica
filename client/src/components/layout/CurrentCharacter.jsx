@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import AvatarImage from "../Avatar/AvatarImage";
+import React from 'react';
+import styled from 'styled-components';
+import AvatarImage from '../Avatar/AvatarImage';
 
 const CurrentCharacterBlock = styled.section`
   padding: 16px 0;
@@ -54,7 +54,7 @@ const BarSection = styled.ul`
   }
 `;
 
-const CurrentCharacter = ({ avatarInfo }) => {
+const CurrentCharacter = ({ avatarInfo, onClickAvatar }) => {
   const health = avatarInfo.health;
   const currentHealth = avatarInfo.currentHealth;
 
@@ -64,7 +64,7 @@ const CurrentCharacter = ({ avatarInfo }) => {
   return (
     <CurrentCharacterBlock>
       <ul className="DefaultWidth FL_SB">
-        <li className="TA_Left">
+        <li className="TA_Left" onClick={onClickAvatar}>
           <AvatarImage avatarInfo={avatarInfo} />
         </li>
         <li className="TA_Right">

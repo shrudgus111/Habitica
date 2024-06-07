@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import styled from "styled-components";
-import CurrentCoin from "@/components/layout/CurrentCoin";
-import CurrentCharacter from "@/components/layout/CurrentCharacter";
-import TaskView from "./TaskView";
-import TaskFormView from "./TaskFormView";
-import UnderBar from "@/components/home/UnderBar";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
+import CurrentCoin from '@/components/layout/CurrentCoin';
+import CurrentCharacter from '@/components/layout/CurrentCharacter';
+import TaskView from './TaskView';
+import TaskFormView from './TaskFormView';
+import UnderBar from '@/components/home/UnderBar';
+import axios from 'axios';
 
 const HomeViewBlock = styled.div``;
 
 const HomeView = () => {
   const [list, setList] = useState([]);
-  const [category, setCategory] = useState("habit");
+  const [category, setCategory] = useState('habit');
   const [isCreate, setIsCreate] = useState(false);
-  const [mode, setMode] = useState("");
-  const [task, setTask] = useState("");
+  const [mode, setMode] = useState('');
+  const [task, setTask] = useState('');
   const [avatarInfo, setAvatarInfo] = useState({});
   const handleClickMenu = (newCategory) => setCategory(newCategory);
   const handleClickClose = () => setIsCreate(false);
@@ -30,7 +30,7 @@ const HomeView = () => {
 
   const fetchAvatarInfo = () => {
     axios
-      .get("http://localhost:8002/avatar/info", { params: { userNo } })
+      .get('http://localhost:8002/avatar/info', { params: { userNo } })
       .then((res) => {
         setAvatarInfo(res.data[0]);
       })
@@ -44,7 +44,7 @@ const HomeView = () => {
   }, [userNo]);
 
   const fetchTaskList = () => {
-    if (category !== "reward") {
+    if (category !== 'reward') {
       axios
         .get(`http://localhost:8002/task/${category}`, { params: { userNo } })
         .then((res) => {
@@ -66,13 +66,13 @@ const HomeView = () => {
       .catch((err) => console.log(err));
   };
   const handleClickCreate = () => {
-    setMode("create");
+    setMode('create');
     setIsCreate(true);
     setTask(null);
   };
 
   const handleClickEdit = (task) => {
-    setMode("edit");
+    setMode('edit');
     setIsCreate(true);
     setTask(task);
   };
@@ -112,7 +112,7 @@ const HomeView = () => {
       .then((res) => {
         fetchTaskList();
         axios
-          .put("http://localhost:8002/avatar/increaseExp", {
+          .put('http://localhost:8002/avatar/increaseExp', {
             userNo,
             difficulty,
           })
@@ -124,12 +124,21 @@ const HomeView = () => {
       .catch((err) => console.log(err));
   };
 
+  const handleClickAvatar = () => {
+    setIsCreate(true);
+    setMode('avatar');
+  };
+
   return (
     <>
       {user ? (
         <>
           <CurrentCoin avatarInfo={avatarInfo} />
-          <CurrentCharacter avatarInfo={avatarInfo} />
+          <CurrentCharacter
+            avatarInfo={avatarInfo}
+            onClickAvatar={handleClickAvatar}
+          />
+
           <TaskView
             category={category}
             list={list}
@@ -149,13 +158,14 @@ const HomeView = () => {
             task={task}
             isCreate={isCreate}
             category={category}
+            avatarInfo={avatarInfo}
             onClickClose={handleClickClose}
             onClickDelete={handleClickDelete}
             fetchTaskList={fetchTaskList}
           />
         </>
       ) : (
-        "로그인이 필요합니다"
+        '로그인이 필요합니다'
       )}
     </>
   );

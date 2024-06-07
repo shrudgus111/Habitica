@@ -21,16 +21,16 @@ const TaskHeader = ({ mode, category, onClickClose, handleSubmit }) => {
             {category == "habit"
               ? "새로운 습관"
               : category == "daily"
-              ? "새로운 일일과제"
-              : category == "todo" && "새로운 할일"}
+                ? "새로운 일일과제"
+                : category == "todo" && "새로운 할일"}
           </>
         ) : (
           <>
             {category == "habit"
               ? "습관 수정"
               : category == "daily"
-              ? "일일과제 수정"
-              : category == "todo" && "할일 수정"}
+                ? "일일과제 수정"
+                : category == "todo" && "할일 수정"}
           </>
         )}
       </h3>
