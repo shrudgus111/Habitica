@@ -49,19 +49,19 @@ avatarRouter.put("/increaseExp", async (req, res) => {
         SET currentExp = currentExp + ?, 
             coin = coin + ?, 
             level = CASE 
-                      WHEN currentExp + ? >= expThreshold THEN level + 1
+                      WHEN currentExp + ? >= exp THEN level + 1
                       ELSE level
                     END,
             health = CASE
-                            WHEN currentExp + ? >= expThreshold THEN baseHealth + (level + 1) * 5
+                            WHEN currentExp + ? >= exp THEN health + (level + 1) * 5
                             ELSE health
                           END,
             currentHealth = CASE
-                                WHEN currentExp + ? >= expThreshold THEN baseHealth + (level + 1) * 5
+                                WHEN currentExp + ? >= exp THEN health + (level + 1) * 5
                                 ELSE currentHealth
                               END,
             currentExp = CASE
-                           WHEN currentExp + ? >= expThreshold THEN currentExp + ? - expThreshold
+                           WHEN currentExp + ? >= exp THEN currentExp + ? - exp
                            ELSE currentExp + ?
                          END
         WHERE userNo=?

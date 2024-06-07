@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import RewardView from "./RewardView";
-import TaskPopUp from "@/components/layout/TaskPopUp";
-import TaskList from "@/components/Task/TaskList";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import RewardView from './RewardView';
+import TaskPopUp from '@/components/layout/TaskPopUp';
+import TaskList from '@/components/Task/TaskList';
 
 const Section = styled.section`
   padding: 16px 0 40px;
@@ -16,6 +16,7 @@ const TaskView = ({
   onClickEdit,
   onClickChecked,
   onClickDone,
+  avatarInfo,
 }) => {
   const [cost, setCost] = useState();
   const [isActive, setIsActive] = useState(false);
@@ -30,9 +31,9 @@ const TaskView = ({
 
   const renderContent = () => {
     switch (category) {
-      case "habit":
-      case "daily":
-      case "todo":
+      case 'habit':
+      case 'daily':
+      case 'todo':
         return (
           <TaskList
             list={list}
@@ -44,8 +45,8 @@ const TaskView = ({
             onClickDone={onClickDone}
           />
         );
-      case "reward":
-        return <RewardView onBuy={showPopup} />;
+      case 'reward':
+        return <RewardView onBuy={showPopup} avatarInfo={avatarInfo} />;
       default:
         return null;
     }

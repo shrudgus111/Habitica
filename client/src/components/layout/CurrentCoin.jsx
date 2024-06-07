@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { useSelector } from "react-redux";
-import axios from "axios";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 const CurrentCoinBlock = styled.section`
   ul {
@@ -27,7 +25,7 @@ const CurrentCoin = ({ avatarInfo }) => {
     <CurrentCoinBlock className="currentCoin">
       <ul className="DefaultWidth FL_SB">
         <li className="TA_Left FontMenuTitle FL_Center">
-          <span>{t("msn8")}</span>
+          <span>{t('msn8')}</span>
           <span>{avatarInfo.level}</span>
         </li>
         <li className="TA_Right FontBody FL_Center">

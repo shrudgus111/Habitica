@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import CurrentCoin from "../layout/CurrentCoin";
-import RewardButton from "./RewardButton";
+import React from 'react';
+import styled from 'styled-components';
+import CurrentCoin from '../layout/CurrentCoin';
+import RewardButton from './RewardButton';
 
 const Modal = styled.article`
   position: fixed;
@@ -51,13 +51,19 @@ const ModalBack = styled.div`
   }
 `;
 
-const RewardModal = ({ modal, onClickModal, selectedReward, onBuy }) => {
+const RewardModal = ({
+  modal,
+  onClickModal,
+  selectedReward,
+  onBuy,
+  avatarInfo,
+}) => {
   return (
     <>
-      <Modal className={`FL_Column ${modal && "active"}`}>
+      <Modal className={`FL_Column ${modal && 'active'}`}>
         {modal && (
           <>
-            <CurrentCoin />
+            <CurrentCoin avatarInfo={avatarInfo} />
             <div
               style={{ flex: 1 }}
               className="DefaultWidth G_PCC RewardSection"
@@ -72,10 +78,10 @@ const RewardModal = ({ modal, onClickModal, selectedReward, onBuy }) => {
               <ul className="stats FontSub FL_SB G8px">
                 {selectedReward.stats &&
                   selectedReward.stats.map((item, index) => (
-                    <li key={index} className={item.value > 0 && "active"}>
+                    <li key={index} className={item.value > 0 && 'active'}>
                       <span>{item.title}: </span>
                       <span>
-                        {item.value > 0 && "+"}
+                        {item.value > 0 && '+'}
                         {item.value}
                       </span>
                     </li>
@@ -91,7 +97,7 @@ const RewardModal = ({ modal, onClickModal, selectedReward, onBuy }) => {
         )}
       </Modal>
       <ModalBack
-        className={`modalBack ${modal ? "active" : ""}`}
+        className={`modalBack ${modal ? 'active' : ''}`}
         onClick={onClickModal}
       ></ModalBack>
     </>

@@ -147,6 +147,7 @@ const HomeView = () => {
             onClickEdit={handleClickEdit}
             onClickChecked={handleClickChecked}
             onClickDone={handleClickDone}
+            avatarInfo={avatarInfo}
           />
           <UnderBar
             onClickMenu={handleClickMenu}
