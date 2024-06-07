@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import styled, { keyframes } from 'styled-components';
-import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { changeType, fetchNotice, fetchReview, setPage } from '@/store/board';
-import dayjs from 'dayjs';
+import React, { useEffect } from "react";
+import styled, { keyframes } from "styled-components";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { changeType, fetchNotice, fetchReview, setPage } from "@/store/board";
+import dayjs from "dayjs";
 
 const fadeIn = keyframes`
   from {
@@ -33,7 +33,8 @@ const BoardListBlock = styled.div`
     border-radius: 10px;
     overflow: hidden;
     animation: ${fadeIn} 0.5s ease-in-out;
-    th, td {
+    th,
+    td {
       padding: 15px;
       text-align: center;
     }
@@ -98,7 +99,9 @@ const BoardListBlock = styled.div`
 const BoardList = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.members.user);
-  const { list, type, totalCount, currentPage } = useSelector((state) => state.boards);
+  const { list, type, totalCount, currentPage } = useSelector(
+    (state) => state.boards
+  );
 
   const totalPages = Math.ceil(totalCount / 10);
 
@@ -124,10 +127,10 @@ const BoardList = () => {
     <BoardListBlock>
       <table>
         <colgroup>
-          <col style={{width: '10%'}} />
-          <col style={{width: '50%'}} />
-          <col style={{width: '20%'}} />
-          <col style={{width: '20%'}} />
+          <col style={{ width: "10%" }} />
+          <col style={{ width: "50%" }} />
+          <col style={{ width: "20%" }} />
+          <col style={{ width: "20%" }} />
         </colgroup>
         <thead>
           <tr>
@@ -143,11 +146,14 @@ const BoardList = () => {
               <tr key={index}>
                 <td>{totalCount - ((currentPage - 1) * 10 + index)}</td>
                 <td>
-                  <Link to={`/boardList/${post.subject}`} state={{ post: post }}>
+                  <Link
+                    to={`/boardList/${post.subject}`}
+                    state={{ post: post }}
+                  >
                     {post.subject}
                   </Link>
                 </td>
-                <td>{dayjs(post.date).format('YYYY-MM-DD')}</td>
+                <td>{dayjs(post.date).format("YYYY-MM-DD")}</td>
                 <td>{post.hit}</td>
               </tr>
             ))}
@@ -166,12 +172,12 @@ const BoardList = () => {
           </button>
         ))}
       </div>
-      {(type === "notice" && user && user.userId === "tsalt@hanmail.net") && (
+      {type === "notice" && user && user.userId === "tsalt@hanmail.net" && (
         <div className="btn">
           <Link to="/boardWrite">글쓰기</Link>
         </div>
       )}
-      {(type === "review" && user) && (
+      {type === "review" && user && (
         <div className="btn">
           <Link to="/boardWrite">글쓰기</Link>
         </div>
