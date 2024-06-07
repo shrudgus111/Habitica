@@ -3,26 +3,16 @@ import { db } from "../db.js";
 import dayjs from "dayjs";
 const authRouter = express.Router();
 
-authRouter.post('/join', (req, res)=>{
-   const {userId, userPw, userIrum} = req.body.addMember
-   db.query("INSERT INTO membertbl (userId, userPw, userIrum) VALUES (?, ?, ? )", [userId, userPw, userIrum], (err, result)=>{
-        if (err) {
-            throw err
-        } else {
-            res.send(result)
-        }
-   })
-})
-
-authRouter.post("/idcheck", (req, res) => {
-  const userId = req.body.userId;
+authRouter.post("/join", (req, res) => {
+  const { userId, userPw, userIrum } = req.body.addMember;
   db.query(
-    "SELECT * FROM membertbl WHERE userId=?",
-    [userId],
+    "INSERT INTO membertbl (userId, userPw, userIrum) VALUES (?, ?, ? )",
+    [userId, userPw, userIrum],
     (err, result) => {
       if (err) {
         throw err;
       } else {
+        const userNo = result.insertId;
         const initialLevel = 1;
         const initialCoin = 10;
         const initialBodySize = 1;
@@ -35,7 +25,6 @@ authRouter.post("/idcheck", (req, res) => {
         const initialExp = 10;
         const initialCurrentExp = 0;
 
-        // avatar 데이터 삽입 쿼리 실행
         db.query(
           "INSERT INTO avatar (userNo, level, coin, bodySize, bodyShirt, skin, hairColor, hairBang, health, currentHealth, exp, currentExp) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
           [
@@ -73,6 +62,20 @@ authRouter.post("/idcheck", (req, res) => {
             }
           }
         );
+      }
+    }
+  );
+});
+
+authRouter.post("/idcheck", (req, res) => {
+  const userId = req.body.userId;
+  db.query(
+    "SELECT * FROM membertbl WHERE userId=?",
+    [userId],
+    (err, result) => {
+      if (err) {
+        throw err;
+      } else {
         res.send(result);
       }
     }
@@ -110,26 +113,30 @@ authRouter.post("/refresh", (req, res) => {
   );
 });
 
-authRouter.post('/modify', (req, res)=>{
-    const {userNo, userPw, userIrum } = req.body.userInfo
-    db.query("UPDATE membertbl SET userPw=?, userIrum=? WHERE userNo=?", [userPw, userIrum, userNo], (err, result)=>{
-         if (err) {
-             throw err
-         } else {
-             res.send(result)
-         }
-    })
- })
+authRouter.post("/modify", (req, res) => {
+  const { userNo, userPw, userIrum } = req.body.userInfo;
+  db.query(
+    "UPDATE membertbl SET userPw=?, userIrum=? WHERE userNo=?",
+    [userPw, userIrum, userNo],
+    (err, result) => {
+      if (err) {
+        throw err;
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
 
- authRouter.post('/remove', (req, res)=>{
-    const userNo = req.body.userNo
-    db.query("DELETE FROM membertbl WHERE userNo=?", [userNo], (err, result)=>{
-         if (err) {
-             throw err
-         } else {
-             res.send(result)
-         }
-    })
- })
+authRouter.post("/remove", (req, res) => {
+  const userNo = req.body.userNo;
+  db.query("DELETE FROM membertbl WHERE userNo=?", [userNo], (err, result) => {
+    if (err) {
+      throw err;
+    } else {
+      res.send(result);
+    }
+  });
+});
 
 export default authRouter;
