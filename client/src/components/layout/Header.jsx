@@ -207,7 +207,7 @@ const Header = () => {
     <HeaderBlock>
       <HeaderMain className="HeaderMain DefaultWidth FL_SB">
         <li className="TA_Left">
-          {location.pathname === "/" ? (
+          {location.pathname === "/home" ? (
             <button type="button" onClick={onClickSidebar}>
               <FaAlignJustify />
               <span className="blind">사이드바</span>
@@ -237,7 +237,7 @@ const Header = () => {
           </label>
         </div>
         <li className="right_section TA_Right">
-          {location.pathname === "/" ? (
+          {location.pathname === "/home" ? (
             <>
               <button type="button">
                 <FaSistrix />

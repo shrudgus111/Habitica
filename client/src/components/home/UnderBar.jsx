@@ -75,30 +75,30 @@ const UnderBar = ({ onClickMenu, setIsCreate }) => {
     <UnderBarBlock>
       <ul className="u_menu DefaultWidth FontSub G8px">
         <li>
-          <Link to="/" onClick={() => handleMenuClick("habit")}>
+          <Link to="/home" onClick={() => handleMenuClick("habit")}>
             <PiPlusMinusBold />
             <p>{t('msn')}</p>
           </Link>
         </li>
         <li>
-          <Link to="/" onClick={() => handleMenuClick("daily")}>
+          <Link to="/home" onClick={() => handleMenuClick("daily")}>
             <LuCalendarDays />
             <p>{t('msn2')}</p>
           </Link>
         </li>
         <li>
-          <Link to="/" className="toDoBtn G_PCC" onClick={onClickTodo}>
+          <Link to="/home" className="toDoBtn G_PCC" onClick={onClickTodo}>
             <FiPlus />
           </Link>
         </li>
         <li>
-          <Link to="/" onClick={() => handleMenuClick("todo")}>
+          <Link to="/home" onClick={() => handleMenuClick("todo")}>
             <FiCheckCircle />
             <p>{t('msn3')}</p>
           </Link>
         </li>
         <li>
-          <Link to="/" onClick={() => handleMenuClick("reward")}>
+          <Link to="/home"  onClick={() => handleMenuClick("reward")}>
             <PiShoppingBagOpen />
             <p>{t('msn4')}</p>
           </Link>

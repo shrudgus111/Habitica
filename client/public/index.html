@@ -3,10 +3,12 @@
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+		<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"> 
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="theme-color" content="#000000" />
 		<meta name="description" content="Minesweeper Web site Game" />
 		<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> 
 		<title>Minesweeper</title>
 	</head>
 	<body>
@@ -16,6 +18,11 @@
 			
 			<div id="app"></div>
 		</div>
+		 <!-- AOS 스크립트 시작 -->
+		 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+		 <script> 
+			 AOS.init(); // 자바스크립트로 init()을 해야 동작한다.
+		 </script>
 	</body>
 	<style>
  body {

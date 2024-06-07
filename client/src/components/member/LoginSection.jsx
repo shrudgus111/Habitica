@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { SiNaver } from "react-icons/si";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { FaGoogle, FaGithub } from "react-icons/fa";
@@ -10,6 +10,13 @@ import { FaLock } from "react-icons/fa";
 import axios from 'axios'
 import { userLogin } from '@/store/member';
 // import { fetchCart } from '@/store/product'
+
+const Wrap = styled.div`
+
+      background:#fff; 
+
+ 
+`;
 
 const LoginSectionBlock = styled.div`
 
@@ -26,6 +33,12 @@ const LoginSectionBlock = styled.div`
     }
     .btn { text-align:center; margin-top:20px; 
         button {width:80%; padding:10px; background:linear-gradient(to right, #8e2de2, #4a00e0); color:#fff;  }
+    }
+    .go{
+        border-bottom:1px solid #000; width:170px;  text-align:center;  font-size:13px; margin:30px auto; font-weight:800;
+    }
+    .go2{
+        border-bottom:1px solid #000; width:60px;  text-align:center;  font-size:13px; margin:0 auto; font-weight:800;
     }
     .snslogin { padding:50px 50px 50px 150px; 
         div { 
@@ -78,7 +91,7 @@ const LoginSection = () => {
                 //     navigate(previousUrl)
                 //     sessionStorage.removeItem('previousUrl')
                 // } else {
-                    navigate('/');                
+                    navigate('/home');                
                 
             } else {
                 alert("회원이 아닙니다.")
@@ -91,6 +104,7 @@ const LoginSection = () => {
     }
 
     return (
+        <Wrap>
         <LoginSectionBlock>
             <form onSubmit={handleLogin}>
                 <table>
@@ -112,6 +126,16 @@ const LoginSection = () => {
                 <div className="btn">
                     <button type="submit">Log In</button>
                 </div>
+
+               <div className="go">
+               <Link to="/join"> <p>Going to for membership</p>
+               </Link>
+                </div> 
+
+                <div className="go2">
+               <Link to="/home"> <p>Home</p>
+               </Link>
+                </div> 
             </form>
             {/* <div className="snslogin">
                 <div className="naver">
@@ -132,6 +156,7 @@ const LoginSection = () => {
                 </div>
             </div> */}
         </LoginSectionBlock>
+        </ Wrap>
     );
 };
 

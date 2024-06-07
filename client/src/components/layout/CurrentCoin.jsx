@@ -24,7 +24,8 @@ const CurrentCoin = () => {
 	};
 	return (
 		<CurrentCoinBlock className="currentCoin">
-			<ul className="DefaultWidth FL_SB">
+			<ul className="DefaultWidth FL_SB" data-aos="fade-down"
+     data-aos-duration="3000">
 				<li className="TA_Left FontMenuTitle FL_Center">
 					<span>{t('msn8')}</span>
 					<span>{t('msn6')}</span>

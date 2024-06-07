@@ -4,8 +4,8 @@ import dayjs from 'dayjs'
 const authRouter = express.Router()
 
 authRouter.post('/join', (req, res)=>{
-   const {userId, userPw, userIrum, handphone, zipCode, addr1, addr2 } = req.body.addMember
-   db.query("INSERT INTO membertbl (userId, userPw, userIrum, handphone, zipCode, addr1, addr2) VALUES (?, ?, ?, ?, ?, ?, ?)", [userId, userPw, userIrum, handphone, zipCode, addr1, addr2], (err, result)=>{
+   const {userId, userPw, userIrum} = req.body.addMember
+   db.query("INSERT INTO membertbl (userId, userPw, userIrum) VALUES (?, ?, ? )", [userId, userPw, userIrum], (err, result)=>{
         if (err) {
             throw err
         } else {
@@ -49,8 +49,8 @@ authRouter.post('/refresh', (req, res)=>{
 })
 
 authRouter.post('/modify', (req, res)=>{
-    const {userNo, userPw, userIrum, handphone, zipCode, addr1, addr2 } = req.body.userInfo
-    db.query("UPDATE membertbl SET userPw=?, userIrum=?, handphone=?, zipCode=?, addr1=?, addr2=? WHERE userNo=?", [userPw, userIrum, handphone, zipCode, addr1, addr2, userNo], (err, result)=>{
+    const {userNo, userPw, userIrum } = req.body.userInfo
+    db.query("UPDATE membertbl SET userPw=?, userIrum=? WHERE userNo=?", [userPw, userIrum, userNo], (err, result)=>{
          if (err) {
              throw err
          } else {

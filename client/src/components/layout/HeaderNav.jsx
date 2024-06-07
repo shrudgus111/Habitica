@@ -111,7 +111,7 @@ const HeaderNav = ({ headerMenu, sidebarActive }) => {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(userLogout());
-    navigate("/");
+    navigate("/home");
   };
 
   useEffect(() => {
@@ -148,7 +148,7 @@ const HeaderNav = ({ headerMenu, sidebarActive }) => {
             </div>
           ) : (
             <div className="member">
-              <Link to="/login"><FiUser /></Link>
+              <Link to="/"><FiUser /></Link>
               <Link to="/join"><FiUserPlus /></Link>
             </div>
           )}

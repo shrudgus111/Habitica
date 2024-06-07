@@ -76,7 +76,8 @@ const CurrentCharacter = () => {
   ];
   return (
     <CurrentCharacterBlock>
-      <ul className="DefaultWidth FL_SB">
+      <ul className="DefaultWidth FL_SB" data-aos="fade-left"
+     data-aos-duration="3000">
         <li className="TA_Left"></li>
         <li className="TA_Right">
           {characterHEM.map((item, index) => (

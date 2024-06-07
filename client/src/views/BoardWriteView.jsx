@@ -16,7 +16,8 @@ const BoardWriteView = () => {
     const type = useSelector(state=>state.boards.type)
 
     return (
-        <BoardWriteViewBlock className="row">
+        <BoardWriteViewBlock className="row" data-aos="fade-down"
+        data-aos-duration="3000">
             <h2>{ type }</h2>
             <BoardWrite type={type}  />
         </BoardWriteViewBlock>

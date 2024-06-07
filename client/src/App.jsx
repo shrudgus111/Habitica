@@ -32,7 +32,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<HomeView />} />
+        <Route path="/home" element={<HomeView />} />
         {/* character */}
         <Route path="/character/skills" element={<SkillsView />} />
         <Route path="/character/stats" element={<StatsView />} />
@@ -51,7 +51,7 @@ const App = () => {
         <Route path="/setting/settings" element={<SettingsView />} />
         <Route path="/setting/message" element={<MessageView />} />
         <Route path="/app" element={<Appo />} />
-        <Route path="/login" element={ <LoginView /> } />
+        <Route index path="/" element={ <LoginView /> } />
         <Route path="/join" element={ <JoinView /> } />
         <Route path="/memberModify" element={ <MemberModifyView /> } />
         <Route path="/boardList" element={ <BoardListView /> } />

@@ -16,7 +16,8 @@ const BoardListView = () => {
     }, [page])
  
     return (
-        <div className="row">
+        <div className="row" data-aos="fade-down"
+        data-aos-duration="3000">
             <BoardType />
             <BoardList />
         </div>

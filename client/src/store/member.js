@@ -7,8 +7,8 @@ const memberSlice = createSlice({
     },
     reducers : {
         userLogin(state, action){
-            const { userNo, userId, userIrum, userPw, handphone, addr1, addr2, zipCode} = action.payload
-            state.user = { userNo, userId, userIrum, userPw, handphone, addr1, addr2, zipCode}
+            const { userNo, userId, userIrum, userPw } = action.payload
+            state.user = { userNo, userId, userIrum, userPw}
             localStorage.loging = JSON.stringify({userNo:userNo, userId:userId}) 
         },
         localUser(state, action){

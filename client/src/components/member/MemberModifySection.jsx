@@ -4,13 +4,18 @@ import {useSelector, useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import { localUser, userLogout } from '@/store/member'
 import axios from 'axios'
+import { FaUser } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
+import { FaLockOpen } from "react-icons/fa";
+import { MdDriveFileRenameOutline } from "react-icons/md";
+// import { FaCheck } from "react-icons/fa6";
 
 const MemberModifySectionBlock = styled.div`
     max-width:600px; margin:50px auto; 
     table { 
-        col:nth-child(1) { width:110px }
+        col:nth-child(1) { width:40px }
         col:nth-child(2) { width:auto }
-        td { padding:5px 10px; color: #8A2BE2;
+        td { padding:5px 24px; color: #8A2BE2; font-size:19px;
             &:nth-child(1) { text-align:left }
             input { border:1px solid #ddd; height:30px; width:100%;
                 text-indent:1em; }
@@ -30,20 +35,15 @@ const MemberModifySection = () => {
     const userIdRef = useRef("")
     const userPwRef = useRef("")
     const userPwOkRef = useRef("")
-    const mZipcodeRef = useRef("")
-    const mAddressRef = useRef("")
-    const mAddressSubRef = useRef("")
+   
 
     const [userInfo, setUserInfo] = useState({
         userNo:user.userNo,
         userId:user.userId,
         userPw:"",
         userPwOk:"",
-        userIrum:user.userIrum,
-        handphone: user.handphone,
-        zipCode : user.zipCode,
-        addr1 : user.addr1,
-        addr2 : user.addr2
+        userIrum:user.userIrum
+      
     })
 
     const handleChange = (e)=>{
@@ -75,7 +75,7 @@ const MemberModifySection = () => {
                 alert("정보가 수정되었습니다.")
                 console.log(JSON.parse(res.config.data).userInfo)
                 dispatch(localUser(JSON.parse(res.config.data).userInfo))
-                navigate("/")
+                navigate("/home")
             } else {
                 alert("정보 수정중 오류가 발생했습니다.")
             }
@@ -92,7 +92,7 @@ const MemberModifySection = () => {
                 console.log("탈퇴성공", res)
                 if (res.data.affectedRows==1) {
                     dispatch(userLogout())
-                    navigate("/")
+                    navigate("/home")
                 } else {
                     alert("회원탈퇴를 실패했습니다.")
                     return
@@ -128,8 +128,7 @@ const MemberModifySection = () => {
             setUserInfo(prevState => ({
                 ...prevState,
                 zipCode: data.zonecode,
-                addr1: fullAddr,
-                addr2 : ""
+               
             }));
             mAddressSubRef.current.focus();
             },
@@ -147,42 +146,24 @@ const MemberModifySection = () => {
                     </colgroup>
                     <tbody>
                         <tr>
-                            <td><label htmlFor="userId">이메일 : </label></td>
+                            <td><label htmlFor="userId"><FaUser /></label></td>
                             <td><input type="text" name="userId" id="userId" ref={userIdRef} value={userInfo.userId} disabled /></td>
                         </tr>
                         <tr>
-                            <td><label htmlFor="userPw">비밀번호 : </label></td>
+                            <td><label htmlFor="userPw"><FaLock /></label></td>
                             <td><input type="password" name="userPw" id="userPw" ref={userPwRef} value={userInfo.userPw} onChange={handleChange} /></td>
                         </tr>
                         <tr>
-                            <td><label htmlFor="userPwOk">비밀번호확인 : </label></td>
+                            <td><label htmlFor="userPwOk"><FaLockOpen /> </label></td>
                             <td><input type="password" name="userPwOk" id="userPwOk" ref={userPwOkRef} value={userInfo.userPwOk} onChange={handleChange} /></td>
                         </tr>
                         <tr>
-                            <td><label htmlFor="userIrum">이름 : </label></td>
+                            <td><label htmlFor="userIrum"><MdDriveFileRenameOutline /></label></td>
                             <td><input type="text" name="userIrum" id="userIrum" value={userInfo.userIrum} onChange={handleChange} /></td>
                         </tr>
-                        <tr>
-                            <td><label htmlFor="handphone">휴대폰번호 : </label></td>
-                            <td><input type="text" name="handphone" id="handphone" value={userInfo.handphone} onChange={handleChange} /></td>
-                        </tr>
-                        <tr>
-                            <td rowSpan="3"><label htmlFor="addr1">주소 : </label></td>
-                            <td>
-                                <button type="button" onClick={window.openDaumPostcode} style={{ height:'30px', verticalAlign:'middle', padding:'0 5px', marginRight:'5px',background:'#000', color:'#fff'}}>우편번호</button>
-                                <input style={{ width:'150px'}} type="text" name="zipCode" id="zipCode" ref={mZipcodeRef} value={userInfo.zipCode} onChange={handleChange} readOnly  />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="text" name="addr1" id="addr1" ref={mAddressRef} value={userInfo.addr1} onChange={handleChange} readOnly />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="text" name="addr2" id="addr2" ref={mAddressSubRef} value={userInfo.addr2} onChange={handleChange} />
-                            </td>
-                        </tr>
+                      
+                     
+                     
                     </tbody>
                 </table>
                 <div className="btn">

@@ -6,7 +6,7 @@ import './index.css';
 // import { store } from '@store/store.ts';
 import store from '@/store/index.js'
 // import { GlobalStyles } from '@styles/GlobalStyles.ts';
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter  } from 'react-router-dom'
 import App from './App.jsx'
 import './i18n'; // i18n 설정 가져오기
 import '@/assets/css/reset.css'
