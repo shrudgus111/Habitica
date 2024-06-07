@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import CurrentCoin from "@/components/layout/CurrentCoin";
 import CurrentCharacter from "@/components/layout/CurrentCharacter";
 import TaskView from "./TaskView";
-import TodoView from "./TaskCreateView";
+import TaskFormView from "./TaskFormView";
 import UnderBar from "@/components/home/UnderBar";
 import axios from "axios";
 
@@ -13,20 +14,43 @@ const HomeView = () => {
   const [list, setList] = useState([]);
   const [category, setCategory] = useState("habit");
   const [isCreate, setIsCreate] = useState(false);
+  const [mode, setMode] = useState("");
+  const [task, setTask] = useState("");
+  const [avatarInfo, setAvatarInfo] = useState({});
   const handleClickMenu = (newCategory) => setCategory(newCategory);
   const handleClickClose = () => setIsCreate(false);
-  const handleClickCreate = () => setIsCreate(true);
+  const user = useSelector((state) => state.members.user);
+  const userNo = user?.userNo;
+
+  useEffect(() => {
+    if (userNo) {
+      fetchTaskList();
+    }
+  }, [category, userNo]);
+
+  const fetchAvatarInfo = () => {
+    axios
+      .get("http://localhost:8002/avatar/info", { params: { userNo } })
+      .then((res) => {
+        setAvatarInfo(res.data[0]);
+      })
+      .catch((err) => console.error(err));
+  };
+
+  useEffect(() => {
+    if (userNo) {
+      fetchAvatarInfo();
+    }
+  }, [userNo]);
 
   const fetchTaskList = () => {
     if (category !== "reward") {
       axios
-        .get(`http://localhost:8002/task/${category}`)
+        .get(`http://localhost:8002/task/${category}`, { params: { userNo } })
         .then((res) => {
           setList(res.data);
         })
-        .catch((err) => {
-          console.error(err);
-        });
+        .catch((err) => console.error(err));
     }
   };
 
@@ -35,36 +59,104 @@ const HomeView = () => {
       ? `http://localhost:8002/task/habit/increaseCountP`
       : `http://localhost:8002/task/habit/increaseCountN`;
     axios
-      .put(updateUrl, { no })
+      .put(updateUrl, { no, userNo })
       .then((res) => {
         fetchTaskList();
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => console.log(err));
+  };
+  const handleClickCreate = () => {
+    setMode("create");
+    setIsCreate(true);
+    setTask(null);
   };
 
-  useEffect(() => {
-    fetchTaskList();
-  }, [category]);
+  const handleClickEdit = (task) => {
+    setMode("edit");
+    setIsCreate(true);
+    setTask(task);
+  };
+
+  const handleClickDelete = (no) => {
+    setIsCreate(false);
+    axios
+      .delete(`http://localhost:8002/task/${category}/delete/${no}`, {
+        params: { no, userNo },
+      })
+      .then((res) => {
+        fetchTaskList();
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleClickChecked = (no) => {
+    axios
+      .put(`http://localhost:8002/task/daily/checked`, { no, userNo })
+      .then(
+        (res) => {
+          fetchTaskList();
+        },
+        (err) => {
+          console.log(err);
+        }
+      )
+      .catch((err) => console.log(err));
+  };
+
+  const handleClickDone = (item) => {
+    const { no, difficulty } = item;
+    axios
+      .delete(`http://localhost:8002/task/todo/delete/${no}`, {
+        params: { no, userNo },
+      })
+      .then((res) => {
+        fetchTaskList();
+        axios
+          .put("http://localhost:8002/avatar/increaseExp", {
+            userNo,
+            difficulty,
+          })
+          .then((res) => {
+            fetchAvatarInfo();
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <>
-      <CurrentCoin />
-      <CurrentCharacter />
-      <TaskView
-        category={category}
-        list={list}
-        onClickCount={onClickCount}
-        onClickCreate={handleClickCreate}
-      />
-      <UnderBar onClickMenu={handleClickMenu} setIsCreate={setIsCreate} />
-      <TodoView
-        isCreate={isCreate}
-        category={category}
-        onClickClose={handleClickClose}
-        fetchTaskList={fetchTaskList}
-      />
+      {user ? (
+        <>
+          <CurrentCoin avatarInfo={avatarInfo} />
+          <CurrentCharacter avatarInfo={avatarInfo} />
+          <TaskView
+            category={category}
+            list={list}
+            onClickCount={onClickCount}
+            onClickCreate={handleClickCreate}
+            onClickEdit={handleClickEdit}
+            onClickChecked={handleClickChecked}
+            onClickDone={handleClickDone}
+          />
+          <UnderBar
+            onClickMenu={handleClickMenu}
+            setIsCreate={setIsCreate}
+            setMode={setMode}
+          />
+          <TaskFormView
+            mode={mode}
+            task={task}
+            isCreate={isCreate}
+            category={category}
+            onClickClose={handleClickClose}
+            onClickDelete={handleClickDelete}
+            fetchTaskList={fetchTaskList}
+          />
+        </>
+      ) : (
+        "로그인이 필요합니다"
+      )}
     </>
   );
 };

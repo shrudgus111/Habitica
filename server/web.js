@@ -21,6 +21,7 @@ import authRouter from "./routers/authRouter.js";
 import boardRouter from "./routers/boardRouter.js";
 import productRouter from "./routers/productRouter.js";
 import taskRouter from "./routers/taskRouter.js";
+import avatarRouter from "./routers/avatarRouter.js";
 
 // 리소스 파일들을 관리하는 경로 지정하기
 const __dirname = path.resolve();
@@ -31,6 +32,7 @@ app.use("/auth", authRouter);
 app.use("/board", boardRouter);
 app.use("/product", productRouter);
 app.use("/task", taskRouter);
+app.use("/avatar", avatarRouter);
 
 // 지정한 포트에서 서버를 실행함
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));

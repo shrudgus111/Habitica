@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import HeaderNav from "./HeaderNav";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import {
   FaAlignJustify,
   FaSistrix,
@@ -67,7 +67,7 @@ const HeaderMain = styled.ul`
     right: 0;
     bottom: 0;
     background-color: #000;
-    transition: .4s;
+    transition: 0.4s;
     border-radius: 34px;
   }
 
@@ -79,13 +79,12 @@ const HeaderMain = styled.ul`
     left: 4px;
     bottom: 4px;
     background-color: white;
-    transition: .4s;
+    transition: 0.4s;
     border-radius: 50%;
   }
 
   input:checked + .slider {
-    background-color: #25cc90
-    ;
+    background-color: #25cc90;
   }
 
   input:checked + .slider:before {
@@ -136,38 +135,38 @@ const Header = () => {
   const onClickBack = () => setSidebarActive(false);
 
   const headerMenu = [
-  {
-    title: "캐릭터",
-    icon: "",
-    list: [
-      { listTitle: "스킬", listLink: "/character/skills" },
-      { listTitle: "스탯", listLink: "/character/stats" },
-      { listTitle: "도전과제", listLink: "/character/achievements" },
-    ],
-  },
-  {
-    title: "상점",
-    list: [{ listTitle: "상점", listLink: "/shop/market" }],
-  },
-  {
-    title: "인벤토리",
-    list: [
-      { listTitle: "장비", listLink: "/inventory/equipment" },
-      { listTitle: "아이템", listLink: "/inventory/items" },
-    ],
-  },
-  {
-    title: "소셜",
-    list: [{ listTitle: "지뢰찾기", listLink: "/app" }],
-  },
-  {
-    title: "소개",
-    list: [
-      { listTitle: "소개", listLink: "/about/company" },
-      { listTitle: "게시판", listLink: "/boardList", state: { page: 1 } },
-    ],
-  },
-];
+    {
+      title: "캐릭터",
+      icon: "",
+      list: [
+        { listTitle: "스킬", listLink: "/character/skills" },
+        { listTitle: "스탯", listLink: "/character/stats" },
+        { listTitle: "도전과제", listLink: "/character/achievements" },
+      ],
+    },
+    {
+      title: "상점",
+      list: [{ listTitle: "상점", listLink: "/shop/market" }],
+    },
+    {
+      title: "인벤토리",
+      list: [
+        { listTitle: "장비", listLink: "/inventory/equipment" },
+        { listTitle: "아이템", listLink: "/inventory/items" },
+      ],
+    },
+    {
+      title: "소셜",
+      list: [{ listTitle: "지뢰찾기", listLink: "/app" }],
+    },
+    {
+      title: "소개",
+      list: [
+        { listTitle: "소개", listLink: "/about/company" },
+        { listTitle: "게시판", listLink: "/boardList", state: { page: 1 } },
+      ],
+    },
+  ];
 
   useEffect(() => {
     const findTitle = () => {
@@ -197,7 +196,7 @@ const Header = () => {
 
   const onClickPrev = () => navigate(-1);
   const onClickDone = () => navigate("/");
-  
+
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
     setSelectedLanguage(lng);
@@ -222,14 +221,16 @@ const Header = () => {
           )}
         </li>
         <li className="TA_Center">
-          <h1 className="FontTitle">{t('msn7')}</h1>
+          <h1 className="FontTitle">{t("msn7")}</h1>
         </li>
         <div className="language-switcher">
           <label>
             <input
               type="checkbox"
-              checked={selectedLanguage === 'en'}
-              onChange={() => changeLanguage(selectedLanguage === 'ko' ? 'en' : 'ko')}
+              checked={selectedLanguage === "en"}
+              onChange={() =>
+                changeLanguage(selectedLanguage === "ko" ? "en" : "ko")
+              }
             />
             <span className="slider"></span>
             <span className="lang-text lang-ko">KO</span>

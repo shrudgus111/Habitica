@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { BsPlusCircle } from "react-icons/bs";
 import { BsFillPlusCircleFill } from "react-icons/bs";
 import { BiMinusCircle } from "react-icons/bi";
 import { BiSolidMinusCircle } from "react-icons/bi";
-
 import axios from "axios";
+import TaskHeader from "@/components/Task/TaskHeader";
 
-const TodoViewBlock = styled.article`
-  background-color: var(--main-color);
+const TaskFormViewBlock = styled.article`
   border-radius: 8px;
   position: fixed;
   bottom: 0;
@@ -23,20 +22,25 @@ const TodoViewBlock = styled.article`
     opacity: 1;
     box-shadow: 0px -10px 20px 40px rgba(0, 0, 0, 0.5);
   }
-`;
-
-const TodoHeader = styled.header`
-  padding: 16px 0;
-  & > * {
-    color: white;
+  &.create {
+    background-color: var(--main-color);
+  }
+  &.edit {
+    background-color: var(--yellow-color);
   }
 `;
 
 const TodoContent = styled.section`
   padding: 16px 0 32px;
-  background-color: var(--main-hover);
+
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
+  &.create {
+    background-color: var(--main-hover);
+  }
+  &.edit {
+    background-color: var(--yellow-hover);
+  }
   .FontInputTitle {
     color: white;
   }
@@ -71,7 +75,6 @@ const TodoDetail = styled.section`
       padding: 16px;
       color: gray;
       label {
-        cursor: pointer;
         span {
           color: gray;
         }
@@ -102,7 +105,6 @@ const TodoDetail = styled.section`
       label {
         width: 100%;
         padding: 8px;
-        cursor: pointer;
       }
     }
   }
@@ -122,7 +124,6 @@ const TodoDetail = styled.section`
       label {
         width: 100%;
         padding: 16px;
-        cursor: pointer;
       }
     }
   }
@@ -133,9 +134,68 @@ const TodoDetail = styled.section`
       padding: 8px;
     }
   }
+  .delete {
+    background-color: whitesmoke;
+    margin: 16px 0;
+    padding: 12px;
+    border-radius: 8px;
+    color: red;
+    font-weight: 600;
+    &:hover {
+    }
+  }
+  &.create {
+  }
+  &.edit {
+    .FL_SB {
+      flex-wrap: wrap;
+      .FontInputTitle {
+        color: gray;
+        width: 100%;
+      }
+      .controlsInput {
+        background-color: whitesmoke;
+        padding: 16px;
+        color: gray;
+        label {
+          &.active {
+            color: var(--yellow-hover);
+            span {
+              color: var(--yellow-hover);
+            }
+          }
+        }
+      }
+    }
+    .resetCounter {
+      .resetCounterInput {
+        &.active {
+          background-color: var(--yellow-hover);
+        }
+      }
+    }
+    .difficulty {
+      .difficultyInput {
+        &.active {
+          border-radius: 8px;
+          .FontBody {
+            color: var(--yellow-hover);
+          }
+        }
+      }
+    }
+  }
 `;
 
-const TodoView = ({ isCreate, category, onClickClose, fetchTaskList }) => {
+const TaskFormView = ({
+  isCreate,
+  mode,
+  category,
+  onClickClose,
+  onClickDelete,
+  fetchTaskList,
+  task,
+}) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [positive, setPositive] = useState(true);
@@ -146,8 +206,36 @@ const TodoView = ({ isCreate, category, onClickClose, fetchTaskList }) => {
 
   const habitCycles = ["daily", "weekly", "monthly"];
   const habitDifficulties = ["trivial", "easy", "medium", "hard"];
+  const token = localStorage.getItem("loging");
+  const userNo = JSON.parse(token).userNo;
+  useEffect(() => {
+    if (mode === "edit" && task) {
+      setTitle(task.title);
+      setContent(task.content);
+      setPositive(task.positive);
+      setNegative(task.negative);
+      setResetCounter(task.resetCounter);
+      setDifficulty(task.difficulty);
+      setTag(task.tag);
+    } else if (mode === "create") {
+      setTitle("");
+      setContent("");
+      setPositive(true);
+      setNegative(false);
+      setResetCounter("daily");
+      setDifficulty("easy");
+      setTag("");
+    }
+  }, [mode, task]);
 
   const handleSubmit = (e) => {
+    const url =
+      mode === "create"
+        ? `http://localhost:8002/task/${category}/create`
+        : `http://localhost:8002/task/${category}/update/${task.no}`;
+
+    const method = mode === "create" ? "post" : "put";
+
     e.preventDefault();
     const data = {
       title,
@@ -157,9 +245,10 @@ const TodoView = ({ isCreate, category, onClickClose, fetchTaskList }) => {
       resetCounter,
       difficulty,
       tag,
+      userNo,
     };
-    axios
-      .post(`http://localhost:8002/task/${category}/create`, data)
+
+    axios[method](url, data)
       .then((res) => {
         setTitle("");
         setContent("");
@@ -192,23 +281,14 @@ const TodoView = ({ isCreate, category, onClickClose, fetchTaskList }) => {
   };
 
   return (
-    <TodoViewBlock className={`FL_Column ${isCreate && "active"}`}>
-      <TodoHeader className="DefaultWidth FL_SB">
-        <button type="button" onClick={onClickClose} className="FontBody">
-          닫기
-        </button>
-        <h3 className="FontMenuTitle">
-          {category == "habit"
-            ? "새로운 습관"
-            : category == "daily"
-            ? "새로운 일일과제"
-            : category == "todo" && "새로운 할일"}
-        </h3>
-        <button type="submit" onClick={handleSubmit} className="FontBody">
-          생성
-        </button>
-      </TodoHeader>
-      <TodoContent>
+    <TaskFormViewBlock className={`FL_Column ${isCreate && "active"} ${mode}`}>
+      <TaskHeader
+        mode={mode}
+        onClickClose={onClickClose}
+        handleSubmit={handleSubmit}
+        category={category}
+      />
+      <TodoContent className={`${mode}`}>
         <form onSubmit={handleSubmit} className="DefaultWidth FL_Column G8px">
           <div className="FontInput">
             <label htmlFor="title" className="FontInputTitle">
@@ -234,68 +314,78 @@ const TodoView = ({ isCreate, category, onClickClose, fetchTaskList }) => {
           </div>
         </form>
       </TodoContent>
-      <TodoDetail className="FL_1">
+      <TodoDetail className={`FL_1 ${mode}`}>
         <div className="DefaultWidth FL_Column G8px">
-          <div className="controls FL_SB">
-            <label className="FontInputTitle G_FW">습관의 형태</label>
-            <div className="controlsInput FL_1 G_PCC">
-              <input
-                type="checkbox"
-                id="positive"
-                checked={positive}
-                onChange={(e) => setPositive(e.target.checked)}
-              />
-              <label
-                htmlFor="positive"
-                className={`G_PCC G8px ${positive && "active"}`}
-              >
-                {positive ? <BsFillPlusCircleFill /> : <BsPlusCircle />}
-                <span className="FontBody">좋은 습관</span>
-              </label>
-            </div>
-            <div className="controlsInput FL_1 G_PCC">
-              <input
-                type="checkbox"
-                id="negative"
-                checked={negative}
-                onChange={(e) => setNegative(e.target.checked)}
-              />
-              <label
-                htmlFor="negative"
-                className={`G_PCC G8px ${negative && "active"}`}
-              >
-                {negative ? <BiSolidMinusCircle /> : <BiMinusCircle />}
-                <span className="FontBody">나쁜 습관</span>
-              </label>
-            </div>
-          </div>
-
-          <div className="resetCounter FL_SB">
-            <label className="FontInputTitle G_FW">습관 주기</label>
-            {habitCycles.map((cycle) => (
-              <div
-                key={cycle}
-                className={`resetCounterInput FL_1 FL_Center ${
-                  resetCounter === cycle && "active"
-                }`}
-              >
-                <input
-                  type="radio"
-                  id={cycle}
-                  name="habitCycle"
-                  checked={resetCounter === cycle}
-                  onChange={() => setResetCounter(cycle)}
-                />
-                <label htmlFor={cycle} className="FontBody TA_Center">
-                  {cycle === "daily"
-                    ? "매일"
-                    : cycle === "weekly"
-                    ? "주간"
-                    : cycle === "monthly" && "월간"}
-                </label>
+          {category == "habit" && (
+            <>
+              <div className="controls FL_SB">
+                <label className="FontInputTitle G_FW">습관의 형태</label>
+                <div className="controlsInput FL_1 G_PCC">
+                  <input
+                    type="checkbox"
+                    id="positive"
+                    checked={positive}
+                    onChange={(e) => setPositive(e.target.checked)}
+                  />
+                  <label
+                    htmlFor="positive"
+                    className={`G_PCC G8px cursorPointer ${
+                      positive && "active"
+                    }`}
+                  >
+                    {positive ? <BsFillPlusCircleFill /> : <BsPlusCircle />}
+                    <span className="FontBody">좋은 습관</span>
+                  </label>
+                </div>
+                <div className="controlsInput FL_1 G_PCC">
+                  <input
+                    type="checkbox"
+                    id="negative"
+                    checked={negative}
+                    onChange={(e) => setNegative(e.target.checked)}
+                  />
+                  <label
+                    htmlFor="negative"
+                    className={`G_PCC G8px cursorPointer ${
+                      negative && "active"
+                    }`}
+                  >
+                    {negative ? <BiSolidMinusCircle /> : <BiMinusCircle />}
+                    <span className="FontBody">나쁜 습관</span>
+                  </label>
+                </div>
               </div>
-            ))}
-          </div>
+              <div className="resetCounter FL_SB">
+                <label className="FontInputTitle G_FW">습관 주기</label>
+                {habitCycles.map((cycle) => (
+                  <div
+                    key={cycle}
+                    className={`resetCounterInput FL_1 FL_Center ${
+                      resetCounter === cycle && "active"
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      id={cycle}
+                      name="habitCycle"
+                      checked={resetCounter === cycle}
+                      onChange={() => setResetCounter(cycle)}
+                    />
+                    <label
+                      htmlFor={cycle}
+                      className="FontBody TA_Center cursorPointer"
+                    >
+                      {cycle === "daily"
+                        ? "매일"
+                        : cycle === "weekly"
+                        ? "주간"
+                        : cycle === "monthly" && "월간"}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
 
           <div className="difficulty FL_SB">
             <label className="FontInputTitle G_FW">난이도</label>
@@ -315,7 +405,7 @@ const TodoView = ({ isCreate, category, onClickClose, fetchTaskList }) => {
                 />
                 <label
                   htmlFor={level}
-                  className="FontBody TA_Center FL_Column G8px"
+                  className="FontBody TA_Center FL_Column G8px cursorPointer"
                 >
                   <span>{renderStars(level)}</span>
                   <span>
@@ -343,10 +433,19 @@ const TodoView = ({ isCreate, category, onClickClose, fetchTaskList }) => {
               <label htmlFor="tag1">업무</label>
             </div>
           </div>
+
+          {mode === "edit" && (
+            <button
+              className="delete FontBody TA_Center"
+              onClick={() => onClickDelete(task.no)}
+            >
+              삭제하기
+            </button>
+          )}
         </div>
       </TodoDetail>
-    </TodoViewBlock>
+    </TaskFormViewBlock>
   );
 };
 
-export default TodoView;
+export default TaskFormView;

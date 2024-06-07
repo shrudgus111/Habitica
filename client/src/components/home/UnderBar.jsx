@@ -63,14 +63,19 @@ const UnderBarBlock = styled.nav`
   }
 `;
 
-const UnderBar = ({ onClickMenu, setIsCreate }) => {
+const UnderBar = ({ onClickMenu, setIsCreate, setMode }) => {
   const handleMenuClick = (category) => onClickMenu(category);
-  const onClickTodo = () => setIsCreate(true);
+
+  const onClickTodo = () => {
+    setIsCreate(true);
+    setMode("create");
+  };
+  
   const { t, i18n } = useTranslation();
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
-  };
-
+  }
+  
   return (
     <UnderBarBlock>
       <ul className="u_menu DefaultWidth FontSub G8px">
