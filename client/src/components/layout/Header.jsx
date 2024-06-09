@@ -3,6 +3,10 @@ import styled from "styled-components";
 import HeaderNav from "./HeaderNav";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { FaShoppingBag } from "react-icons/fa";
+import { MdInventory } from "react-icons/md";
+import { FaUserFriends } from "react-icons/fa";
+import { FaQuestionCircle } from "react-icons/fa";
 import {
   FaAlignJustify,
   FaSistrix,
@@ -38,74 +42,50 @@ const HeaderMain = styled.ul`
     }
   }
   .language-switcher {
-    display: flex;
-    gap: 10px;
-    position: absolute;
-    right: 100px;
-    top: 10px;
-    align-items: center;
-  }
+    label {
+      position: relative;
+      width: 60px;
+      height: 34px;
+      padding: 0 8px;
+    }
+    .slider {
+      position: absolute;
+      inset: 0;
+      cursor: pointer;
+      background-color: var(--black-color);
+      transition: 0.4s;
+      border-radius: 34px;
+    }
 
-  .language-switcher label {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-  }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
 
-  .language-switcher input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
+    input:checked + .slider {
+      background-color: var(--main-color);
+    }
 
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #000;
-    transition: 0.4s;
-    border-radius: 34px;
-  }
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
 
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: 0.4s;
-    border-radius: 50%;
-  }
+    .lang-text {
+      font-size: 14px;
+      color: #fff;
 
-  input:checked + .slider {
-    background-color: #25cc90;
-  }
-
-  input:checked + .slider:before {
-    transform: translateX(26px);
-  }
-
-  .lang-text {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff;
-  }
-
-  .lang-ko {
-    left: 8px;
-  }
-
-  .lang-en {
-    right: 8px;
+      position: relative;
+      span {
+        height: 100%;
+      }
+    }
   }
 `;
 
@@ -146,10 +126,12 @@ const Header = () => {
     },
     {
       title: "상점",
+      icon: <FaShoppingBag />,
       list: [{ listTitle: "상점", listLink: "/shop/market" }],
     },
     {
       title: "인벤토리",
+      icon: <MdInventory />,
       list: [
         { listTitle: "장비", listLink: "/inventory/equipment" },
         { listTitle: "아이템", listLink: "/inventory/items" },
@@ -157,10 +139,12 @@ const Header = () => {
     },
     {
       title: "소셜",
+      icon: <FaUserFriends />,
       list: [{ listTitle: "지뢰찾기", listLink: "/app" }],
     },
     {
       title: "소개",
+      icon: <FaQuestionCircle />,
       list: [
         { listTitle: "소개", listLink: "/about/company" },
         { listTitle: "게시판", listLink: "/boardList", state: { page: 1 } },
@@ -205,7 +189,7 @@ const Header = () => {
   return (
     <HeaderBlock>
       <HeaderMain className="HeaderMain DefaultWidth FL_SB">
-        <li className="TA_Left">
+        <li className="TA_Left FL_Center">
           {location.pathname === "/home" ? (
             <button type="button" onClick={onClickSidebar}>
               <FaAlignJustify />
@@ -220,31 +204,36 @@ const Header = () => {
             )
           )}
         </li>
-        <li className="TA_Center">
+        <li className="TA_Center FL_CSB">
           <h1 className="FontTitle">{t("msn7")}</h1>
         </li>
-        <div className="language-switcher">
-          <label>
-            <input
-              type="checkbox"
-              checked={selectedLanguage === "en"}
-              onChange={() =>
-                changeLanguage(selectedLanguage === "ko" ? "en" : "ko")
-              }
-            />
-            <span className="slider"></span>
-            <span className="lang-text lang-ko">KO</span>
-            <span className="lang-text lang-en">EN</span>
-          </label>
-        </div>
         <li className="right_section TA_Right">
+          <div className="language-switcher FL_Center">
+            <label className="FL_SB cursorPointer">
+              <input
+                className="inputUnset"
+                type="checkbox"
+                checked={selectedLanguage === "en"}
+                onChange={() =>
+                  changeLanguage(selectedLanguage === "ko" ? "en" : "ko")
+                }
+              />
+              <span className="slider"></span>
+              <div className="lang-text lang-ko FontTitle FL_1">
+                <span className="G_PCC">KO</span>
+              </div>
+              <div className="lang-text lang-en FontTitle FL_1">
+                <span className="G_PCC">EN</span>
+              </div>
+            </label>
+          </div>
           {location.pathname === "/home" ? (
             <>
-              <button type="button">
+              <button type="button" className="FL_Center">
                 <FaSistrix />
                 <span className="blind">검색</span>
               </button>
-              <button type="button">
+              <button type="button" className="FL_Center">
                 <FaFilter />
                 <span className="blind">필터</span>
               </button>

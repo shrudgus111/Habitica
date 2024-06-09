@@ -217,3 +217,7 @@ button {
 .cursorPointer {
   cursor: pointer;
 }
+
+.inputUnset {
+  all: unset;
+}
