@@ -30,7 +30,7 @@ const CurrentCoin = ({ avatarInfo }) => {
         </li>
         <li className="TA_Right FontBody FL_Center">
           <span className="coin">
-            <img src="../src/assets/image/coin.svg" alt="코인" />
+            <img src="assets/image/coin.svg" alt="코인" />
           </span>
           <span>{avatarInfo.coin}</span>
         </li>

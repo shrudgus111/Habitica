@@ -34,7 +34,7 @@ const TaskPopUp = ({ isActive, cost }) => {
           className={`FL_Center G8px FontSub ${isActive && 'active'} `}
         >
           <span className="icon">
-            <img src="../src/assets/image/coin.svg" alt="코인" />
+            <img src="assets/image/coin.svg" alt="코인" />
           </span>
           <span>{cost}원으로 보상을 구매했습니다</span>
         </TaskPopUpBlock>

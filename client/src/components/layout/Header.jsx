@@ -178,7 +178,7 @@ const Header = () => {
     setSidebarActive(false);
   }, [location]);
 
-  const onClickPrev = () => navigate(-1);
+  const onClickPrev = () => navigate('/home');
   const onClickDone = () => navigate('/home');
 
   const changeLanguage = (lng) => {

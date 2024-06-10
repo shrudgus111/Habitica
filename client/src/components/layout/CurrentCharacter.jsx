@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import AvatarImage from "../Avatar/AvatarImage";
+import React from 'react';
+import styled from 'styled-components';
+import AvatarImage from '../Avatar/AvatarImage';
 
 const CurrentCharacterBlock = styled.section`
   padding: 16px 0;
@@ -71,7 +71,7 @@ const CurrentCharacter = ({ avatarInfo, onClickAvatar }) => {
         <li className="TA_Right">
           <BarSection>
             <li className="iconBox">
-              <img src="../src/assets/image/health.svg" alt="체력" />
+              <img src="assets/image/health.svg" alt="체력" />
             </li>
             <li className="contentBox FL_Center FL_SB">
               <div className="bar">
@@ -88,7 +88,7 @@ const CurrentCharacter = ({ avatarInfo, onClickAvatar }) => {
           </BarSection>
           <BarSection>
             <li className="iconBox">
-              <img src="../src/assets/image/exp.svg" alt="경험치" />
+              <img src="assets/image/exp.svg" alt="경험치" />
             </li>
             <li className="contentBox FL_Center FL_SB">
               <div className="bar">

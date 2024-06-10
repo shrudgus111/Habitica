@@ -1,37 +1,40 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
+
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-		<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"> 
+		<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="theme-color" content="#000000" />
 		<meta name="description" content="Minesweeper Web site Game" />
 		<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> 
+		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 		<title>Minesweeper</title>
 	</head>
+
 	<body>
 		<noscript>You need to enable JavaScript to run this app.</noscript>
 		<div id="root"></div>
 		<div class="wrap">
-			
 			<div id="app"></div>
 		</div>
-		 <!-- AOS 스크립트 시작 -->
-		 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-		 <script> 
-			 AOS.init(); // 자바스크립트로 init()을 해야 동작한다.
-		 </script>
+		<!-- AOS 스크립트 시작 -->
+		<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+		<script>
+			AOS.init(); // 자바스크립트로 init()을 해야 동작한다.
+		</script>
 	</body>
 	<style>
- body {
-	cursor: url('/assets/image/icon_pokemon.png'), auto;
-        }
+		body {
+			cursor: url('/assets/image/icon_pokemon.png'), auto;
+		}
+
 		.wrap {
-            width: 100%;
-            overflow: hidden;
-            position: relative;
-        }
+			width: 100%;
+			overflow: hidden;
+			position: relative;
+		}
 	</style>
+
 </html>

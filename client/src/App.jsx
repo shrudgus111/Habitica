@@ -1,32 +1,32 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import Layout from "@/Layout";
-import HomeView from "@/views/HomeView";
-import Appo from "@/Appo";
-import LoginView from '@/views/LoginView'
-import JoinView from '@/views/JoinView'
-import MemberModifyView from '@/views/MemberModifyView'
-import BoardListView from '@/views/BoardListView'
-import BoardWriteView from '@/views/BoardWriteView'
-import BoardDetailView from '@/views/BoardDetailView'
-import BoardModifyView from '@/views/BoardModifyView'
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Layout from '@/Layout';
+import HomeView from '@/views/HomeView';
+import Appo from '@/Appo';
+import LoginView from '@/views/LoginView';
+import JoinView from '@/views/JoinView';
+import MemberModifyView from '@/views/MemberModifyView';
+import BoardListView from '@/views/BoardListView';
+import BoardWriteView from '@/views/BoardWriteView';
+import BoardDetailView from '@/views/BoardDetailView';
+import BoardModifyView from '@/views/BoardModifyView';
 // Character
-import SkillsView from "@/views/character/SkillsView";
-import StatsView from "@/views/character/StatsView";
-import AchievementsView from "@/views/character/AchievementsView";
-import ProfileView from "@/views/character/ProfileView";
+import SkillsView from '@/views/character/SkillsView';
+import StatsView from '@/views/character/StatsView';
+import AchievementsView from '@/views/character/AchievementsView';
+import ProfileView from '@/views/character/ProfileView';
 // Market
-import MarketView from "@/views/shop/MarketView";
+import MarketView from '@/views/shop/MarketView';
 // Inventory
-import EquipmentView from "@/views/inventory/EquipmentView";
-import ItemsView from "@/views/inventory/ItemsView";
+import EquipmentView from '@/views/inventory/EquipmentView';
+import ItemsView from '@/views/inventory/ItemsView';
 // About
-import CompanyView from "@/views/about/CompanyView";
-import NewsView from "@/views/about/NewsView";
-import BoardView from "@/views/about/BoardView";
+import CompanyView from '@/views/about/CompanyView';
+import NewsView from '@/views/about/NewsView';
+import BoardView from '@/views/about/BoardView';
 // Setting
-import SettingsView from "@/views/setting/SettingsView";
-import MessageView from "@/views/setting/MessageView";
+import SettingsView from '@/views/setting/SettingsView';
+import MessageView from '@/views/setting/MessageView';
 
 const App = () => {
   return (
@@ -51,13 +51,13 @@ const App = () => {
         <Route path="/setting/settings" element={<SettingsView />} />
         <Route path="/setting/message" element={<MessageView />} />
         <Route path="/app" element={<Appo />} />
-        <Route index path="/" element={ <LoginView /> } />
-        <Route path="/join" element={ <JoinView /> } />
-        <Route path="/memberModify" element={ <MemberModifyView /> } />
-        <Route path="/boardList" element={ <BoardListView /> } />
-        <Route path="/boardList/:subject" element={ <BoardDetailView /> } />
-        <Route path="/boardWrite" element={ <BoardWriteView /> } />
-        <Route path="/boardModify/:subject" element={ <BoardModifyView /> } />
+        <Route index path="/" element={<LoginView />} />
+        <Route path="/join" element={<JoinView />} />
+        <Route path="/memberModify" element={<MemberModifyView />} />
+        <Route path="/boardList" element={<BoardListView />} />
+        <Route path="/boardList/:subject" element={<BoardDetailView />} />
+        <Route path="/boardWrite" element={<BoardWriteView />} />
+        <Route path="/boardModify/:subject" element={<BoardModifyView />} />
       </Route>
     </Routes>
   );

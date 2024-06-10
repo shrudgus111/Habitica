@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const RewardButtonBlock = styled.section`
   position: sticky;
@@ -40,11 +40,7 @@ const RewardButton = ({ onClickModal, selectedReward, onBuy }) => {
         닫기
       </button>
       <button className="buy FontMenuTitle FL_Center" onClick={handleBuyClick}>
-        <img
-          src="../src/assets/image/coin.svg"
-          alt="코인"
-          className="coinIcon"
-        />
+        <img src="assets/image/coin.svg" alt="코인" className="coinIcon" />
         <span>{selectedReward} 구매</span>
       </button>
     </RewardButtonBlock>

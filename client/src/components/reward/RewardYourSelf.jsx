@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { initCosts } from "@/store/product";
-import styled from "styled-components";
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { initCosts } from '@/store/product';
+import styled from 'styled-components';
 
 const RewardYourSelfBlock = styled.section`
   background-color: whitesmoke;
@@ -32,7 +32,7 @@ const RewardYourSelf = ({ onBuy }) => {
   const dispatch = useDispatch();
   const onClickBuy = (e) => {
     const button = e.currentTarget;
-    const cost = button.querySelector(".price").textContent;
+    const cost = button.querySelector('.price').textContent;
     // dispatch(initCosts(cost));
     onBuy(cost);
   };
@@ -53,7 +53,7 @@ const RewardYourSelf = ({ onBuy }) => {
             onClick={(e) => onClickBuy(e)}
           >
             <span className="icon">
-              <img src="../src/assets/image/coin.svg" alt="코인" />
+              <img src="assets/image/coin.svg" alt="코인" />
             </span>
             <span className="FontMenuTitle price">20</span>
           </button>

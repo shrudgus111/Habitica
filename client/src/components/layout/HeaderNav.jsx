@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
-import HeaderNavMenu from "./HeaderNavMenu";
-import { IoMdSettings } from "react-icons/io";
-import { MdMessage } from "react-icons/md";
-import { userLogout, localUser } from "@/store/member";
-import { useSelector, useDispatch } from "react-redux";
-import { FiUser, FiUserPlus, FiUserX, FiUserCheck } from "react-icons/fi";
-import { fetchReview } from "@/store/board";
-import axios from "axios";
-import { useTranslation } from "react-i18next";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { Link, useNavigate } from 'react-router-dom';
+import HeaderNavMenu from './HeaderNavMenu';
+import { IoMdSettings } from 'react-icons/io';
+import { MdMessage } from 'react-icons/md';
+import { userLogout, localUser } from '@/store/member';
+import { useSelector, useDispatch } from 'react-redux';
+import { FiUser, FiUserPlus, FiUserX, FiUserCheck } from 'react-icons/fi';
+import { fetchReview } from '@/store/board';
+import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 const HeaderNavBlock = styled.nav`
   &.active {
@@ -110,14 +110,14 @@ const HeaderNav = ({ headerMenu, sidebarActive }) => {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(userLogout());
-    navigate("/home");
+    navigate('/');
   };
 
   useEffect(() => {
-    if (localStorage.getItem("loging")) {
-      const { userNo } = JSON.parse(localStorage.getItem("loging"));
+    if (localStorage.getItem('loging')) {
+      const { userNo } = JSON.parse(localStorage.getItem('loging'));
       axios
-        .post("http://localhost:8002/auth/refresh", { userNo })
+        .post('http://localhost:8002/auth/refresh', { userNo })
         .then((res) => {
           dispatch(localUser(res.data[0]));
           dispatch(fetchReview(1));
@@ -133,14 +133,14 @@ const HeaderNav = ({ headerMenu, sidebarActive }) => {
   return (
     <HeaderNavBlock
       className={`HeaderBack ${
-        sidebarActive ? "active HeaderNav" : "HeaderNav"
+        sidebarActive ? 'active HeaderNav' : 'HeaderNav'
       }`}
     >
       <Header>
         <ul className="DefaultWidth">
           <li
             className="profile FL_Center"
-            onClick={() => navigate("/character/profile")}
+            onClick={() => navigate('/character/profile')}
           >
             <div className="imageBox"></div>
             <p className="textBox">
@@ -150,7 +150,7 @@ const HeaderNav = ({ headerMenu, sidebarActive }) => {
                   <span className="content">{user.userId}</span>
                 </>
               ) : (
-                "로그인이 필요합니다"
+                '로그인이 필요합니다'
               )}
             </p>
           </li>
@@ -174,11 +174,11 @@ const HeaderNav = ({ headerMenu, sidebarActive }) => {
             </div>
           )}
           <li className="setting FL_Center">
-            <Link to={"/setting/message"}>
+            {/* <Link to={'/setting/message'}>
               <MdMessage />
               <span className="blind">메시지</span>
-            </Link>
-            <Link to={"/setting/settings"}>
+            </Link> */}
+            <Link to={'/setting/settings'}>
               <IoMdSettings />
               <span className="blind">설정</span>
             </Link>
