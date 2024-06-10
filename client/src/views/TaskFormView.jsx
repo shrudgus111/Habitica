@@ -29,6 +29,9 @@ const TaskFormViewBlock = styled.article`
   &.edit {
     background-color: var(--yellow-color);
   }
+  &.avatar {
+    background-color: var(--main-color);
+  }
 `;
 
 const TodoContent = styled.section`
@@ -197,6 +200,7 @@ const TaskFormView = ({
   fetchTaskList,
   task,
   avatarInfo,
+  setAvatarInfo,
 }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -232,7 +236,18 @@ const TaskFormView = ({
     }
   }, [mode, task]);
 
+  const fetchAvatarInfo = () => {
+    axios
+      .get("http://localhost:8002/avatar/info", { params: { userNo } })
+      .then((res) => {
+        setAvatarInfo(res.data[0]);
+      })
+      .catch((err) => console.error(err));
+  };
+
   const handleSubmit = (e) => {
+    e.preventDefault();
+
     const url =
       mode === "create"
         ? `http://localhost:8002/task/${category}/create`
@@ -240,7 +255,6 @@ const TaskFormView = ({
 
     const method = mode === "create" ? "post" : "put";
 
-    e.preventDefault();
     const data = {
       title,
       content,
@@ -261,7 +275,17 @@ const TaskFormView = ({
         setResetCounter("daily");
         setDifficulty("easy");
         setTag("");
-        fetchTaskList();
+
+        // Fetch task list if mode is not avatar
+        if (mode !== "avatar") {
+          fetchTaskList();
+        }
+
+        // Fetch avatar info if mode is avatar
+        if (mode === "avatar") {
+          fetchAvatarInfo();
+        }
+
         onClickClose();
       })
       .catch((err) => {
@@ -283,20 +307,19 @@ const TaskFormView = ({
         return "";
     }
   };
-
   return (
     <>
       <TaskFormViewBlock
         className={`FL_Column ${isCreate && "active"} ${mode}`}
       >
+        <TaskHeader
+          mode={mode}
+          onClickClose={onClickClose}
+          handleSubmit={handleSubmit}
+          category={category}
+        />
         {mode !== "avatar" ? (
           <>
-            <TaskHeader
-              mode={mode}
-              onClickClose={onClickClose}
-              handleSubmit={handleSubmit}
-              category={category}
-            />
             <TodoContent className={`${mode}`}>
               <form
                 onSubmit={handleSubmit}

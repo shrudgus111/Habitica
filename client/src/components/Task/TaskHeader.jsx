@@ -13,7 +13,7 @@ const TaskHeader = ({ mode, category, onClickClose, handleSubmit }) => {
   return (
     <Header className={`DefaultWidth FL_SB `}>
       <button type="button" onClick={onClickClose} className="FontBody">
-        닫기
+        {mode == "avatar" || "닫기"}
       </button>
       <h3 className="FontMenuTitle">
         {mode == "create" ? (
@@ -24,7 +24,7 @@ const TaskHeader = ({ mode, category, onClickClose, handleSubmit }) => {
                 ? "새로운 일일과제"
                 : category == "todo" && "새로운 할일"}
           </>
-        ) : (
+        ) : mode == "edit" ? (
           <>
             {category == "habit"
               ? "습관 수정"
@@ -32,6 +32,8 @@ const TaskHeader = ({ mode, category, onClickClose, handleSubmit }) => {
                 ? "일일과제 수정"
                 : category == "todo" && "할일 수정"}
           </>
+        ) : (
+          mode == "avatar" && "아바타 수정"
         )}
       </h3>
       <button type="submit" onClick={handleSubmit} className="FontBody">

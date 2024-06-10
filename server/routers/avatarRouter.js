@@ -18,71 +18,148 @@ avatarRouter.get("/info", async (req, res) => {
 
 avatarRouter.put("/increaseExp", async (req, res) => {
   const { userNo, difficulty } = req.body;
-  let expIncreaseAmount;
-  let coinIncreaseAmount;
+  let expAmount;
+  let coinAmount;
   switch (difficulty) {
     case "trivial":
-      expIncreaseAmount = 1;
-      coinIncreaseAmount = 1;
+      expAmount = 1;
+      coinAmount = 1;
       break;
     case "easy":
-      expIncreaseAmount = 2;
-      coinIncreaseAmount = 2;
+      expAmount = 2;
+      coinAmount = 2;
       break;
     case "medium":
-      expIncreaseAmount = 3;
-      coinIncreaseAmount = 3;
+      expAmount = 3;
+      coinAmount = 3;
       break;
     case "hard":
-      expIncreaseAmount = 4;
-      coinIncreaseAmount = 4;
+      expAmount = 4;
+      coinAmount = 4;
       break;
     default:
-      expIncreaseAmount = 1;
-      coinIncreaseAmount = 1;
+      expAmount = 1;
+      coinAmount = 1;
       break;
   }
 
-  // 경험치 증가 및 레벨업 로직
   const query = `
-        UPDATE avatar 
-        SET currentExp = currentExp + ?, 
-            coin = coin + ?, 
-            level = CASE 
-                      WHEN currentExp + ? >= exp THEN level + 1
-                      ELSE level
-                    END,
-            health = CASE
-                            WHEN currentExp + ? >= exp THEN health + (level + 1) * 5
-                            ELSE health
-                          END,
-            currentHealth = CASE
-                                WHEN currentExp + ? >= exp THEN health + (level + 1) * 5
-                                ELSE currentHealth
-                              END,
-            currentExp = CASE
-                           WHEN currentExp + ? >= exp THEN currentExp + ? - exp
-                           ELSE currentExp + ?
-                         END
-        WHERE userNo=?
-      `;
+    UPDATE avatar 
+    SET currentExp = currentExp + ?, 
+        coin = coin + ?, 
+        level = CASE 
+                  WHEN currentExp + ? >= exp THEN level + 1
+                  ELSE level
+                END,
+        health = CASE
+                  WHEN currentExp + ? >= exp THEN health + (level + 1)
+                  ELSE health
+                END,
+        currentHealth = CASE
+                          WHEN currentExp + ? >= exp THEN GREATEST(health + (level + 1), currentHealth)
+                          ELSE LEAST(currentHealth + ?, health)
+                        END,
+        currentExp = CASE
+                      WHEN currentExp + ? >= exp THEN currentExp + ? - exp
+                      ELSE currentExp + ?
+                    END
+    WHERE userNo=?
+  `;
 
   db.query(
     query,
     [
-      expIncreaseAmount,
-      coinIncreaseAmount,
-      expIncreaseAmount,
-      expIncreaseAmount,
-      expIncreaseAmount,
-      expIncreaseAmount,
-      expIncreaseAmount,
-      expIncreaseAmount,
+      expAmount,
+      coinAmount,
+      expAmount,
+      expAmount,
+      expAmount,
+      expAmount,
+      expAmount,
+      expAmount,
+      expAmount,
       userNo,
     ],
     (err, results) => {
       if (err) {
         console.error("Error increasing experience:", err);
+        res.status(500).json({ message: "Internal server error" });
+      } else {
+        res.json(results);
+      }
+    }
+  );
+});
+
+avatarRouter.put("/decreaseExp", async (req, res) => {
+  const { userNo, difficulty } = req.body;
+  let expAmount;
+  let coinAmount;
+  switch (difficulty) {
+    case "trivial":
+      expAmount = -1;
+      coinAmount = -1;
+      break;
+    case "easy":
+      expAmount = -2;
+      coinAmount = -2;
+      break;
+    case "medium":
+      expAmount = -3;
+      coinAmount = -3;
+      break;
+    case "hard":
+      expAmount = -4;
+      coinAmount = -4;
+      break;
+    default:
+      expAmount = -1;
+      coinAmount = -1;
+      break;
+  }
+
+  const query = `
+    UPDATE avatar 
+    SET currentExp = GREATEST(currentExp + ?, 0), 
+        coin = coin + ?, 
+        level = CASE 
+                  WHEN currentExp + ? >= exp THEN level + 1
+                  ELSE level
+                END,
+        health = CASE
+                  WHEN currentExp + ? >= exp THEN health + (level + 1)
+                  ELSE health
+                END,
+        currentHealth = CASE
+                          WHEN currentExp + ? >= exp THEN LEAST(currentHealth + ?, health + (level + 1))
+                          ELSE LEAST(currentHealth + ?, health)
+                        END,
+        currentExp = CASE
+                      WHEN currentExp + ? >= exp THEN currentExp + ? - exp
+                      ELSE GREATEST(currentExp + ?, 0)
+                    END
+    WHERE userNo=?
+  `;
+
+  db.query(
+    query,
+    [
+      expAmount,
+      coinAmount,
+      expAmount,
+      expAmount,
+      expAmount,
+      expAmount,
+      expAmount,
+      expAmount,
+      expAmount,
+      expAmount,
+      expAmount,
+      userNo,
+    ],
+    (err, results) => {
+      if (err) {
+        console.error("Error decreasing experience:", err);
         res.status(500).json({ message: "Internal server error" });
       } else {
         res.json(results);

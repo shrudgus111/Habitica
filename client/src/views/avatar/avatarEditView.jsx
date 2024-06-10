@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import styled from 'styled-components';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import styled from "styled-components";
+import axios from "axios";
 
 const AvatarEditContainer = styled.div`
   align-items: center;
@@ -11,23 +11,27 @@ const AvatarEditContainer = styled.div`
 
 const AvatarPreviewContainer = styled.div`
   position: relative;
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   margin-bottom: 20px;
 `;
 
 const AvatarPreviewLayer = styled.img`
   position: absolute;
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
 `;
 
 const FormField = styled.div`
-  margin-bottom: 15px;
   width: 100%;
+  gap: 16px;
+  div {
+    flex-wrap: wrap;
+  }
 
   label {
     display: block;
+    width: 100%;
     margin-bottom: 5px;
     font-weight: bold;
   }
@@ -58,14 +62,14 @@ const Button = styled.button`
 const NavButton = styled.button`
   padding: 5px 10px;
   margin: 5px;
-  background-color: #007bff;
+  background-color: var(--main-color);
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: var(--main-hover);
   }
 `;
 
@@ -75,15 +79,15 @@ const AvatarEdit = ({ avatarInfo: initialAvatarInfo }) => {
   const userNo = user?.userNo;
 
   const [avatarInfo, setAvatarInfo] = useState({
-    name: '',
+    name: "",
     skin: 1,
     bodySize: 1,
     bodyShirt: 1,
-    hairColor: 'brown',
+    hairColor: "brown",
     hairBang: 1,
   });
 
-  const hairColors = ['black', 'blond', 'brown', 'white', 'red'];
+  const hairColors = ["black", "blond", "brown", "white", "red"];
 
   useEffect(() => {
     if (initialAvatarInfo) {
@@ -99,7 +103,7 @@ const AvatarEdit = ({ avatarInfo: initialAvatarInfo }) => {
   const handleAvatarChange = (direction, type) => {
     setAvatarInfo((prevInfo) => {
       let newValue;
-      if (type === 'hairColor') {
+      if (type === "hairColor") {
         const currentIndex = hairColors.indexOf(prevInfo.hairColor);
         newValue =
           (currentIndex + direction + hairColors.length) % hairColors.length;
@@ -136,7 +140,7 @@ const AvatarEdit = ({ avatarInfo: initialAvatarInfo }) => {
   const hairBang = `/assets/image/hairBang_${avatarInfo.hairBang}_${avatarInfo.hairColor}.png`;
 
   return (
-    <AvatarEditContainer className="DefaultWidth FL_Column">
+    <AvatarEditContainer className="FL_Column FL_1">
       <div>
         <AvatarPreviewContainer>
           <AvatarPreviewLayer src={bodySize} alt="body size" />
@@ -145,50 +149,62 @@ const AvatarEdit = ({ avatarInfo: initialAvatarInfo }) => {
           <AvatarPreviewLayer src={hairBang} alt="hair bang" />
         </AvatarPreviewContainer>
       </div>
-      <form onSubmit={handleSubmit}>
-        <FormField>
-          <label htmlFor="skin">스킨</label>
-          <NavButton onClick={() => handleAvatarChange(-1, 'skin')}>
-            {'<'}
-          </NavButton>
-          <span>{avatarInfo.skin}</span>
-          <NavButton onClick={() => handleAvatarChange(1, 'skin')}>
-            {'>'}
-          </NavButton>
-          <label>체형</label>
-          <NavButton onClick={() => handleAvatarChange(-1, 'bodySize')}>
-            {'<'}
-          </NavButton>
-          <span>{avatarInfo.bodySize}</span>
-          <NavButton onClick={() => handleAvatarChange(1, 'bodySize')}>
-            {'>'}
-          </NavButton>
-          <label>옷</label>
-          <NavButton onClick={() => handleAvatarChange(-1, 'bodyShirt')}>
-            {'<'}
-          </NavButton>
-          <span>{avatarInfo.bodyShirt}</span>
-          <NavButton onClick={() => handleAvatarChange(1, 'bodyShirt')}>
-            {'>'}
-          </NavButton>{' '}
-          <label>헤어 스타일</label>
-          <NavButton onClick={() => handleAvatarChange(-1, 'hairBang')}>
-            {'<'}
-          </NavButton>
-          <span>{avatarInfo.hairBang}</span>
-          <NavButton onClick={() => handleAvatarChange(1, 'hairBang')}>
-            {'>'}
-          </NavButton>{' '}
-          <label htmlFor="hairColor">헤어 색상</label>
-          <NavButton onClick={() => handleAvatarChange(-1, 'hairColor')}>
-            {'<'}
-          </NavButton>
-          <span>{avatarInfo.hairColor}</span>
-          <NavButton onClick={() => handleAvatarChange(1, 'hairColor')}>
-            {'>'}
-          </NavButton>
+      <form
+        onSubmit={handleSubmit}
+        className="TA_Center FontMenuTitle DefaultWidth"
+      >
+        <FormField className="FL_Column">
+          <div className="FL_SB">
+            <label htmlFor="skin">스킨</label>
+            <NavButton onClick={() => handleAvatarChange(-1, "skin")}>
+              {"<"}
+            </NavButton>
+            <span className="FL_Center">{avatarInfo.skin}</span>
+            <NavButton onClick={() => handleAvatarChange(1, "skin")}>
+              {">"}
+            </NavButton>
+          </div>
+          <div className="FL_SB">
+            <label>체형</label>
+            <NavButton onClick={() => handleAvatarChange(-1, "bodySize")}>
+              {"<"}
+            </NavButton>
+            <span className="FL_Center">{avatarInfo.bodySize}</span>
+            <NavButton onClick={() => handleAvatarChange(1, "bodySize")}>
+              {">"}
+            </NavButton>
+          </div>
+          <div className="FL_SB">
+            <label>옷</label>
+            <NavButton onClick={() => handleAvatarChange(-1, "bodyShirt")}>
+              {"<"}
+            </NavButton>
+            <span className="FL_Center">{avatarInfo.bodyShirt}</span>
+            <NavButton onClick={() => handleAvatarChange(1, "bodyShirt")}>
+              {">"}
+            </NavButton>
+          </div>
+          <div className="FL_SB">
+            <label>헤어 스타일</label>
+            <NavButton onClick={() => handleAvatarChange(-1, "hairBang")}>
+              {"<"}
+            </NavButton>
+            <span className="FL_Center">{avatarInfo.hairBang}</span>
+            <NavButton onClick={() => handleAvatarChange(1, "hairBang")}>
+              {">"}
+            </NavButton>
+          </div>
+          <div className="FL_SB">
+            <label htmlFor="hairColor">헤어 색상</label>
+            <NavButton onClick={() => handleAvatarChange(-1, "hairColor")}>
+              {"<"}
+            </NavButton>
+            <span className="FL_Center">{avatarInfo.hairColor}</span>
+            <NavButton onClick={() => handleAvatarChange(1, "hairColor")}>
+              {">"}
+            </NavButton>
+          </div>
         </FormField>
-        <Button type="submit">수정하기</Button>
       </form>
     </AvatarEditContainer>
   );

@@ -28,6 +28,24 @@ const HomeView = () => {
     }
   }, [category, userNo]);
 
+  const increaseExp = (difficulty) => {
+    axios
+      .put('http://localhost:8002/avatar/increaseExp', { userNo, difficulty })
+      .then((res) => {
+        fetchAvatarInfo();
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const decreaseExp = (userNo, difficulty) => {
+    axios
+      .put('http://localhost:8002/avatar/decreaseExp', { userNo, difficulty })
+      .then((res) => {
+        fetchAvatarInfo();
+      })
+      .catch((err) => console.log(err));
+  };
+
   const fetchAvatarInfo = () => {
     axios
       .get('http://localhost:8002/avatar/info', { params: { userNo } })
@@ -54,7 +72,7 @@ const HomeView = () => {
     }
   };
 
-  const onClickCount = (no, isPositive) => {
+  const onClickCount = (no, isPositive, difficulty) => {
     const updateUrl = isPositive
       ? `http://localhost:8002/task/habit/increaseCountP`
       : `http://localhost:8002/task/habit/increaseCountN`;
@@ -62,9 +80,15 @@ const HomeView = () => {
       .put(updateUrl, { no, userNo })
       .then((res) => {
         fetchTaskList();
+        if (isPositive) {
+          increaseExp(userNo, difficulty);
+        } else {
+          decreaseExp(userNo, difficulty);
+        }
       })
       .catch((err) => console.log(err));
   };
+
   const handleClickCreate = () => {
     setMode('create');
     setIsCreate(true);
@@ -95,6 +119,7 @@ const HomeView = () => {
       .then(
         (res) => {
           fetchTaskList();
+          increaseExp(userNo, difficulty);
         },
         (err) => {
           console.log(err);
@@ -111,15 +136,7 @@ const HomeView = () => {
       })
       .then((res) => {
         fetchTaskList();
-        axios
-          .put('http://localhost:8002/avatar/increaseExp', {
-            userNo,
-            difficulty,
-          })
-          .then((res) => {
-            fetchAvatarInfo();
-          })
-          .catch((err) => console.log(err));
+        increaseExp(userNo, difficulty);
       })
       .catch((err) => console.log(err));
   };
@@ -163,6 +180,7 @@ const HomeView = () => {
             onClickClose={handleClickClose}
             onClickDelete={handleClickDelete}
             fetchTaskList={fetchTaskList}
+            setAvatarInfo={setAvatarInfo}
           />
         </>
       ) : (

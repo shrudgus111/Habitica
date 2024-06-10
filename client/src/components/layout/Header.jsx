@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import HeaderNav from "./HeaderNav";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { FaShoppingBag } from "react-icons/fa";
-import { MdInventory } from "react-icons/md";
-import { FaUserFriends } from "react-icons/fa";
-import { FaQuestionCircle } from "react-icons/fa";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import HeaderNav from './HeaderNav';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { FaShoppingBag } from 'react-icons/fa';
+import { MdInventory } from 'react-icons/md';
+import { FaUserFriends } from 'react-icons/fa';
+import { FaQuestionCircle } from 'react-icons/fa';
 import {
   FaAlignJustify,
   FaSistrix,
   FaFilter,
   FaAngleLeft,
-} from "react-icons/fa6";
+} from 'react-icons/fa6';
 
 const HeaderBlock = styled.header`
   background-color: white;
@@ -59,7 +59,7 @@ const HeaderMain = styled.ul`
 
     .slider:before {
       position: absolute;
-      content: "";
+      content: '';
       height: 26px;
       width: 26px;
       left: 4px;
@@ -106,7 +106,7 @@ const HeaderBack = styled.div`
 const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [headerTitle, setHeaderTitle] = useState("해비티카");
+  const [headerTitle, setHeaderTitle] = useState('해비티카');
   const [sidebarActive, setSidebarActive] = useState(false);
   const { t, i18n } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
@@ -115,46 +115,46 @@ const Header = () => {
   const onClickBack = () => setSidebarActive(false);
 
   const headerMenu = [
+    // {
+    //   title: "캐릭터",
+    //   icon: "",
+    //   list: [
+    //     { listTitle: "스킬", listLink: "/character/skills" },
+    //     { listTitle: "스탯", listLink: "/character/stats" },
+    //     { listTitle: "도전과제", listLink: "/character/achievements" },
+    //   ],
+    // },
+    // {
+    //   title: "상점",
+    //   icon: <FaShoppingBag />,
+    //   list: [{ listTitle: "상점", listLink: "/shop/market" }],
+    // },
+    // {
+    //   title: '인벤토리',
+    //   icon: <MdInventory />,
+    //   list: [
+    //     { listTitle: '장비', listLink: '/inventory/equipment' },
+    //     { listTitle: '아이템', listLink: '/inventory/items' },
+    //   ],
+    // },
     {
-      title: "캐릭터",
-      icon: "",
-      list: [
-        { listTitle: "스킬", listLink: "/character/skills" },
-        { listTitle: "스탯", listLink: "/character/stats" },
-        { listTitle: "도전과제", listLink: "/character/achievements" },
-      ],
-    },
-    {
-      title: "상점",
-      icon: <FaShoppingBag />,
-      list: [{ listTitle: "상점", listLink: "/shop/market" }],
-    },
-    {
-      title: "인벤토리",
-      icon: <MdInventory />,
-      list: [
-        { listTitle: "장비", listLink: "/inventory/equipment" },
-        { listTitle: "아이템", listLink: "/inventory/items" },
-      ],
-    },
-    {
-      title: "소셜",
+      title: '소셜',
       icon: <FaUserFriends />,
-      list: [{ listTitle: "지뢰찾기", listLink: "/app" }],
+      list: [{ listTitle: '지뢰찾기', listLink: '/app' }],
     },
     {
-      title: "소개",
+      title: '소개',
       icon: <FaQuestionCircle />,
       list: [
-        { listTitle: "소개", listLink: "/about/company" },
-        { listTitle: "게시판", listLink: "/boardList", state: { page: 1 } },
+        { listTitle: '소개', listLink: '/about/company' },
+        { listTitle: '게시판', listLink: '/boardList', state: { page: 1 } },
       ],
     },
   ];
 
   useEffect(() => {
     const findTitle = () => {
-      if (location.pathname === "/") return "해비티카";
+      if (location.pathname === '/') return '해비티카';
 
       for (let menu of headerMenu) {
         for (let item of menu.list) {
@@ -163,14 +163,14 @@ const Header = () => {
       }
 
       switch (location.pathname) {
-        case "/setting/settings":
-          return "설정";
-        case "/setting/message":
-          return "메시지";
-        case "/character/profile":
-          return "내 프로필";
+        case '/setting/settings':
+          return '설정';
+        case '/setting/message':
+          return '메시지';
+        case '/character/profile':
+          return '내 프로필';
         default:
-          return "해비티카";
+          return '해비티카';
       }
     };
 
@@ -179,7 +179,7 @@ const Header = () => {
   }, [location]);
 
   const onClickPrev = () => navigate(-1);
-  const onClickDone = () => navigate("/");
+  const onClickDone = () => navigate('/home');
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
@@ -190,13 +190,13 @@ const Header = () => {
     <HeaderBlock>
       <HeaderMain className="HeaderMain DefaultWidth FL_SB">
         <li className="TA_Left FL_Center">
-          {location.pathname === "/home" ? (
+          {location.pathname === '/home' ? (
             <button type="button" onClick={onClickSidebar}>
               <FaAlignJustify />
               <span className="blind">사이드바</span>
             </button>
           ) : (
-            !location.pathname.startsWith("/setting") && (
+            !location.pathname.startsWith('/setting') && (
               <button type="button" onClick={onClickPrev}>
                 <FaAngleLeft />
                 <span className="blind">이전</span>
@@ -205,7 +205,7 @@ const Header = () => {
           )}
         </li>
         <li className="TA_Center FL_CSB">
-          <h1 className="FontTitle">{t("msn7")}</h1>
+          <h1 className="FontTitle">{t('msn7')}</h1>
         </li>
         <li className="right_section TA_Right">
           <div className="language-switcher FL_Center">
@@ -213,9 +213,9 @@ const Header = () => {
               <input
                 className="inputUnset"
                 type="checkbox"
-                checked={selectedLanguage === "en"}
+                checked={selectedLanguage === 'en'}
                 onChange={() =>
-                  changeLanguage(selectedLanguage === "ko" ? "en" : "ko")
+                  changeLanguage(selectedLanguage === 'ko' ? 'en' : 'ko')
                 }
               />
               <span className="slider"></span>
@@ -227,7 +227,7 @@ const Header = () => {
               </div>
             </label>
           </div>
-          {location.pathname === "/home" ? (
+          {location.pathname === '/home' ? (
             <>
               <button type="button" className="FL_Center">
                 <FaSistrix />
@@ -239,7 +239,7 @@ const Header = () => {
               </button>
             </>
           ) : (
-            location.pathname.startsWith("/setting") && (
+            location.pathname.startsWith('/setting') && (
               <button type="button" className="done" onClick={onClickDone}>
                 완료
               </button>
@@ -249,7 +249,7 @@ const Header = () => {
       </HeaderMain>
       <HeaderNav headerMenu={headerMenu} sidebarActive={sidebarActive} />
       <HeaderBack
-        className={`HeaderBack ${sidebarActive && "active"}`}
+        className={`HeaderBack ${sidebarActive && 'active'}`}
         onClick={onClickBack}
       ></HeaderBack>
     </HeaderBlock>

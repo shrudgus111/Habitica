@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const AvatarImageBlock = styled.div`
   width: 100%;
@@ -7,10 +7,13 @@ const AvatarImageBlock = styled.div`
   position: relative;
   .character {
     position: relative;
-
+    height: 100%;
     img {
       position: absolute;
       inset: 0;
+      left: 44%;
+      top: 14%;
+      transform: translate(-50%);
     }
   }
 `;
