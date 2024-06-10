@@ -10,7 +10,7 @@ export const GlobalStyles = styled.createGlobalStyle`
 
   body {
     background-color: #8c7ae6;
-    display: flex;
+    // display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
