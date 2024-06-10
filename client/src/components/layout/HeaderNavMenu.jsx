@@ -16,7 +16,6 @@ const Section = styled.section`
         width: 20px;
         height: 20px;
         border-radius: 50%;
-        background-color: gray;
         display: flex;
         place-content: center;
         place-items: center;
@@ -57,10 +56,12 @@ const HeaderNavMenu = ({ menu }) => {
     <Section className="DefaultWidth">
       {menu.map((menu, index) => (
         <div key={index}>
-          <h2 className="FontMenuTitle menu_title">
-            <span className="icon">I</span>
-            <span>{menu.title}</span>
-          </h2>
+          {menu.icon && menu.title && (
+            <h2 className="FontMenuTitle menu_title">
+              <span className="icon">{menu.icon}</span>
+              <span>{menu.title}</span>
+            </h2>
+          )}
           <ul className="menu_content">
             {menu.list.map((list, index) => (
               <li key={index} className="FontBody">

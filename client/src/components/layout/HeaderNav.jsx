@@ -165,8 +165,12 @@ const HeaderNav = ({ headerMenu, sidebarActive }) => {
             </div>
           ) : (
             <div className="member">
-              <Link to="/"><FiUser /></Link>
-              <Link to="/join"><FiUserPlus /></Link>
+              <Link to="/">
+                <FiUser />
+              </Link>
+              <Link to="/join">
+                <FiUserPlus />
+              </Link>
             </div>
           )}
           <li className="setting FL_Center">
