@@ -6,6 +6,7 @@ import { GlobalStyles } from '@styles/GlobalStyles.ts';
 
 const Container = styled.div`
   display: flex;
+  margin:50px auto;
   flex-direction: column;
   justify-content: center;
   gap: 16px;
