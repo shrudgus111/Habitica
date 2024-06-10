@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
 
 const TaskPopUpBlock = styled.article`
   background-color: var(--main-color);
@@ -31,12 +31,12 @@ const TaskPopUp = ({ isActive, cost }) => {
     <>
       {
         <TaskPopUpBlock
-          className={`FL_Center G8px FontSub ${isActive && "active"} `}
+          className={`FL_Center G8px FontSub ${isActive && 'active'} `}
         >
           <span className="icon">
             <img src="../src/assets/image/coin.svg" alt="코인" />
           </span>
-          <span>{cost}원으로 보상을 구매함 (임시글)</span>
+          <span>{cost}원으로 보상을 구매했습니다</span>
         </TaskPopUpBlock>
       }
     </>

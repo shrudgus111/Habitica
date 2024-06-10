@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import { FaCheck } from "react-icons/fa6";
-import { BsCheckCircleFill, BsCheckCircle, BsCheckLg } from "react-icons/bs";
-import { BsFillPlusCircleFill, BsPlusCircle } from "react-icons/bs";
+import React from 'react';
+import styled from 'styled-components';
+import { FaCheck } from 'react-icons/fa6';
+import { BsCheckCircleFill, BsCheckCircle, BsCheckLg } from 'react-icons/bs';
+import { BsFillPlusCircleFill, BsPlusCircle } from 'react-icons/bs';
 
 const TaskListLeftBlock = styled.li`
   &.daily {
@@ -70,34 +70,36 @@ const TaskListLeft = ({
 
   return (
     <TaskListLeftBlock
-      className={`TA_Left ${category} ${item.checked > 0 ? "goodDaily" : ""} ${
-        isDisabled && "todayDone"
+      className={`TA_Left ${category} ${item.checked > 0 ? 'goodDaily' : ''} ${
+        isDisabled && 'todayDone'
       }`}
     >
       <button
         type="button"
-        className={(item.positive || item.checked) && "active"}
+        className={(item.positive || item.checked) && 'active'}
       >
         <p className="FL_CSB">
-          {category === "habit" ? (
+          {category === 'habit' ? (
             item.positive ? (
               <BsFillPlusCircleFill
                 className="able"
-                onClick={() => onClickCount(item.no, true)}
+                onClick={() => onClickCount(item.no, true, item.difficulty)}
               />
             ) : (
               <BsPlusCircle className="disable" />
             )
-          ) : category === "daily" ? (
+          ) : category === 'daily' ? (
             <span
               className="dailyCheck G_PCC cursorPointer"
               onClick={() =>
-                item.checked === 0 && canCheckToday && onClickChecked(item.no)
+                item.checked === 0 &&
+                canCheckToday &&
+                onClickChecked(item.no, item.difficulty)
               }
             >
               <BsCheckLg />
             </span>
-          ) : category === "todo" ? (
+          ) : category === 'todo' ? (
             <span
               className="todoCheck G_PCC cursorPointer"
               onClick={() => onClickDone(item)}

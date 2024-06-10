@@ -28,7 +28,7 @@ const HomeView = () => {
     }
   }, [category, userNo]);
 
-  const increaseExp = (difficulty) => {
+  const increaseExp = (userNo, difficulty) => {
     axios
       .put('http://localhost:8002/avatar/increaseExp', { userNo, difficulty })
       .then((res) => {
@@ -113,7 +113,7 @@ const HomeView = () => {
       .catch((err) => console.log(err));
   };
 
-  const handleClickChecked = (no) => {
+  const handleClickChecked = (no, difficulty) => {
     axios
       .put(`http://localhost:8002/task/daily/checked`, { no, userNo })
       .then(

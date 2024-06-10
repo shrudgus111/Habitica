@@ -131,7 +131,7 @@ taskRouter.put("/habit/update/:no", async (req, res) => {
 });
 
 taskRouter.delete("/habit/delete/:no", async (req, res) => {
-  const { no, userNo } = req.params;
+  const { no, userNo } = req.query;
   const query = "DELETE FROM habit WHERE no = ? AND userNo = ?";
   db.query(query, [no, userNo], (err, results) => {
     if (err) {
@@ -165,6 +165,22 @@ taskRouter.put("/daily/checked", async (req, res) => {
   });
 });
 
+taskRouter.put("/daily/update/:no", async (req, res) => {
+  const { no } = req.params;
+  const { title, content, difficulty, userNo } = req.body;
+
+  const query =
+    "UPDATE daily SET title = ?, content = ?, difficulty = ? WHERE no = ? AND userNo = ?";
+  db.query(query, [title, content, difficulty, no, userNo], (err, results) => {
+    if (err) {
+      console.error("Error updating daily:", err);
+      res.status(500).json({ message: "Internal server error" });
+    } else {
+      res.json({ message: "daily updated successfully" });
+    }
+  });
+});
+
 taskRouter.post("/daily/create", async (req, res) => {
   const { title, content, difficulty, userNo } = req.body;
   const query =
@@ -179,8 +195,8 @@ taskRouter.post("/daily/create", async (req, res) => {
   });
 });
 
-taskRouter.delete("/daily/delete/:no/:userNo", async (req, res) => {
-  const { no, userNo } = req.params;
+taskRouter.delete("/daily/delete/:no", async (req, res) => {
+  const { no, userNo } = req.query;
   const query = "DELETE FROM daily WHERE no = ? AND userNo = ?";
   db.query(query, [no, userNo], (err, results) => {
     if (err) {
@@ -210,7 +226,8 @@ taskRouter.post("/todo/create", async (req, res) => {
 });
 
 taskRouter.put("/todo/update/:no", async (req, res) => {
-  const { title, content, difficulty, no, userNo } = req.body;
+  const { no } = req.params;
+  const { title, content, difficulty, userNo } = req.body;
   const query =
     "UPDATE todo SET title = ?, content = ?, difficulty = ? WHERE no = ? AND userNo = ?";
   db.query(query, [title, content, difficulty, no, userNo], (err, results) => {

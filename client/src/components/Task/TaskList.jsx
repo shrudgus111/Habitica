@@ -1,10 +1,10 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import TaskListLeft from "./TaskListLeft";
-import TaskListZero from "./TaskListZero";
-import { MdKeyboardDoubleArrowRight } from "react-icons/md";
-import { BsDashCircleFill, BsDashCircle } from "react-icons/bs";
+import TaskListLeft from './TaskListLeft';
+import TaskListZero from './TaskListZero';
+import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
+import { BsDashCircleFill, BsDashCircle } from 'react-icons/bs';
 
 const ListBox = styled.ul`
   display: grid;
@@ -111,14 +111,14 @@ const TaskList = ({
         list.map((item, index) => (
           <ListBox
             className={`listBox ${
-              category == "habit" &&
+              category == 'habit' &&
               (item.CountP === 0 && item.CountN === 0
-                ? ""
+                ? ''
                 : item.CountP > item.CountN * 2
-                ? "VGHabit"
-                : item.CountP > item.CountN
-                ? "goodHabit"
-                : "badHabit")
+                  ? 'VGHabit'
+                  : item.CountP > item.CountN
+                    ? 'goodHabit'
+                    : 'badHabit')
             }`}
             key={index}
           >
@@ -136,14 +136,14 @@ const TaskList = ({
               <h3 className="title">{item.title}</h3>
               <p className="content">{item.content}</p>
               <p className="count FontSub TA_Right FL_Center">
-                {category == "habit" ? (
+                {category == 'habit' ? (
                   item.CountP || item.CountN ? (
                     <>
-                      <MdKeyboardDoubleArrowRight /> {item.CountP} |{" "}
+                      <MdKeyboardDoubleArrowRight /> {item.CountP} |{' '}
                       {item.CountN}
                     </>
                   ) : (
-                    ""
+                    ''
                   )
                 ) : (
                   <>
@@ -156,16 +156,18 @@ const TaskList = ({
                 )}
               </p>
             </li>
-            {category == "habit" && (
+            {category == 'habit' && (
               <>
                 <li className="TA_Right FL_CSB">
-                  <button type="button" className={item.negative && "active"}>
+                  <button type="button" className={item.negative && 'active'}>
                     <p className="FL_CSB">
-                      {category == "habit" &&
+                      {category == 'habit' &&
                         (item.negative ? (
                           <BsDashCircleFill
                             className="able"
-                            onClick={() => onClickCount(item.no, false)}
+                            onClick={() =>
+                              onClickCount(item.no, false, item.difficulty)
+                            }
                           />
                         ) : (
                           <BsDashCircle className="disable" />

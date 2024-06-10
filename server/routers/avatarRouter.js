@@ -18,6 +18,7 @@ avatarRouter.get("/info", async (req, res) => {
 
 avatarRouter.put("/increaseExp", async (req, res) => {
   const { userNo, difficulty } = req.body;
+
   let expAmount;
   let coinAmount;
   switch (difficulty) {
