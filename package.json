@@ -8,9 +8,9 @@
     "server": "cd server && npm run start",
     "dev": "concurrently --kill-others-on-fail \"npm run client\" \"npm run server\"",
     "i18n:extract": "i18next-scanner --config i18next-scanner.config.js",
-    "client-build":"cd client && npm run build && cd ../",
-    "build":"npm run client-build && move ./client/dist ./server/build",
-    "start":"cd server && npm run start"
+    "client-build": "cd client && npm run build && cd ../",
+    "build": "npm run client-build && move ./client/dist ./server/build",
+    "start": "cd server && npm run start"
   },
   "author": "",
   "license": "ISC",

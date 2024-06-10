@@ -25,7 +25,10 @@ import avatarRouter from "./routers/avatarRouter.js";
 
 // 리소스 파일들을 관리하는 경로 지정하기
 const __dirname = path.resolve();
-// app.use(express.static(path.join(__dirname, 'build')))
+
+// ↓ 빌드할 때는 바로 아래 주석처리 된 거 살리기 ↓
+app.use(express.static(path.join(__dirname, "build")));
+
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/auth", authRouter);
