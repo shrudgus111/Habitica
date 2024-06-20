@@ -10,6 +10,16 @@ import axios from 'axios';
 
 const HomeViewBlock = styled.div``;
 
+const MessageWrapper = styled.div`\
+font-family: var(--personality-font);
+font-weight:800;
+  text-align: center;
+  font-size: 1.6rem;
+  color: #6132B4;
+  margin-top: 40%;
+`;
+
+
 const HomeView = () => {
   const [list, setList] = useState([]);
   const [category, setCategory] = useState('habit');
@@ -184,7 +194,7 @@ const HomeView = () => {
           />
         </>
       ) : (
-        '로그인이 필요합니다'
+        <MessageWrapper>로그인이 필요합니다!</MessageWrapper>
       )}
     </>
   );

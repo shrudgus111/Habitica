@@ -52,7 +52,7 @@ const LoginSectionBlock = styled.div`
   }
   .go {
     border-bottom: 1px solid #000;
-    width: 170px;
+    width: 70px;
     text-align: center;
     font-size: 13px;
     margin: 30px auto;
@@ -60,7 +60,7 @@ const LoginSectionBlock = styled.div`
   }
   .go2 {
     border-bottom: 1px solid #000;
-    width: 60px;
+    width: 70px;
     text-align: center;
     font-size: 13px;
     margin: 0 auto;
@@ -202,13 +202,13 @@ const LoginSection = () => {
 
           <div className="go">
             <Link to="/join">
-              <p>Going to for membership</p>
+              <p>회원가입</p>
             </Link>
           </div>
 
           <div className="go2">
             <Link to="/home">
-              <p>Home</p>
+              <p>홈페이지</p>
             </Link>
           </div>
         </form>
